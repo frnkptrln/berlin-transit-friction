@@ -3,9 +3,11 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "*/30 * * * *"
+permissions:
+  contents: write
 jobs:
   run:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
