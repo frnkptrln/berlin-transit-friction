@@ -18,7 +18,6 @@ jobs:
       - run: python scripts/build_source_health.py
       - run: python scripts/check_storage_size.py
       - run: |
-          mkdir -p data/bronze data/silver data/manifests data/gold site/data
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/bronze data/silver data/manifests data/gold site/data
