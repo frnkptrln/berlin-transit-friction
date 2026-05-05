@@ -1,16 +1,28 @@
 name: collect-frequent
 on:
   workflow_dispatch:
-  schedule: [{cron: '7,22,37,52 * * * *'}]
+  schedule: [{ cron: '7,22,37,52 * * * *' }]
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+permissions:
+  contents: write
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: {python-version: '3.12'}
+        with: { python-version: '3.12' }
       - run: pip install -r requirements.txt || true
       - run: python scripts/collect_snapshot.py --frequent
       - run: python scripts/build_source_health.py
       - run: python scripts/check_storage_size.py
-      - run: git config user.name github-actions[bot] && git config user.email 41898282+github-actions[bot]@users.noreply.github.com && git add data/bronze data/silver data/manifests data/gold site/data && git diff --cached --quiet || (git commit -m "chore(data): frequent collection" && git push)
+      - run: |
+          mkdir -p data/bronze data/silver data/manifests data/gold site/data
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/bronze data/silver data/manifests data/gold site/data
+          git diff --cached --quiet || (
+            git commit -m "chore(data): frequent collection"
+            git push
+          )
