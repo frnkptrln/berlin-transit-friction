@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      - run: pip install -r requirements.txt || true
+      - run: 'pip install -r requirements.txt || true'
       - run: python scripts/collect_snapshot.py --frequent
       - run: python scripts/build_source_health.py
       - run: python scripts/check_storage_size.py
