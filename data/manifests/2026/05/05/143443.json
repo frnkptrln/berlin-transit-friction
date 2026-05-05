@@ -1,0 +1,35 @@
+{
+  "run_id": "20260505T143443Z",
+  "started_at": "2026-05-05T14:34:43.083239+00:00",
+  "finished_at": "2026-05-05T14:34:43.094093+00:00",
+  "git_sha": "unknown",
+  "sources_attempted": [
+    "brokenlifts"
+  ],
+  "sources_succeeded": [],
+  "sources_failed": [
+    "brokenlifts"
+  ],
+  "source_results": [
+    {
+      "source_id": "brokenlifts",
+      "success": false,
+      "status_code": null,
+      "event_count": 0,
+      "warnings": [
+        "HTTPSConnectionPool(host='brokenlifts.org', port=443): Max retries exceeded with url: / (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+      ],
+      "duration_ms": 10,
+      "parser_status": "0.2"
+    }
+  ],
+  "bronze_files_written": [],
+  "silver_files_written": [],
+  "normalized_event_count": 0,
+  "warnings": [
+    "brokenlifts: HTTPSConnectionPool(host='brokenlifts.org', port=443): Max retries exceeded with url: / (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  ],
+  "dependency_warnings": [],
+  "rate_limit_notes": "conservative MVP polling",
+  "raw_storage_policy": "compact_json_gz_no_raw_protobuf"
+}
