@@ -1,0 +1,13 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Transit Friction</title></head>
+<body>
+<h1>Transit Friction</h1>
+<p>Experimental observatory based on public data.</p>
+<div id="app">Loading…</div>
+<p><a href="https://github.com/">GitHub repository</a></p>
+<script>
+fetch('./data/latest.json').then(r=>r.json()).then(d=>{
+  document.getElementById('app').innerHTML = `<p>Latest collection date: ${d.date}</p><p>Total events today: ${d.total_events}</p>`;
+}).catch(()=>{document.getElementById('app').textContent='No data yet.'});
+</script>
+</body></html>

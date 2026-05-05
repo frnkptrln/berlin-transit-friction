@@ -1,0 +1,24 @@
+name: collect
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - run: python scripts/collect_snapshot.py
+      - run: python scripts/build_daily_summary.py
+      - run: python scripts/build_site_data.py
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/normalized data/summaries site/data
+          git diff --cached --quiet || git commit -m "chore(data): update transit friction snapshots"
+          git push
