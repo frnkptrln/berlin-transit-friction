@@ -5,10 +5,14 @@ env:
 jobs:
   run:
     runs-on: ubuntu-latest
+    timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
       - run: pip install -r requirements.txt || true
+        timeout-minutes: 3
       - run: python scripts/collect_snapshot.py --hourly
+        timeout-minutes: 2
       - run: python scripts/build_source_health.py
+        timeout-minutes: 1
