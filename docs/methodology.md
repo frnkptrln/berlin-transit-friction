@@ -1,9 +1,12 @@
 # Methodology
 
-1. Collect public operational signals from selected sources.
-2. Archive compact raw snapshots/metadata.
-3. Normalize into a shared friction-event schema.
-4. Deduplicate by stable event ID.
-5. Build daily summaries for analysis and storytelling.
+Transit Friction uses Bronze/Silver/Gold layers.
+- Bronze preserves compact source snapshots.
+- Silver stores normalized friction events when meaningful.
+- Gold provides summaries and site outputs.
 
-This MVP favors transparency and graceful degradation over complexity.
+Source health is computed from manifests to track failures and parser status.
+
+Watchlist stations/lines are a probe strategy, not full-network coverage.
+
+This project does not measure the whole lived transport experience and does not infer crowding without source data.

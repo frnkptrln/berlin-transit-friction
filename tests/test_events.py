@@ -1,3 +1,5 @@
+import pytest
+pytest.importorskip("pydantic")
 from datetime import datetime, timezone
 from transit_friction.normalize.events import stable_event_id, classify_category, estimate_severity
 from transit_friction.normalize.schema import FrictionEvent

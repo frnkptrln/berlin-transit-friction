@@ -1,0 +1,37 @@
+{
+  "run_id": "20260505T133219Z",
+  "started_at": "2026-05-05T13:32:19.800262+00:00",
+  "finished_at": "2026-05-05T13:32:19.800509+00:00",
+  "git_sha": "unknown",
+  "sources_attempted": [
+    "brokenlifts"
+  ],
+  "sources_succeeded": [],
+  "sources_failed": [
+    "brokenlifts"
+  ],
+  "source_results": [
+    {
+      "source_id": "brokenlifts",
+      "success": false,
+      "status_code": null,
+      "event_count": 0,
+      "warnings": [
+        "network disabled or requests missing"
+      ],
+      "duration_ms": 0,
+      "parser_status": "0.2"
+    }
+  ],
+  "bronze_files_written": [],
+  "silver_files_written": [],
+  "normalized_event_count": 0,
+  "warnings": [
+    "brokenlifts: network disabled or requests missing"
+  ],
+  "dependency_warnings": [
+    "requests missing"
+  ],
+  "rate_limit_notes": "conservative MVP polling",
+  "raw_storage_policy": "compact_json_gz_no_raw_protobuf"
+}

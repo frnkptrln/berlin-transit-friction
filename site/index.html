@@ -1,13 +1,11 @@
-<!doctype html>
-<html><head><meta charset="utf-8"><title>Transit Friction</title></head>
-<body>
+<!doctype html><html><body>
 <h1>Transit Friction</h1>
-<p>Experimental observatory based on public data.</p>
-<div id="app">Loading…</div>
-<p><a href="https://github.com/">GitHub repository</a></p>
+<p>Experimental observatory. Public data. Incomplete by design.</p>
+<div id='latest'></div><div id='health'></div>
 <script>
-fetch('./data/latest.json').then(r=>r.json()).then(d=>{
-  document.getElementById('app').innerHTML = `<p>Latest collection date: ${d.date}</p><p>Total events today: ${d.total_events}</p>`;
-}).catch(()=>{document.getElementById('app').textContent='No data yet.'});
-</script>
-</body></html>
+Promise.all([fetch('./data/latest.json').then(r=>r.json()).catch(()=>({})),fetch('./data/source-health.json').then(r=>r.json()).catch(()=>({}))]).then(([l,h])=>{
+document.getElementById('latest').innerHTML=`Latest date: ${l.date||'n/a'}; Events today: ${l.total_events||0}`;
+let rows=Object.entries(h).map(([k,v])=>`<tr><td>${k}</td><td>${v.last_status_code??''}</td><td>${v.consecutive_failures??''}</td><td>${v.last_event_count??''}</td></tr>`).join('');
+document.getElementById('health').innerHTML=`<h3>Source health</h3><table><tr><th>Source</th><th>Status</th><th>Failures</th><th>Events</th></tr>${rows}</table><p>Limitations: no direct crowding measurement.</p>`;
+});
+</script></body></html>

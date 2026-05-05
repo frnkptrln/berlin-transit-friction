@@ -1,0 +1,22 @@
+stations:
+  - S+U Alexanderplatz
+  - S+U Friedrichstraße
+  - Berlin Hauptbahnhof
+  - S+U Zoologischer Garten
+  - S+U Warschauer Straße
+  - S Ostkreuz
+  - S Südkreuz
+  - S+U Gesundbrunnen
+  - U Hermannplatz
+  - U Kottbusser Tor
+  - U Mehringdamm
+  - U Stadtmitte
+  - S+U Pankow
+  - S+U Neukölln
+  - S+U Lichtenberg
+  - S Spandau
+  - S Wannsee
+  - S Westkreuz
+  - S Treptower Park
+  - S Schönhauser Allee
+lines: [S1,S2,S3,S5,S7,S8,S9,S41,S42,S45,S46,S47,U1,U2,U3,U5,U6,U7,U8,U9,M1,M2,M4,M5,M6,M8,M10,M13,M17,X7,X10,X34,X69,100,200,245,300]
