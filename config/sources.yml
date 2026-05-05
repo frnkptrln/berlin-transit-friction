@@ -1,0 +1,61 @@
+sources:
+  - id: vbb_gtfs_rt
+    name: VBB GTFS Realtime
+    url: https://production.gtfsrt.vbb.de/data
+    type: gtfs_rt
+    collection_frequency: frequent
+    implemented: true
+    raw_storage_policy: compact_json_summary_gz
+    parser_status: partial
+    legal_notes: public endpoint; respectful polling only
+    limitations: full protobuf parsing optional dependency
+    owner_operator: VBB
+    expected_signal_types: [delay, cancellation, disruption]
+  - id: vbb_transport_rest
+    name: v6.vbb.transport.rest
+    url: https://v6.vbb.transport.rest
+    type: wrapper_api
+    collection_frequency: frequent
+    implemented: true
+    raw_storage_policy: compact_json_gz
+    parser_status: partial
+    legal_notes: wrapper API; conservative rate usage
+    limitations: wrapper, not canonical source
+    owner_operator: community wrapper around VBB/HAFAS
+    expected_signal_types: [delay, cancellation, disruption]
+  - id: bvg_transport_rest
+    name: v6.bvg.transport.rest
+    url: https://v6.bvg.transport.rest
+    type: wrapper_api
+    collection_frequency: frequent
+    implemented: true
+    raw_storage_policy: compact_json_gz
+    parser_status: partial
+    legal_notes: wrapper API; conservative rate usage
+    limitations: endpoint behavior may vary
+    owner_operator: community wrapper around BVG/HAFAS
+    expected_signal_types: [delay, cancellation, disruption]
+  - id: brokenlifts
+    name: BrokenLifts
+    url: https://brokenlifts.org/
+    type: html
+    collection_frequency: frequent
+    implemented: true
+    raw_storage_policy: compact_snapshot_gz
+    parser_status: partial
+    legal_notes: public accessibility data only
+    limitations: endpoint format may change
+    owner_operator: community/public
+    expected_signal_types: [elevator_or_accessibility_issue]
+  - id: bvg_traffic_news
+    name: BVG Traffic News
+    url: https://www.bvg.de/de/verbindungen/stoerungsmeldungen
+    type: html
+    collection_frequency: hourly
+    implemented: false
+    raw_storage_policy: metadata_only
+    parser_status: blocked
+    legal_notes: no anti-bot bypass
+    limitations: dynamic content may be brittle
+    owner_operator: BVG
+    expected_signal_types: [disruption, construction, replacement_service]

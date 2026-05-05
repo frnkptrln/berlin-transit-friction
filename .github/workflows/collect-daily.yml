@@ -1,0 +1,14 @@
+name: collect-daily
+on: {workflow_dispatch: {}, schedule: [{cron: '43 20 * * *'}]}
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r requirements.txt || true
+      - run: python scripts/build_daily_summary.py
+      - run: python scripts/build_site_data.py
+      - run: python scripts/build_source_health.py
+      - run: python scripts/check_storage_size.py
