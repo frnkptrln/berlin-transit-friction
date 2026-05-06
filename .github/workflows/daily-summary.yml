@@ -7,18 +7,31 @@ permissions:
   contents: write
 jobs:
   rebuild:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: pip install -r requirements.txt
-      - run: python scripts/build_daily_summary.py
-      - run: python scripts/build_site_data.py
-      - run: |
+      - name: Build artifacts
+        run: |
+          python scripts/build_daily_summary.py
+          python scripts/build_site_data.py
+          python scripts/build_source_health.py
+      - name: Debug status
+        run: |
+          echo "pwd=$(pwd)"
+          echo "manifest path written (latest known):"
+          find data/manifests -type f | tail -n 1 || true
+          echo "changed files under data/ and site/data:"
+          git status --short data site/data || true
+          echo "full git status before commit:"
+          git status
+      - name: Commit changes
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/summaries site/data
+          git add data/gold data/manifests site/data
           git diff --cached --quiet || git commit -m "chore(summary): rebuild daily summary"
           git push
