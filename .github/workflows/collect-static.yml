@@ -1,12 +1,15 @@
 name: collect-static
 on: { workflow_dispatch: {}, schedule: [{ cron: '11 4 * * 2,5' }] }
+concurrency:
+  group: transit-data-writes
+  cancel-in-progress: false
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+permissions:
+  contents: write
 jobs:
   run:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -23,10 +26,40 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           mkdir -p data/bronze data/silver data/gold data/manifests site/data
+
+          echo "Recent commits:"
+          git log --oneline -3 || true
+
+          echo "Status before pre-stage rebase:"
+          git status --short
+          git pull --rebase origin main || true
+          echo "Status after pre-stage rebase:"
+          git status --short
+
           git add -A data site/data
           if git diff --cached --quiet; then
             echo "No data changes to commit."
-          else
-            git commit -m "chore(data): static collection"
-            git push
+            exit 0
           fi
+
+          git commit -m "chore(data): static collection"
+
+          echo "Status before push rebase:"
+          git status --short
+          git pull --rebase origin main
+          echo "Status after push rebase:"
+          git status --short
+
+          for attempt in 1 2 3; do
+            if git push origin main; then
+              echo "Push succeeded on attempt ${attempt}."
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              echo "Push failed on attempt ${attempt}; rebasing and retrying..."
+              git pull --rebase origin main
+            fi
+          done
+
+          echo "Push failed after 3 attempts."
+          exit 1
