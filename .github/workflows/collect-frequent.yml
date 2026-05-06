@@ -2,6 +2,9 @@ name: collect-frequent
 on:
   workflow_dispatch:
   schedule: [{ cron: '7,22,37,52 * * * *' }]
+concurrency:
+  group: transit-data-writes
+  cancel-in-progress: false
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 permissions:
@@ -25,14 +28,45 @@ jobs:
           git status --short
           find data -maxdepth 5 -type f || true
           find site/data -maxdepth 3 -type f || true
-      - run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           mkdir -p data/bronze data/silver data/gold data/manifests site/data
+
+          echo "Recent commits:"
+          git log --oneline -3 || true
+
+          echo "Status before pre-stage rebase:"
+          git status --short
+          git pull --rebase origin main || true
+          echo "Status after pre-stage rebase:"
+          git status --short
+
           git add -A data site/data
           if git diff --cached --quiet; then
             echo "No data changes to commit."
-          else
-            git commit -m "chore(data): frequent collection"
-            git push
+            exit 0
           fi
+
+          git commit -m "chore(data): frequent collection"
+
+          echo "Status before push rebase:"
+          git status --short
+          git pull --rebase origin main
+          echo "Status after push rebase:"
+          git status --short
+
+          for attempt in 1 2 3; do
+            if git push origin main; then
+              echo "Push succeeded on attempt ${attempt}."
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              echo "Push failed on attempt ${attempt}; rebasing and retrying..."
+              git pull --rebase origin main
+            fi
+          done
+
+          echo "Push failed after 3 attempts."
+          exit 1
