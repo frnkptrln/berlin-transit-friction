@@ -21,17 +21,19 @@ jobs:
         timeout-minutes: 3
       - name: Debug status
         run: |
-          echo "pwd=$(pwd)"
-          echo "manifest path written:"
-          rg -n '"data/manifests/.+\\.json"|"run_id"' /tmp/collect_manifest.log || true
-          echo "changed files under data/ and site/data:"
-          git status --short data site/data || true
-          echo "full git status before commit:"
-          git status
+          pwd
+          git status --short
+          find data -maxdepth 5 -type f || true
+          find site/data -maxdepth 3 -type f || true
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/bronze data/silver data/gold data/manifests site/data
-          git diff --cached --quiet || git commit -m "chore(data): hourly collection"
-          git push
+          mkdir -p data/bronze data/silver data/gold data/manifests site/data
+          git add -A data site/data
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "chore(data): hourly collection"
+            git push
+          fi

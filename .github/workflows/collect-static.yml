@@ -5,8 +5,28 @@ env:
 jobs:
   run:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
       - run: echo "Static GTFS metadata collection planned"
+      - name: Debug status
+        run: |
+          pwd
+          git status --short
+          find data -maxdepth 5 -type f || true
+          find site/data -maxdepth 3 -type f || true
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p data/bronze data/silver data/gold data/manifests site/data
+          git add -A data site/data
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "chore(data): static collection"
+            git push
+          fi
