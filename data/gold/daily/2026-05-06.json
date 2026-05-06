@@ -1,17 +1,26 @@
 {
   "date": "2026-05-06",
-  "total_events": 3,
+  "total_events": 6,
   "events_by_source": {
-    "brokenlifts": 3
+    "brokenlifts": 6
   },
   "events_by_category": {
-    "elevator_or_accessibility_issue": 3
+    "elevator_or_accessibility_issue": 6
   },
   "events_by_line": {},
-  "accessibility_friction": 3,
+  "accessibility_friction": 6,
   "state_counts": {
-    "observed": 3
+    "observed": 6
   },
   "severe": [],
-  "limitations": "This does not measure crowding without direct source data."
+  "connection_watchlist_count": 0,
+  "worst_relation_by_delay_delta": null,
+  "relations_with_cancellations": [],
+  "stations_with_most_delayed_departures": [],
+  "data_coverage": {
+    "friction_events": 6,
+    "departure_observations": 0,
+    "journey_observations": 0
+  },
+  "limitations": "BrokenLifts is included as a side-channel signal, not the primary service quality metric."
 }
