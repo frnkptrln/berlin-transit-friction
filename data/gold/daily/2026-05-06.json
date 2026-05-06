@@ -1,16 +1,16 @@
 {
   "date": "2026-05-06",
-  "total_events": 13,
+  "total_events": 15,
   "events_by_source": {
-    "brokenlifts": 13
+    "brokenlifts": 15
   },
   "events_by_category": {
-    "elevator_or_accessibility_issue": 13
+    "elevator_or_accessibility_issue": 15
   },
   "events_by_line": {},
-  "accessibility_friction": 13,
+  "accessibility_friction": 15,
   "state_counts": {
-    "observed": 13
+    "observed": 15
   },
   "severe": [],
   "connection_watchlist_count": 0,
@@ -18,7 +18,7 @@
   "relations_with_cancellations": [],
   "stations_with_most_delayed_departures": [],
   "data_coverage": {
-    "friction_events": 13,
+    "friction_events": 15,
     "departure_observations": 0,
     "journey_observations": 0
   },
