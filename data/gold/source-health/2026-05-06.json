@@ -38,5 +38,55 @@
     "parser_status": "0.2",
     "last_event_count": 0,
     "last_warning": "no departures returned from configured transport.rest endpoints"
+  },
+  "bvg_traffic_news": {
+    "last_success": null,
+    "last_failure": "2026-05-06T16:52:48.250919+00:00",
+    "consecutive_failures": 1,
+    "average_response_time_ms": 0,
+    "last_status_code": null,
+    "parser_status": "0.2",
+    "last_event_count": 0,
+    "last_warning": "not implemented"
+  },
+  "sbahn_disruptions": {
+    "last_success": null,
+    "last_failure": "2026-05-06T16:52:48.250919+00:00",
+    "consecutive_failures": 1,
+    "average_response_time_ms": 0,
+    "last_status_code": null,
+    "parser_status": "0.2",
+    "last_event_count": 0,
+    "last_warning": "not implemented"
+  },
+  "viz_public_transport": {
+    "last_success": null,
+    "last_failure": "2026-05-06T16:52:48.250919+00:00",
+    "consecutive_failures": 1,
+    "average_response_time_ms": 0,
+    "last_status_code": null,
+    "parser_status": "0.2",
+    "last_event_count": 0,
+    "last_warning": "not implemented"
+  },
+  "bvg_disturbed_network_wfs": {
+    "last_success": null,
+    "last_failure": "2026-05-06T16:52:48.250919+00:00",
+    "consecutive_failures": 1,
+    "average_response_time_ms": 0,
+    "last_status_code": null,
+    "parser_status": "0.2",
+    "last_event_count": 0,
+    "last_warning": "not implemented"
+  },
+  "vbb_fahrinfo_api": {
+    "last_success": null,
+    "last_failure": "2026-05-06T16:52:48.250919+00:00",
+    "consecutive_failures": 1,
+    "average_response_time_ms": 0,
+    "last_status_code": null,
+    "parser_status": "0.2",
+    "last_event_count": 0,
+    "last_warning": "not implemented"
   }
 }
