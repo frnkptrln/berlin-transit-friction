@@ -11,5 +11,6 @@ objs=[json.loads(m.read_text()) for m in manifests]
 health=build_source_health(objs)
 today=datetime.now(timezone.utc).strftime("%Y-%m-%d")
 out=BASE/"data/gold/source-health"/f"{today}.json"; out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(health,indent=2))
-(BASE/"site/data/source-health.json").write_text(json.dumps(health,indent=2))
+site_data=BASE/"site/data"; site_data.mkdir(parents=True, exist_ok=True)
+(site_data/"source-health.json").write_text(json.dumps(health,indent=2))
 print("health built")

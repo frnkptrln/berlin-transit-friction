@@ -2,9 +2,11 @@ name: collect-hourly
 on: { workflow_dispatch: {}, schedule: [{ cron: '17 * * * *' }] }
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+permissions:
+  contents: write
 jobs:
   run:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
@@ -12,7 +14,24 @@ jobs:
         with: { python-version: '3.12' }
       - run: pip install -r requirements.txt || true
         timeout-minutes: 3
-      - run: python scripts/collect_snapshot.py --hourly
-        timeout-minutes: 2
-      - run: python scripts/build_source_health.py
-        timeout-minutes: 1
+      - name: Collect hourly data
+        run: |
+          python scripts/collect_snapshot.py --hourly | tee /tmp/collect_manifest.log
+          python scripts/build_source_health.py
+        timeout-minutes: 3
+      - name: Debug status
+        run: |
+          echo "pwd=$(pwd)"
+          echo "manifest path written:"
+          rg -n '"data/manifests/.+\\.json"|"run_id"' /tmp/collect_manifest.log || true
+          echo "changed files under data/ and site/data:"
+          git status --short data site/data || true
+          echo "full git status before commit:"
+          git status
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/bronze data/silver data/gold data/manifests site/data
+          git diff --cached --quiet || git commit -m "chore(data): hourly collection"
+          git push

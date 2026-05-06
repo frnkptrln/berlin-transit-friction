@@ -141,8 +141,11 @@ def main():
     silver_path=BASE_DIR/"data/silver/friction_events"/f"{(a.date or now.strftime('%Y-%m-%d'))}.jsonl"
     if not a.dry_run and silver: write_jsonl(silver_path, silver, append=True)
     manifest={"run_id":run_id,"started_at":now.isoformat(),"finished_at":datetime.now(timezone.utc).isoformat(),"git_sha":"unknown","sources_attempted":ids,"sources_succeeded":[r.source_id for r in results if r.success],"sources_failed":[r.source_id for r in results if not r.success],"source_results":[{"source_id":r.source_id,"success":r.success,"status_code":r.status_code,"event_count":len(r.normalized_events),"warnings":r.warnings,"duration_ms":r.duration_ms,"parser_status":r.parser_version} for r in results],"bronze_files_written":bronze,"silver_files_written":[str(silver_path.relative_to(BASE_DIR))] if silver and not a.dry_run else [],"normalized_event_count":len(silver),"warnings":warns,"dependency_warnings":[] if requests else ["requests missing"],"rate_limit_notes":"conservative MVP polling","raw_storage_policy":"compact_json_gz_no_raw_protobuf"}
+    manifest_path = BASE_DIR/"data/manifests"/now.strftime("%Y/%m/%d")/f"{now.strftime('%H%M%S')}.json"
+    manifest["manifest_path"] = str(manifest_path.relative_to(BASE_DIR))
     if not a.dry_run:
-        m=BASE_DIR/"data/manifests"/now.strftime("%Y/%m/%d")/f"{now.strftime('%H%M%S')}.json"; m.parent.mkdir(parents=True,exist_ok=True); m.write_text(json.dumps(manifest,indent=2),encoding="utf-8")
+        manifest_path.parent.mkdir(parents=True,exist_ok=True)
+        manifest_path.write_text(json.dumps(manifest,indent=2),encoding="utf-8")
     print(json.dumps(manifest, indent=2))
 
 if __name__=="__main__": main()
