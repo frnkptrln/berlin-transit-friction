@@ -18,6 +18,62 @@ except Exception:
 FREQUENT = ["vbb_gtfs_rt","brokenlifts","vbb_transport_rest","bvg_transport_rest"]
 HOURLY = ["bvg_traffic_news","sbahn_disruptions","viz_public_transport","bvg_disturbed_network_wfs","vbb_fahrinfo_api"]
 ALL = list(dict.fromkeys(FREQUENT+HOURLY))
+PROBE_STOPS = ["900000003201", "900000100003", "900000024101"]  # Friedrichstr, Hbf, Alexanderplatz
+
+
+def _collect_departure_events(source_id: str, departures: list[dict], now: datetime) -> tuple[list[dict], list[dict]]:
+    events = []
+    sightings = []
+    for d in departures:
+        remarks_blob = d.get("remarks") or []
+        remark_text = json.dumps(remarks_blob, ensure_ascii=False) if remarks_blob else ""
+        category = classify_category(remark_text)
+        reason = "remarks"
+
+        delay_seconds = d.get("delay")
+        cancelled = bool(d.get("cancelled"))
+        if cancelled:
+            category = "cancellation"
+            remark_text = f"{remark_text} cancelled=true".strip()
+            reason = "cancelled_field"
+        elif category == "unknown" and isinstance(delay_seconds, (int, float)) and abs(delay_seconds) >= 300:
+            category = "delay"
+            remark_text = f"{remark_text} delay_seconds={int(delay_seconds)}".strip()
+            reason = "delay_field"
+
+        if category == "unknown":
+            continue
+
+        title = f"{source_id} departure signal"
+        events.append({
+            "event_id": stable_event_id(source_id, category, d.get("line", {}).get("name"), d.get("stop", {}).get("name"), title, now),
+            "source": source_id,
+            "collected_at": now.isoformat(),
+            "first_seen_at": now.isoformat(),
+            "last_seen_at": now.isoformat(),
+            "event_state": "observed",
+            "line": d.get("line", {}).get("name"),
+            "stop_name": d.get("stop", {}).get("name"),
+            "category": category,
+            "severity": estimate_severity(category, remark_text),
+            "title": title,
+            "description": remark_text[:300] if remark_text else "Derived from realtime departure fields.",
+            "confidence": 0.6 if remarks_blob else 0.5,
+            "lines": [],
+            "stops": [],
+        })
+        sightings.append({
+            "source": source_id,
+            "line": d.get("line", {}).get("name"),
+            "stop_name": d.get("stop", {}).get("name"),
+            "when": d.get("when") or d.get("plannedWhen"),
+            "category": category,
+            "reason": reason,
+            "delay_seconds": delay_seconds,
+            "cancelled": cancelled,
+            "remark_excerpt": remark_text[:300],
+        })
+    return events, sightings
 
 def fetch(source_id, no_network=False):
     t0=time.time(); now=datetime.now(timezone.utc)
@@ -39,18 +95,33 @@ def fetch(source_id, no_network=False):
                 events.append({"event_id":stable_event_id(source_id,cat,None,None,title,now),"source":source_id,"collected_at":now.isoformat(),"first_seen_at":now.isoformat(),"last_seen_at":now.isoformat(),"event_state":"observed","category":cat,"severity":2,"title":title,"description":"Keyword signal from BrokenLifts landing content.","confidence":0.3,"lines":[],"stops":[]})
             return SourceResult(source_id, now, r.ok, r.status_code, raw_records=rec, normalized_events=events, duration_ms=int((time.time()-t0)*1000))
         if source_id in {"vbb_transport_rest","bvg_transport_rest"}:
-            base="https://v6.vbb.transport.rest" if source_id.startswith("vbb") else "https://v6.bvg.transport.rest"
-            r=requests.get(f"{base}/stops/900000003201/departures", params={"duration":30,"remarks":True}, timeout=20)
-            js=r.json() if r.ok else []
-            events=[]
-            for d in js[:20]:
-                t=(d.get("remarks") and json.dumps(d.get("remarks"))) or ""
-                cat=classify_category(t)
-                if cat=="unknown":
-                    continue
-                title=f"{source_id} departure remark"
-                events.append({"event_id":stable_event_id(source_id,cat,d.get('line',{}).get('name'),d.get('stop',{}).get('name'),title,now),"source":source_id,"collected_at":now.isoformat(),"first_seen_at":now.isoformat(),"last_seen_at":now.isoformat(),"event_state":"observed","line":d.get("line",{}).get("name"),"stop_name":d.get("stop",{}).get("name"),"category":cat,"severity":estimate_severity(cat,t),"title":title,"description":t[:300],"confidence":0.6,"lines":[],"stops":[]})
-            return SourceResult(source_id, now, r.ok, r.status_code, raw_records={"count":len(js)}, normalized_events=events, duration_ms=int((time.time()-t0)*1000))
+            base_candidates = (
+                ["https://v6.vbb.transport.rest", "https://v5.vbb.transport.rest"]
+                if source_id.startswith("vbb")
+                else ["https://v6.bvg.transport.rest", "https://v5.bvg.transport.rest"]
+            )
+            all_departures = []
+            status_code = None
+            endpoint = None
+            last_error = None
+            for base in base_candidates:
+                try:
+                    for stop_id in PROBE_STOPS:
+                        endpoint = f"{base}/stops/{stop_id}/departures"
+                        r = requests.get(endpoint, params={"duration": 120, "remarks": True}, timeout=20)
+                        status_code = r.status_code
+                        if r.ok:
+                            all_departures.extend(r.json() or [])
+                    if all_departures:
+                        break
+                except Exception as e:
+                    last_error = str(e)
+            events, sightings = _collect_departure_events(source_id, all_departures, now)
+            success = bool(all_departures)
+            warnings = []
+            if not success:
+                warnings.append(last_error or "no departures returned from configured transport.rest endpoints")
+            return SourceResult(source_id, now, success, status_code, raw_records={"count":len(all_departures), "endpoint": endpoint, "sightings_count": len(sightings), "sightings_preview": sightings[:25]}, normalized_events=events, duration_ms=int((time.time()-t0)*1000), warnings=warnings)
         return SourceResult(source_id, now, False, warnings=["not implemented"], errors=["not implemented"], duration_ms=int((time.time()-t0)*1000))
     except Exception as e:
         return SourceResult(source_id, now, False, warnings=[str(e)], errors=[str(e)], duration_ms=int((time.time()-t0)*1000))
