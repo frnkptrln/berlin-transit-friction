@@ -1,16 +1,16 @@
 {
   "date": "2026-05-06",
-  "total_events": 1,
+  "total_events": 3,
   "events_by_source": {
-    "brokenlifts": 1
+    "brokenlifts": 3
   },
   "events_by_category": {
-    "elevator_or_accessibility_issue": 1
+    "elevator_or_accessibility_issue": 3
   },
   "events_by_line": {},
-  "accessibility_friction": 1,
+  "accessibility_friction": 3,
   "state_counts": {
-    "observed": 1
+    "observed": 3
   },
   "severe": [],
   "limitations": "This does not measure crowding without direct source data."
