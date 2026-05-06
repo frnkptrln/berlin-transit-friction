@@ -20,17 +20,19 @@ jobs:
           python scripts/check_storage_size.py
       - name: Debug status
         run: |
-          echo "pwd=$(pwd)"
-          echo "manifest path written (latest known):"
-          find data/manifests -type f | tail -n 1 || true
-          echo "changed files under data/ and site/data:"
-          git status --short data site/data || true
-          echo "full git status before commit:"
-          git status
+          pwd
+          git status --short
+          find data -maxdepth 5 -type f || true
+          find site/data -maxdepth 3 -type f || true
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/gold data/manifests site/data
-          git diff --cached --quiet || git commit -m "chore(data): daily aggregation"
-          git push
+          mkdir -p data/bronze data/silver data/gold data/manifests site/data
+          git add -A data site/data
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "chore(data): daily aggregation"
+            git push
+          fi
