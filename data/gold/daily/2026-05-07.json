@@ -1,0 +1,26 @@
+{
+  "date": "2026-05-07",
+  "total_events": 19,
+  "events_by_source": {
+    "brokenlifts": 19
+  },
+  "events_by_category": {
+    "elevator_or_accessibility_issue": 19
+  },
+  "events_by_line": {},
+  "accessibility_friction": 19,
+  "state_counts": {
+    "observed": 19
+  },
+  "severe": [],
+  "connection_watchlist_count": 0,
+  "worst_relation_by_delay_delta": null,
+  "relations_with_cancellations": [],
+  "stations_with_most_delayed_departures": [],
+  "data_coverage": {
+    "friction_events": 19,
+    "departure_observations": 0,
+    "journey_observations": 0
+  },
+  "limitations": "BrokenLifts is included as a side-channel signal, not the primary service quality metric."
+}
