@@ -1,0 +1,78 @@
+{
+  "run_id": "20260509T172829Z",
+  "started_at": "2026-05-09T17:28:29.106436+00:00",
+  "finished_at": "2026-05-09T17:28:29.106546+00:00",
+  "git_sha": "unknown",
+  "sources_attempted": [
+    "vbb_gtfs_rt",
+    "brokenlifts",
+    "vbb_transport_rest",
+    "bvg_transport_rest"
+  ],
+  "sources_succeeded": [],
+  "sources_failed": [
+    "vbb_gtfs_rt",
+    "brokenlifts",
+    "vbb_transport_rest",
+    "bvg_transport_rest"
+  ],
+  "source_results": [
+    {
+      "source_id": "vbb_gtfs_rt",
+      "success": false,
+      "status_code": null,
+      "event_count": 0,
+      "warnings": [
+        "network disabled or requests missing"
+      ],
+      "duration_ms": 0,
+      "parser_status": "0.2"
+    },
+    {
+      "source_id": "brokenlifts",
+      "success": false,
+      "status_code": null,
+      "event_count": 0,
+      "warnings": [
+        "network disabled or requests missing"
+      ],
+      "duration_ms": 0,
+      "parser_status": "0.2"
+    },
+    {
+      "source_id": "vbb_transport_rest",
+      "success": false,
+      "status_code": null,
+      "event_count": 0,
+      "warnings": [
+        "network disabled or requests missing"
+      ],
+      "duration_ms": 0,
+      "parser_status": "0.2"
+    },
+    {
+      "source_id": "bvg_transport_rest",
+      "success": false,
+      "status_code": null,
+      "event_count": 0,
+      "warnings": [
+        "network disabled or requests missing"
+      ],
+      "duration_ms": 0,
+      "parser_status": "0.2"
+    }
+  ],
+  "bronze_files_written": [],
+  "silver_files_written": [],
+  "normalized_event_count": 0,
+  "warnings": [
+    "vbb_gtfs_rt: network disabled or requests missing",
+    "brokenlifts: network disabled or requests missing",
+    "vbb_transport_rest: network disabled or requests missing",
+    "bvg_transport_rest: network disabled or requests missing"
+  ],
+  "dependency_warnings": [],
+  "rate_limit_notes": "conservative MVP polling",
+  "raw_storage_policy": "compact_json_gz_no_raw_protobuf",
+  "manifest_path": "data/manifests/2026/05/09/172829.json"
+}

@@ -1,0 +1,89 @@
+[
+  {
+    "date": "2026-05-05",
+    "total_events": 0,
+    "events_by_source": {},
+    "events_by_category": {},
+    "events_by_line": {},
+    "accessibility_friction": 0,
+    "data_coverage": {},
+    "connection_watchlist_count": 0,
+    "stations_with_most_delayed_departures": []
+  },
+  {
+    "date": "2026-05-06",
+    "total_events": 15,
+    "events_by_source": {
+      "brokenlifts": 15
+    },
+    "events_by_category": {
+      "elevator_or_accessibility_issue": 15
+    },
+    "events_by_line": {},
+    "accessibility_friction": 15,
+    "data_coverage": {
+      "friction_events": 15,
+      "departure_observations": 0,
+      "journey_observations": 0
+    },
+    "connection_watchlist_count": 0,
+    "stations_with_most_delayed_departures": []
+  },
+  {
+    "date": "2026-05-07",
+    "total_events": 22,
+    "events_by_source": {
+      "brokenlifts": 22
+    },
+    "events_by_category": {
+      "elevator_or_accessibility_issue": 22
+    },
+    "events_by_line": {},
+    "accessibility_friction": 22,
+    "data_coverage": {
+      "friction_events": 22,
+      "departure_observations": 0,
+      "journey_observations": 0
+    },
+    "connection_watchlist_count": 0,
+    "stations_with_most_delayed_departures": []
+  },
+  {
+    "date": "2026-05-08",
+    "total_events": 28,
+    "events_by_source": {
+      "brokenlifts": 28
+    },
+    "events_by_category": {
+      "elevator_or_accessibility_issue": 28
+    },
+    "events_by_line": {},
+    "accessibility_friction": 28,
+    "data_coverage": {
+      "friction_events": 28,
+      "departure_observations": 0,
+      "journey_observations": 0
+    },
+    "connection_watchlist_count": 0,
+    "stations_with_most_delayed_departures": []
+  },
+  {
+    "date": "2026-05-09",
+    "total_events": 25,
+    "events_by_source": {
+      "brokenlifts": 25
+    },
+    "events_by_category": {
+      "elevator_or_accessibility_issue": 25
+    },
+    "events_by_line": {},
+    "accessibility_friction": 25,
+    "data_coverage": {
+      "friction_events": 25,
+      "departure_observations": 0,
+      "journey_observations": 0
+    },
+    "connection_watchlist_count": 0,
+    "stations_with_most_delayed_departures": []
+  }
+]
