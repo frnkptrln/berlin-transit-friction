@@ -1,0 +1,104 @@
+{
+  "run_id": "20260509T103552Z",
+  "started_at": "2026-05-09T10:35:52.352060+00:00",
+  "finished_at": "2026-05-09T10:35:57.332032+00:00",
+  "git_sha": "unknown",
+  "sources_attempted": [
+    "bvg_traffic_news",
+    "sbahn_disruptions",
+    "viz_public_transport",
+    "bvg_disturbed_network_wfs",
+    "vbb_fahrinfo_api"
+  ],
+  "sources_succeeded": [],
+  "sources_failed": [
+    "bvg_traffic_news",
+    "sbahn_disruptions",
+    "viz_public_transport",
+    "bvg_disturbed_network_wfs",
+    "vbb_fahrinfo_api"
+  ],
+  "source_results": [
+    {
+      "source_id": "bvg_traffic_news",
+      "success": false,
+      "status_code": null,
+      "event_count": 0,
+      "warnings": [
+        "not implemented"
+      ],
+      "duration_ms": 0,
+      "parser_status": "0.2"
+    },
+    {
+      "source_id": "sbahn_disruptions",
+      "success": false,
+      "status_code": null,
+      "event_count": 0,
+      "warnings": [
+        "not implemented"
+      ],
+      "duration_ms": 0,
+      "parser_status": "0.2"
+    },
+    {
+      "source_id": "viz_public_transport",
+      "success": false,
+      "status_code": null,
+      "event_count": 0,
+      "warnings": [
+        "not implemented"
+      ],
+      "duration_ms": 0,
+      "parser_status": "0.2"
+    },
+    {
+      "source_id": "bvg_disturbed_network_wfs",
+      "success": false,
+      "status_code": null,
+      "event_count": 0,
+      "warnings": [
+        "not implemented"
+      ],
+      "duration_ms": 0,
+      "parser_status": "0.2"
+    },
+    {
+      "source_id": "vbb_fahrinfo_api",
+      "success": false,
+      "status_code": null,
+      "event_count": 0,
+      "warnings": [
+        "not implemented"
+      ],
+      "duration_ms": 0,
+      "parser_status": "0.2"
+    }
+  ],
+  "bronze_files_written": [
+    "data/bronze/vbb_departures/2026/05/09/900000100003_103552.json.gz",
+    "data/bronze/vbb_departures/2026/05/09/900000120003_103552.json.gz",
+    "data/bronze/vbb_departures/2026/05/09/900000160004_103552.json.gz",
+    "data/bronze/vbb_departures/2026/05/09/900000003201_103552.json.gz",
+    "data/bronze/vbb_departures/2026/05/09/900000003201_103552.json.gz",
+    "data/bronze/vbb_departures/2026/05/09/900000023201_103552.json.gz",
+    "data/bronze/vbb_departures/2026/05/09/900000100001_103552.json.gz",
+    "data/bronze/vbb_departures/2026/05/09/900000054101_103552.json.gz",
+    "data/bronze/vbb_journeys/2026/05/09/alex_to_ostkreuz_103552.json.gz",
+    "data/bronze/vbb_journeys/2026/05/09/hbf_to_hermannplatz_103552.json.gz",
+    "data/bronze/vbb_journeys/2026/05/09/zoo_to_pankow_103552.json.gz"
+  ],
+  "silver_files_written": [],
+  "normalized_event_count": 0,
+  "warnings": [
+    "bvg_traffic_news: not implemented",
+    "sbahn_disruptions: not implemented",
+    "viz_public_transport: not implemented",
+    "bvg_disturbed_network_wfs: not implemented",
+    "vbb_fahrinfo_api: not implemented"
+  ],
+  "dependency_warnings": [],
+  "rate_limit_notes": "conservative MVP polling",
+  "raw_storage_policy": "compact_json_gz_no_raw_protobuf",
+  "manifest_path": "data/manifests/2026/05/09/103552.json"
+}
