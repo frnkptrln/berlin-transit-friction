@@ -1,11 +1,150 @@
-<!doctype html><html><body>
-<h1>Transit Friction</h1>
-<p>Experimental observatory. Public data. Incomplete by design.</p>
-<div id='latest'></div><div id='health'></div>
-<script>
-Promise.all([fetch('./data/latest.json').then(r=>r.json()).catch(()=>({})),fetch('./data/source-health.json').then(r=>r.json()).catch(()=>({}))]).then(([l,h])=>{
-document.getElementById('latest').innerHTML=`Latest date: ${l.date||'n/a'}; Events today: ${l.total_events||0}`;
-let rows=Object.entries(h).map(([k,v])=>`<tr><td>${k}</td><td>${v.last_status_code??''}</td><td>${v.consecutive_failures??''}</td><td>${v.last_event_count??''}</td></tr>`).join('');
-document.getElementById('health').innerHTML=`<h3>Source health</h3><table><tr><th>Source</th><th>Status</th><th>Failures</th><th>Events</th></tr>${rows}</table><p>Limitations: no direct crowding measurement.</p>`;
-});
-</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transit Friction — Berlin Observatory</title>
+  <meta name="description" content="Open observatory for public transport friction in Berlin. Live disruption tracking, delay analysis, and accessibility monitoring from public data sources.">
+  <meta name="theme-color" content="#0b0f1a">
+  <meta property="og:title" content="Transit Friction — Berlin Observatory">
+  <meta property="og:description" content="How broken is Berlin transit right now? Live disruption tracking from public data.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚇</text></svg>">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+
+<div class="dashboard">
+
+  <!-- ═══ Header ═══════════════════════════════════════════════════ -->
+  <header class="header animate-in">
+    <h1 class="header__title">Transit Friction</h1>
+    <p class="header__subtitle">Open observatory for friction in Berlin public transport. Public data only.</p>
+    <div class="header__meta" id="header-meta">
+      <span class="pulse"></span>
+      <span>Loading…</span>
+    </div>
+  </header>
+
+  <!-- ═══ Hero Metrics ═════════════════════════════════════════════ -->
+  <div class="metrics-row animate-in delay-1">
+    <div class="metric-card" id="metric-total">
+      <div class="metric-card__label">Events Today</div>
+      <div class="metric-card__value metric-card__value--accent">—</div>
+      <div class="metric-card__detail">Friction signals collected</div>
+    </div>
+    <div class="metric-card" id="metric-disruptions">
+      <div class="metric-card__label">Disruptions</div>
+      <div class="metric-card__value metric-card__value--warn">—</div>
+      <div class="metric-card__detail">Delays + cancellations + disruptions</div>
+    </div>
+    <div class="metric-card" id="metric-accessibility">
+      <div class="metric-card__label">Elevator Issues</div>
+      <div class="metric-card__value">—</div>
+      <div class="metric-card__detail">Accessibility signal events</div>
+    </div>
+    <div class="metric-card" id="metric-watchlist">
+      <div class="metric-card__label">Watchlist</div>
+      <div class="metric-card__value">—</div>
+      <div class="metric-card__detail">Connection observations</div>
+    </div>
+    <div class="metric-card" id="metric-worst-line">
+      <div class="metric-card__label">Most Affected Line</div>
+      <div class="metric-card__value metric-card__value--danger">—</div>
+      <div class="metric-card__detail">By event count</div>
+    </div>
+  </div>
+
+  <!-- ═══ Live Map ═══════════════════════════════════════════════════ -->
+  <div class="section animate-in delay-2">
+    <div class="panel" style="padding: 0; overflow: hidden; border-radius: var(--radius-lg);">
+      <div id="map" style="height: 400px; width: 100%; background: var(--bg-deep); z-index: 1;"></div>
+    </div>
+  </div>
+
+  <!-- ═══ Category + Timeline Row ══════════════════════════════════ -->
+  <div class="grid-2 animate-in delay-3">
+    <div class="section">
+      <h2 class="section__title">By Category</h2>
+      <div class="panel" id="category-breakdown">
+        <div class="empty-state"><div class="empty-state__icon">📋</div>Loading…</div>
+      </div>
+    </div>
+    <div class="section">
+      <h2 class="section__title">Hourly Timeline</h2>
+      <div class="panel">
+        <div class="chart-wrap" style="height:180px;">
+          <canvas id="chart-timeline"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Line Rankings ════════════════════════════════════════════ -->
+  <div class="section animate-in delay-4">
+    <h2 class="section__title">Line Rankings</h2>
+    <div class="panel" style="overflow-x:auto;">
+      <table class="data-table" id="line-table">
+        <thead>
+          <tr>
+            <th>Line</th>
+            <th class="num">Events</th>
+            <th class="num">Delays</th>
+            <th class="num">Cancellations</th>
+            <th class="num">Avg Severity</th>
+            <th class="num">Friction Score</th>
+          </tr>
+        </thead>
+        <tbody id="line-table-body">
+          <tr><td colspan="6"><div class="empty-state">Loading…</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ Station Friction + Connection Watchlist ══════════════════ -->
+  <div class="grid-2 animate-in delay-5">
+    <div class="section">
+      <h2 class="section__title">Station Friction</h2>
+      <div class="panel" id="station-chart">
+        <div class="empty-state"><div class="empty-state__icon">🚉</div>Loading…</div>
+      </div>
+    </div>
+    <div class="section">
+      <h2 class="section__title">Connection Watchlist</h2>
+      <div class="panel watchlist-grid" id="watchlist">
+        <div class="empty-state"><div class="empty-state__icon">🔍</div>Loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Source Health ════════════════════════════════════════════ -->
+  <div class="section animate-in delay-6">
+    <h2 class="section__title">Data Source Health</h2>
+    <div class="health-grid" id="source-health">
+      <div class="empty-state"><div class="empty-state__icon">📡</div>Loading…</div>
+    </div>
+  </div>
+
+  <!-- ═══ Footer ══════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <p>
+      <strong>Transit Friction</strong> — An open observatory for Berlin public transport.
+      <br>
+      <a href="https://github.com/frnkptrln/berlin-transit-friction" target="_blank" rel="noopener">GitHub</a> ·
+      Data collected every 15 minutes via GitHub Actions
+    </p>
+    <div class="footer__ethics">
+      Public data only · No passenger tracking · No individual movement analysis ·
+      No social media scraping · Uncertainty remains visible ·
+      This project does not measure the whole lived transport experience.
+    </div>
+  </footer>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

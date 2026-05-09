@@ -9,8 +9,12 @@ from transit_friction.config import BASE_DIR
 from transit_friction.storage import write_json_gz, write_jsonl, sha256_bytes
 from transit_friction.sources.base import SourceResult
 from transit_friction.normalize.events import classify_category, estimate_severity, stable_event_id
+from transit_friction.normalize.state import process_lifecycle
 from transit_friction.sources.vbb_departures import collect as collect_vbb_departures
 from transit_friction.sources.vbb_journeys import collect as collect_vbb_journeys
+from transit_friction.sources.bvg_traffic_news import collect as collect_bvg_traffic_news
+from transit_friction.sources.sbahn_disruptions import collect as collect_sbahn_disruptions
+from transit_friction.sources.vbb_gtfs_rt import collect as collect_vbb_gtfs_rt
 
 try:
     import requests
@@ -18,7 +22,10 @@ except Exception:
     requests = None
 
 FREQUENT = ["vbb_gtfs_rt","brokenlifts","vbb_transport_rest","bvg_transport_rest"]
-HOURLY = ["bvg_traffic_news","sbahn_disruptions","viz_public_transport","bvg_disturbed_network_wfs","vbb_fahrinfo_api"]
+# Only include sources that have working collectors.
+# Planned but unimplemented sources are documented in config/sources.yml
+# but excluded from collection to avoid polluting source-health metrics.
+HOURLY = ["bvg_traffic_news", "sbahn_disruptions"]
 ALL = list(dict.fromkeys(FREQUENT+HOURLY))
 PROBE_STOPS = ["900000003201", "900000100003", "900000024101"]  # Friedrichstr, Hbf, Alexanderplatz
 
@@ -83,10 +90,7 @@ def fetch(source_id, no_network=False):
         return SourceResult(source_id, now, False, warnings=["network disabled or requests missing"], errors=[], duration_ms=int((time.time()-t0)*1000))
     try:
         if source_id=="vbb_gtfs_rt":
-            url="https://production.gtfsrt.vbb.de/data"; r=requests.get(url,timeout=20)
-            payload=r.content
-            raw={"collected_at":now.isoformat(),"source":source_id,"endpoint":url,"status_code":r.status_code,"content_length":len(payload),"sha256":sha256_bytes(payload),"entity_count":None,"parser_status":"metadata_only","warnings":[]}
-            return SourceResult(source_id, now, r.ok, r.status_code, raw_records=raw, duration_ms=int((time.time()-t0)*1000), warnings=[] if r.ok else ["http failure"])
+            return collect_vbb_gtfs_rt(now)
         if source_id=="brokenlifts":
             url="https://brokenlifts.org/"; r=requests.get(url,timeout=20)
             txt=r.text[:20000]
@@ -128,6 +132,10 @@ def fetch(source_id, no_network=False):
             if not success:
                 warnings.append(last_error or "no departures returned from configured transport.rest endpoints")
             return SourceResult(source_id, now, success, status_code, raw_records={"count":len(all_departures), "endpoint": endpoint, "sightings_count": len(sightings), "sightings_preview": sightings[:25]}, normalized_events=events, duration_ms=int((time.time()-t0)*1000), warnings=warnings)
+        if source_id == "bvg_traffic_news":
+            return collect_bvg_traffic_news(now)
+        if source_id == "sbahn_disruptions":
+            return collect_sbahn_disruptions(now)
         return SourceResult(source_id, now, False, warnings=["not implemented"], errors=["not implemented"], duration_ms=int((time.time()-t0)*1000))
     except Exception as e:
         return SourceResult(source_id, now, False, warnings=[str(e)], errors=[str(e)], duration_ms=int((time.time()-t0)*1000))
@@ -143,7 +151,15 @@ def main():
         if res.warnings: warns.extend([f"{sid}: {w}" for w in res.warnings])
         if not a.dry_run and res.raw_records is not None:
             b=BASE_DIR/"data/bronze"/sid/now.strftime("%Y/%m/%d")/f"{now.strftime('%H%M%S')}.json.gz"; write_json_gz(b,res.raw_records); bronze.append(str(b.relative_to(BASE_DIR)))
-        if res.normalized_events: silver.extend(res.normalized_events)
+        
+        # State tracking lifecycle
+        if res.success and not a.dry_run:
+            active_events, resolved_events = process_lifecycle(sid, res.normalized_events, now)
+            silver.extend(active_events)
+            # We don't append resolved_events to the daily silver.jsonl because they are 
+            # already logged to resolved_events/<YYYY-MM>.jsonl by the state manager.
+        elif res.normalized_events:
+            silver.extend(res.normalized_events)
     extra_bronze=[]
     extra_silver=[]
     if not a.no_network and not a.dry_run:

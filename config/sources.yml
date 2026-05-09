@@ -52,10 +52,22 @@ sources:
     url: https://www.bvg.de/de/verbindungen/stoerungsmeldungen
     type: html
     collection_frequency: hourly
-    implemented: false
-    raw_storage_policy: metadata_only
-    parser_status: blocked
+    implemented: true
+    raw_storage_policy: compact_snapshot_gz
+    parser_status: html_parser
     legal_notes: no anti-bot bypass
     limitations: dynamic content may be brittle
     owner_operator: BVG
+    expected_signal_types: [disruption, construction, replacement_service]
+  - id: sbahn_disruptions
+    name: S-Bahn Berlin Disruptions
+    url: https://sbahn.berlin/fahren/bauen-stoerung/
+    type: html
+    collection_frequency: hourly
+    implemented: true
+    raw_storage_policy: compact_snapshot_gz
+    parser_status: html_parser
+    legal_notes: public disruption data
+    limitations: dynamic content may be brittle
+    owner_operator: S-Bahn Berlin GmbH
     expected_signal_types: [disruption, construction, replacement_service]

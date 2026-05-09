@@ -1,9 +1,15 @@
 # Transit Friction
 
-A small open observatory for making friction in Berlin public transport visible, analyzable, and narratable.
+An open observatory for making friction in Berlin public transport visible, analyzable, and narratable. 
 
-## v0.2 direction: Collect First
-This version prioritizes broad, systematic, durable collection of public friction signals over polished dashboards.
+🌐 **[View the Live Dashboard](https://frnkptrln.github.io/berlin-transit-friction/)** (updates every 15 minutes)
+
+## The Dashboard
+The project features a client-side, zero-dependency dashboard that visualizes:
+- Live disruption metrics and daily trends
+- Real-time station friction charts
+- S-Bahn/U-Bahn line rankings based on delays and cancellations 
+- Automated source health tracking
 
 ## Data layers
 - Bronze: `data/bronze/<source>/<YYYY>/<MM>/<DD>/<HHMMSS>.json.gz`

@@ -42,7 +42,7 @@ jobs:
           echo "Status after pre-stage rebase:"
           git status --short
 
-          git add -A data site/data
+          git add data/gold data/manifests site/data
           if git diff --cached --quiet; then
             echo "No data changes to commit."
             exit 0
