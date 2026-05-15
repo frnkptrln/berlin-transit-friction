@@ -1,47 +1,7 @@
 {
-  "vbb_gtfs_rt": {
-    "last_success": "2026-05-11T19:05:52.105189+00:00",
-    "last_failure": "2026-05-05T13:32:22.228515+00:00",
-    "consecutive_failures": 0,
-    "average_response_time_ms": 2914,
-    "last_status_code": 200,
-    "parser_status": "0.2",
-    "last_event_count": 1000,
-    "last_warning": "network disabled or requests missing"
-  },
-  "brokenlifts": {
-    "last_success": "2026-05-11T19:05:52.105189+00:00",
-    "last_failure": "2026-05-05T13:32:19.800509+00:00",
-    "consecutive_failures": 0,
-    "average_response_time_ms": 3005,
-    "last_status_code": 200,
-    "parser_status": "0.2",
-    "last_event_count": 1,
-    "last_warning": "network disabled or requests missing"
-  },
-  "vbb_transport_rest": {
-    "last_success": null,
-    "last_failure": "2026-05-11T19:05:52.105189+00:00",
-    "consecutive_failures": 277,
-    "average_response_time_ms": 26596,
-    "last_status_code": 404,
-    "parser_status": "0.2",
-    "last_event_count": 0,
-    "last_warning": "HTTPSConnectionPool(host='v5.vbb.transport.rest', port=443): Read timed out. (read timeout=20)"
-  },
-  "bvg_transport_rest": {
-    "last_success": null,
-    "last_failure": "2026-05-11T19:05:52.105189+00:00",
-    "consecutive_failures": 277,
-    "average_response_time_ms": 34662,
-    "last_status_code": 503,
-    "parser_status": "0.2",
-    "last_event_count": 0,
-    "last_warning": "no departures returned from configured transport.rest endpoints"
-  },
   "bvg_traffic_news": {
-    "last_success": "2026-05-11T19:56:39.978239+00:00",
-    "last_failure": "2026-05-07T15:13:27.078183+00:00",
+    "last_success": "2026-05-12T15:15:51.220013+00:00",
+    "last_failure": "2026-05-07T18:54:23.823405+00:00",
     "consecutive_failures": 0,
     "average_response_time_ms": 591,
     "last_status_code": 200,
@@ -50,8 +10,8 @@
     "last_warning": "not implemented"
   },
   "sbahn_disruptions": {
-    "last_success": "2026-05-11T19:56:39.978239+00:00",
-    "last_failure": "2026-05-07T15:13:27.078183+00:00",
+    "last_success": "2026-05-12T15:15:51.220013+00:00",
+    "last_failure": "2026-05-07T18:54:23.823405+00:00",
     "consecutive_failures": 0,
     "average_response_time_ms": 679,
     "last_status_code": 200,
@@ -61,7 +21,7 @@
   },
   "viz_public_transport": {
     "last_success": null,
-    "last_failure": "2026-05-07T15:13:27.078183+00:00",
+    "last_failure": "2026-05-07T18:54:23.823405+00:00",
     "consecutive_failures": 68,
     "average_response_time_ms": 0,
     "last_status_code": null,
@@ -71,7 +31,7 @@
   },
   "bvg_disturbed_network_wfs": {
     "last_success": null,
-    "last_failure": "2026-05-07T15:13:27.078183+00:00",
+    "last_failure": "2026-05-07T18:54:23.823405+00:00",
     "consecutive_failures": 68,
     "average_response_time_ms": 0,
     "last_status_code": null,
@@ -81,12 +41,52 @@
   },
   "vbb_fahrinfo_api": {
     "last_success": null,
-    "last_failure": "2026-05-07T15:13:27.078183+00:00",
+    "last_failure": "2026-05-07T18:54:23.823405+00:00",
     "consecutive_failures": 68,
     "average_response_time_ms": 0,
     "last_status_code": null,
     "parser_status": "0.2",
     "last_event_count": 0,
     "last_warning": "not implemented"
+  },
+  "vbb_gtfs_rt": {
+    "last_success": "2026-05-12T14:49:06.584106+00:00",
+    "last_failure": "2026-05-06T15:37:57.779920+00:00",
+    "consecutive_failures": 0,
+    "average_response_time_ms": 2914,
+    "last_status_code": 200,
+    "parser_status": "0.2",
+    "last_event_count": 1000,
+    "last_warning": "network disabled or requests missing"
+  },
+  "brokenlifts": {
+    "last_success": "2026-05-12T14:49:06.584106+00:00",
+    "last_failure": "2026-05-07T13:47:42.183554+00:00",
+    "consecutive_failures": 0,
+    "average_response_time_ms": 3002,
+    "last_status_code": 200,
+    "parser_status": "0.2",
+    "last_event_count": 1,
+    "last_warning": "network disabled or requests missing"
+  },
+  "vbb_transport_rest": {
+    "last_success": null,
+    "last_failure": "2026-05-12T14:49:06.584106+00:00",
+    "consecutive_failures": 278,
+    "average_response_time_ms": 26582,
+    "last_status_code": 404,
+    "parser_status": "0.2",
+    "last_event_count": 0,
+    "last_warning": "HTTPSConnectionPool(host='v5.vbb.transport.rest', port=443): Read timed out. (read timeout=20)"
+  },
+  "bvg_transport_rest": {
+    "last_success": null,
+    "last_failure": "2026-05-12T14:49:06.584106+00:00",
+    "consecutive_failures": 278,
+    "average_response_time_ms": 34657,
+    "last_status_code": 503,
+    "parser_status": "0.2",
+    "last_event_count": 0,
+    "last_warning": "no departures returned from configured transport.rest endpoints"
   }
 }
