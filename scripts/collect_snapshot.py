@@ -84,6 +84,30 @@ def _collect_departure_events(source_id: str, departures: list[dict], now: datet
         })
     return events, sightings
 
+
+
+def _fallback_departures_from_silver(now: datetime, limit: int = 600) -> list[dict]:
+    silver_path = BASE_DIR / "data/silver/departure_observations" / f"{now.strftime('%Y-%m-%d')}.jsonl"
+    if not silver_path.exists():
+        return []
+    lines = silver_path.read_text(encoding="utf-8").splitlines()[-limit:]
+    departures = []
+    for line in lines:
+        try:
+            row = json.loads(line)
+        except Exception:
+            continue
+        departures.append({
+            "line": {"name": row.get("line_name")},
+            "stop": {"name": row.get("stop_name")},
+            "when": row.get("when"),
+            "plannedWhen": row.get("planned_when"),
+            "delay": row.get("delay_seconds"),
+            "cancelled": row.get("cancelled"),
+            "remarks": row.get("remarks") or [],
+        })
+    return departures
+
 def fetch(source_id, no_network=False):
     t0=time.time(); now=datetime.now(timezone.utc)
     if no_network or requests is None:
@@ -109,29 +133,53 @@ def fetch(source_id, no_network=False):
             all_departures = []
             status_code = None
             endpoint = None
-            last_error = None
+            warning_notes = []
+            successful_requests = 0
+
             for base in base_candidates:
-                try:
-                    for stop_id in PROBE_STOPS:
-                        endpoint = f"{base}/stops/{stop_id}/departures"
+                base_departures = []
+                for stop_id in PROBE_STOPS:
+                    endpoint = f"{base}/stops/{stop_id}/departures"
+                    try:
                         r = requests.get(endpoint, params={"duration": 120, "remarks": True}, timeout=20)
                         status_code = r.status_code
-                        if r.ok:
-                            payload = r.json() or {}
-                            if isinstance(payload, dict):
-                                all_departures.extend(payload.get("departures", []))
-                            elif isinstance(payload, list):
-                                all_departures.extend(payload)
-                    if all_departures:
-                        break
-                except Exception as e:
-                    last_error = str(e)
+                    except Exception as e:
+                        warning_notes.append(f"{endpoint}: {e}")
+                        continue
+
+                    if not r.ok:
+                        warning_notes.append(f"{endpoint}: HTTP {r.status_code}")
+                        continue
+
+                    successful_requests += 1
+                    payload = r.json() or {}
+                    if isinstance(payload, dict):
+                        base_departures.extend(payload.get("departures", []))
+                    elif isinstance(payload, list):
+                        base_departures.extend(payload)
+                    else:
+                        warning_notes.append(f"{endpoint}: unexpected payload type {type(payload).__name__}")
+
+                if base_departures:
+                    all_departures.extend(base_departures)
+                    break
+
+            fallback_departures = []
+            fallback_used = False
+            if not all_departures and successful_requests == 0:
+                fallback_departures = _fallback_departures_from_silver(now)
+                if fallback_departures:
+                    all_departures = fallback_departures
+                    fallback_used = True
+                    warning_notes.append("used local departure_observations fallback because transport.rest was unreachable")
+
             events, sightings = _collect_departure_events(source_id, all_departures, now)
-            success = bool(all_departures)
+            success = bool(all_departures) or successful_requests > 0
             warnings = []
-            if not success:
-                warnings.append(last_error or "no departures returned from configured transport.rest endpoints")
-            return SourceResult(source_id, now, success, status_code, raw_records={"count":len(all_departures), "endpoint": endpoint, "sightings_count": len(sightings), "sightings_preview": sightings[:25]}, normalized_events=events, duration_ms=int((time.time()-t0)*1000), warnings=warnings)
+            if not all_departures:
+                warnings.append("no departures returned from configured transport.rest endpoints")
+            warnings.extend(warning_notes[:8])
+            return SourceResult(source_id, now, success, status_code, raw_records={"count":len(all_departures), "endpoint": endpoint, "successful_requests": successful_requests, "fallback_used": fallback_used, "sightings_count": len(sightings), "sightings_preview": sightings[:25]}, normalized_events=events, duration_ms=int((time.time()-t0)*1000), warnings=warnings)
         if source_id == "bvg_traffic_news":
             return collect_bvg_traffic_news(now)
         if source_id == "sbahn_disruptions":

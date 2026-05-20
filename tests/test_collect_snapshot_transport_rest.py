@@ -3,7 +3,7 @@ from pathlib import Path
 import sys
 
 sys.path.append(str(Path(__file__).resolve().parents[1]))
-from scripts.collect_snapshot import _collect_departure_events
+from scripts.collect_snapshot import _collect_departure_events, _fallback_departures_from_silver
 
 
 def test_collect_departure_events_uses_delay_when_no_remarks():
@@ -40,3 +40,21 @@ def test_collect_departure_events_cancellation_overrides_category():
     assert len(sightings) == 1
     assert events[0]["category"] == "cancellation"
     assert sightings[0]["reason"] == "cancelled_field"
+
+
+def test_fallback_departures_from_silver_reads_today_file(tmp_path, monkeypatch):
+    from scripts import collect_snapshot as mod
+    monkeypatch.setattr(mod, "BASE_DIR", tmp_path)
+    now = datetime(2026, 5, 20, tzinfo=timezone.utc)
+    p = tmp_path / "data/silver/departure_observations/2026-05-20.jsonl"
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text('\n'.join([
+        '{"line_name":"S3","stop_name":"Hbf","delay_seconds":360,"cancelled":false,"remarks":[]}',
+        'not-json',
+        '{"line_name":"U2","stop_name":"Alex","delay_seconds":0,"cancelled":true,"remarks":[{"text":"x"}]}'
+    ]), encoding="utf-8")
+
+    deps = _fallback_departures_from_silver(now)
+    assert len(deps) == 2
+    assert deps[0]["line"]["name"] == "S3"
+    assert deps[1]["cancelled"] is True
