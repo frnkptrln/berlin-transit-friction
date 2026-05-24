@@ -1,0 +1,57 @@
+{
+  "run_id": "20260524T173730Z",
+  "started_at": "2026-05-24T17:37:30.064178+00:00",
+  "finished_at": "2026-05-24T17:37:37.044650+00:00",
+  "git_sha": "unknown",
+  "sources_attempted": [
+    "bvg_traffic_news",
+    "sbahn_disruptions"
+  ],
+  "sources_succeeded": [
+    "bvg_traffic_news",
+    "sbahn_disruptions"
+  ],
+  "sources_failed": [],
+  "source_results": [
+    {
+      "source_id": "bvg_traffic_news",
+      "success": true,
+      "status_code": 200,
+      "event_count": 0,
+      "warnings": [],
+      "duration_ms": 770,
+      "parser_status": "0.2"
+    },
+    {
+      "source_id": "sbahn_disruptions",
+      "success": true,
+      "status_code": 200,
+      "event_count": 0,
+      "warnings": [],
+      "duration_ms": 871,
+      "parser_status": "0.2"
+    }
+  ],
+  "bronze_files_written": [
+    "data/bronze/bvg_traffic_news/2026/05/24/173730.json.gz",
+    "data/bronze/sbahn_disruptions/2026/05/24/173730.json.gz",
+    "data/bronze/vbb_departures/2026/05/24/900000100003_173730.json.gz",
+    "data/bronze/vbb_departures/2026/05/24/900000120003_173730.json.gz",
+    "data/bronze/vbb_departures/2026/05/24/900000160004_173730.json.gz",
+    "data/bronze/vbb_departures/2026/05/24/900000003201_173730.json.gz",
+    "data/bronze/vbb_departures/2026/05/24/900000003201_173730.json.gz",
+    "data/bronze/vbb_departures/2026/05/24/900000023201_173730.json.gz",
+    "data/bronze/vbb_departures/2026/05/24/900000100001_173730.json.gz",
+    "data/bronze/vbb_departures/2026/05/24/900000054101_173730.json.gz",
+    "data/bronze/vbb_journeys/2026/05/24/alex_to_ostkreuz_173730.json.gz",
+    "data/bronze/vbb_journeys/2026/05/24/hbf_to_hermannplatz_173730.json.gz",
+    "data/bronze/vbb_journeys/2026/05/24/zoo_to_pankow_173730.json.gz"
+  ],
+  "silver_files_written": [],
+  "normalized_event_count": 0,
+  "warnings": [],
+  "dependency_warnings": [],
+  "rate_limit_notes": "conservative MVP polling",
+  "raw_storage_policy": "compact_json_gz_no_raw_protobuf",
+  "manifest_path": "data/manifests/2026/05/24/173730.json"
+}
