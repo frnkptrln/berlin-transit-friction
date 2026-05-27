@@ -1,147 +1,165 @@
 [
   {
     "line": "17364_700",
-    "total_events": 9017,
-    "delays": 9017,
+    "total_events": 9123,
+    "delays": 9123,
     "cancellations": 0,
     "severity_avg": 2.4,
-    "days_active": 16,
-    "friction_score": 19999.0
-  },
-  {
-    "line": "17449_700",
-    "total_events": 7908,
-    "delays": 7908,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 16505.0
+    "days_active": 17,
+    "friction_score": 20246.0
   },
   {
     "line": "17453_700",
-    "total_events": 7762,
-    "delays": 7762,
+    "total_events": 8094,
+    "delays": 8094,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 16,
-    "friction_score": 16581.5
+    "days_active": 17,
+    "friction_score": 17303.0
+  },
+  {
+    "line": "17449_700",
+    "total_events": 8092,
+    "delays": 8092,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 17,
+    "friction_score": 16891.0
   },
   {
     "line": "24053_100",
-    "total_events": 6464,
-    "delays": 6464,
+    "total_events": 6814,
+    "delays": 6814,
     "cancellations": 0,
     "severity_avg": 2.4,
-    "days_active": 18,
-    "friction_score": 14152.5
+    "days_active": 19,
+    "friction_score": 14873.5
   },
   {
     "line": "23415_700",
-    "total_events": 5103,
-    "delays": 5103,
+    "total_events": 5596,
+    "delays": 5596,
     "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 16,
-    "friction_score": 11366.5
+    "severity_avg": 2.4,
+    "days_active": 17,
+    "friction_score": 12413.0
   },
   {
     "line": "24025_100",
-    "total_events": 4761,
-    "delays": 4761,
+    "total_events": 4879,
+    "delays": 4879,
     "cancellations": 0,
     "severity_avg": 2.4,
-    "days_active": 18,
-    "friction_score": 10436.0
+    "days_active": 19,
+    "friction_score": 10696.0
   },
   {
     "line": "17360_700",
-    "total_events": 4337,
-    "delays": 4337,
+    "total_events": 4465,
+    "delays": 4465,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 9191.5
+    "days_active": 17,
+    "friction_score": 9476.0
   },
   {
     "line": "17303_700",
-    "total_events": 4249,
-    "delays": 4249,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 8620.0
-  },
-  {
-    "line": "17463_900",
-    "total_events": 3990,
-    "delays": 3990,
+    "total_events": 4400,
+    "delays": 4400,
     "cancellations": 0,
     "severity_avg": 2.1,
     "days_active": 17,
-    "friction_score": 8128.5
+    "friction_score": 8922.0
+  },
+  {
+    "line": "17463_900",
+    "total_events": 4077,
+    "delays": 4077,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 18,
+    "friction_score": 8302.5
   },
   {
     "line": "24045_100",
-    "total_events": 3854,
-    "delays": 3854,
+    "total_events": 4071,
+    "delays": 4071,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 18,
-    "friction_score": 8329.5
+    "days_active": 19,
+    "friction_score": 8815.5
   },
   {
     "line": "23945_100",
-    "total_events": 3179,
-    "delays": 3179,
+    "total_events": 3315,
+    "delays": 3315,
     "cancellations": 0,
     "severity_avg": 2.4,
-    "days_active": 18,
-    "friction_score": 7015.5
-  },
-  {
-    "line": "17458_700",
-    "total_events": 2991,
-    "delays": 2991,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 6267.5
+    "days_active": 19,
+    "friction_score": 7335.0
   },
   {
     "line": "17441_700",
+    "total_events": 3198,
+    "delays": 3198,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 17,
+    "friction_score": 6765.5
+  },
+  {
+    "line": "17458_700",
+    "total_events": 3063,
+    "delays": 3063,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 17,
+    "friction_score": 6411.5
+  },
+  {
+    "line": "17459_900",
+    "total_events": 3023,
+    "delays": 3023,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 18,
+    "friction_score": 6214.0
+  },
+  {
+    "line": "5249_700",
     "total_events": 2977,
     "delays": 2977,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 6299.0
+    "days_active": 19,
+    "friction_score": 6188.5
   },
   {
     "line": "17448_700",
-    "total_events": 2871,
-    "delays": 2871,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 5828.5
-  },
-  {
-    "line": "17459_900",
-    "total_events": 2865,
-    "delays": 2865,
+    "total_events": 2957,
+    "delays": 2957,
     "cancellations": 0,
     "severity_avg": 2.1,
     "days_active": 17,
-    "friction_score": 5898.0
+    "friction_score": 6000.5
   },
   {
     "line": "17342_700",
-    "total_events": 2811,
-    "delays": 2811,
+    "total_events": 2934,
+    "delays": 2934,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 5909.5
+    "days_active": 17,
+    "friction_score": 6155.5
+  },
+  {
+    "line": "17335_700",
+    "total_events": 2890,
+    "delays": 2890,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 17,
+    "friction_score": 6042.5
   },
   {
     "line": "17291_700",
@@ -153,40 +171,31 @@
     "friction_score": 6716.5
   },
   {
-    "line": "5249_700",
-    "total_events": 2786,
-    "delays": 2786,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 18,
-    "friction_score": 5788.0
-  },
-  {
     "line": "17456_700",
-    "total_events": 2692,
-    "delays": 2692,
+    "total_events": 2805,
+    "delays": 2805,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 5678.0
+    "days_active": 17,
+    "friction_score": 5918.0
   },
   {
-    "line": "17335_700",
-    "total_events": 2687,
-    "delays": 2687,
+    "line": "17465_700",
+    "total_events": 2778,
+    "delays": 2778,
     "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 5575.5
+    "severity_avg": 2.2,
+    "days_active": 17,
+    "friction_score": 5870.0
   },
   {
     "line": "17290_700",
-    "total_events": 2633,
-    "delays": 2633,
+    "total_events": 2729,
+    "delays": 2729,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 5510.5
+    "days_active": 17,
+    "friction_score": 5702.5
   },
   {
     "line": "17443_700",
@@ -198,40 +207,40 @@
     "friction_score": 6038.5
   },
   {
-    "line": "17465_700",
-    "total_events": 2571,
-    "delays": 2571,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 5406.5
-  },
-  {
     "line": "17316_700",
-    "total_events": 2485,
-    "delays": 2485,
+    "total_events": 2548,
+    "delays": 2548,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 5271.0
+    "days_active": 17,
+    "friction_score": 5397.0
   },
   {
     "line": "17347_700",
-    "total_events": 2395,
-    "delays": 2395,
+    "total_events": 2534,
+    "delays": 2534,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 4990.5
+    "days_active": 17,
+    "friction_score": 5291.5
+  },
+  {
+    "line": "17306_700",
+    "total_events": 2443,
+    "delays": 2443,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 17,
+    "friction_score": 5132.5
   },
   {
     "line": "17318_700",
-    "total_events": 2331,
-    "delays": 2331,
+    "total_events": 2335,
+    "delays": 2335,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 16,
-    "friction_score": 5039.5
+    "days_active": 17,
+    "friction_score": 5047.5
   },
   {
     "line": "5256_3",
@@ -243,310 +252,310 @@
     "friction_score": 5543.0
   },
   {
-    "line": "17306_700",
-    "total_events": 2134,
-    "delays": 2134,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 4488.0
-  },
-  {
-    "line": "10148_109",
-    "total_events": 2123,
-    "delays": 2123,
+    "line": "17440_900",
+    "total_events": 2213,
+    "delays": 2213,
     "cancellations": 0,
     "severity_avg": 2.1,
     "days_active": 18,
-    "friction_score": 4329.5
+    "friction_score": 4591.0
   },
   {
-    "line": "17440_900",
-    "total_events": 2111,
-    "delays": 2111,
+    "line": "10148_109",
+    "total_events": 2196,
+    "delays": 2196,
     "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 17,
-    "friction_score": 4386.0
+    "severity_avg": 2.1,
+    "days_active": 18,
+    "friction_score": 4478.5
   },
   {
     "line": "19066_100",
-    "total_events": 2088,
-    "delays": 2088,
+    "total_events": 2093,
+    "delays": 2093,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 17,
-    "friction_score": 4442.0
-  },
-  {
-    "line": "10157_109",
-    "total_events": 2046,
-    "delays": 2046,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 17,
-    "friction_score": 4223.5
+    "days_active": 18,
+    "friction_score": 4452.0
   },
   {
     "line": "17292_700",
+    "total_events": 2085,
+    "delays": 2085,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 17,
+    "friction_score": 4292.0
+  },
+  {
+    "line": "10157_109",
+    "total_events": 2055,
+    "delays": 2055,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 18,
+    "friction_score": 4241.5
+  },
+  {
+    "line": "17515_400",
+    "total_events": 2041,
+    "delays": 2041,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 18,
+    "friction_score": 4202.0
+  },
+  {
+    "line": "17442_900",
     "total_events": 1997,
     "delays": 1997,
     "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 4116.0
+    "days_active": 19,
+    "friction_score": 4100.5
   },
   {
     "line": "17533_700",
-    "total_events": 1910,
-    "delays": 1910,
+    "total_events": 1961,
+    "delays": 1961,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 4053.0
-  },
-  {
-    "line": "17455_700",
-    "total_events": 1824,
-    "delays": 1824,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 3785.0
-  },
-  {
-    "line": "17515_400",
-    "total_events": 1820,
-    "delays": 1820,
-    "cancellations": 0,
-    "severity_avg": 2.1,
     "days_active": 17,
-    "friction_score": 3748.0
-  },
-  {
-    "line": "17442_900",
-    "total_events": 1784,
-    "delays": 1784,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 18,
-    "friction_score": 3659.5
-  },
-  {
-    "line": "10162_109",
-    "total_events": 1769,
-    "delays": 1769,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 18,
-    "friction_score": 3665.0
+    "friction_score": 4155.0
   },
   {
     "line": "17334_700",
-    "total_events": 1754,
-    "delays": 1754,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 3687.5
-  },
-  {
-    "line": "17304_700",
-    "total_events": 1723,
-    "delays": 1723,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 3567.5
-  },
-  {
-    "line": "4242_700",
-    "total_events": 1710,
-    "delays": 1710,
+    "total_events": 1946,
+    "delays": 1946,
     "cancellations": 0,
     "severity_avg": 2.2,
     "days_active": 17,
-    "friction_score": 3560.0
+    "friction_score": 4094.5
   },
   {
-    "line": "28259_100",
-    "total_events": 1678,
-    "delays": 1678,
+    "line": "17304_700",
+    "total_events": 1905,
+    "delays": 1905,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 18,
-    "friction_score": 3569.0
+    "severity_avg": 2.2,
+    "days_active": 17,
+    "friction_score": 4002.5
+  },
+  {
+    "line": "10162_109",
+    "total_events": 1854,
+    "delays": 1854,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 19,
+    "friction_score": 3837.0
+  },
+  {
+    "line": "17455_700",
+    "total_events": 1846,
+    "delays": 1846,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 17,
+    "friction_score": 3829.0
   },
   {
     "line": "10170_109",
-    "total_events": 1669,
-    "delays": 1669,
+    "total_events": 1776,
+    "delays": 1776,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 19,
+    "friction_score": 3749.0
+  },
+  {
+    "line": "4242_700",
+    "total_events": 1763,
+    "delays": 1763,
     "cancellations": 0,
     "severity_avg": 2.2,
     "days_active": 18,
-    "friction_score": 3535.0
+    "friction_score": 3666.0
   },
   {
     "line": "17339_700",
-    "total_events": 1648,
-    "delays": 1648,
+    "total_events": 1743,
+    "delays": 1743,
     "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 3412.5
+    "severity_avg": 2.2,
+    "days_active": 17,
+    "friction_score": 3618.0
   },
   {
     "line": "24050_100",
-    "total_events": 1625,
-    "delays": 1625,
+    "total_events": 1718,
+    "delays": 1718,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 18,
-    "friction_score": 3466.0
+    "days_active": 19,
+    "friction_score": 3667.0
   },
   {
-    "line": "17305_700",
-    "total_events": 1575,
-    "delays": 1575,
+    "line": "28259_100",
+    "total_events": 1702,
+    "delays": 1702,
     "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 15,
-    "friction_score": 3275.5
+    "severity_avg": 2.3,
+    "days_active": 19,
+    "friction_score": 3623.5
   },
   {
     "line": "17381_700",
-    "total_events": 1573,
-    "delays": 1573,
+    "total_events": 1693,
+    "delays": 1693,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 16,
-    "friction_score": 3363.0
+    "days_active": 17,
+    "friction_score": 3614.5
   },
   {
-    "line": "17417_900",
-    "total_events": 1545,
-    "delays": 1545,
+    "line": "17305_700",
+    "total_events": 1627,
+    "delays": 1627,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 15,
-    "friction_score": 3225.0
+    "days_active": 16,
+    "friction_score": 3379.5
   },
   {
     "line": "19058_100",
-    "total_events": 1525,
-    "delays": 1525,
+    "total_events": 1607,
+    "delays": 1607,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 18,
-    "friction_score": 3269.0
+    "days_active": 19,
+    "friction_score": 3459.0
+  },
+  {
+    "line": "17417_900",
+    "total_events": 1590,
+    "delays": 1590,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 16,
+    "friction_score": 3315.0
   },
   {
     "line": "17530_700",
-    "total_events": 1503,
-    "delays": 1503,
+    "total_events": 1584,
+    "delays": 1584,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 15,
-    "friction_score": 3173.0
+    "days_active": 16,
+    "friction_score": 3335.0
   },
   {
     "line": "17457_700",
-    "total_events": 1487,
-    "delays": 1487,
+    "total_events": 1583,
+    "delays": 1583,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 16,
-    "friction_score": 3160.5
+    "days_active": 17,
+    "friction_score": 3369.0
   },
   {
     "line": "17529_700",
-    "total_events": 1431,
-    "delays": 1431,
+    "total_events": 1523,
+    "delays": 1523,
     "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 2965.0
+    "days_active": 17,
+    "friction_score": 3156.5
   },
   {
     "line": "17355_700",
-    "total_events": 1373,
-    "delays": 1373,
+    "total_events": 1450,
+    "delays": 1450,
     "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 2790.5
+    "days_active": 17,
+    "friction_score": 2944.5
   },
   {
     "line": "17349_700",
-    "total_events": 1327,
-    "delays": 1327,
+    "total_events": 1418,
+    "delays": 1418,
     "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 2693.0
+    "days_active": 17,
+    "friction_score": 2875.0
   },
   {
     "line": "22609_700",
-    "total_events": 1318,
-    "delays": 1318,
+    "total_events": 1344,
+    "delays": 1344,
     "cancellations": 0,
     "severity_avg": 2.4,
-    "days_active": 18,
-    "friction_score": 2881.0
+    "days_active": 19,
+    "friction_score": 2933.0
+  },
+  {
+    "line": "17297_700",
+    "total_events": 1307,
+    "delays": 1307,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 16,
+    "friction_score": 2677.5
   },
   {
     "line": "17302_700",
+    "total_events": 1292,
+    "delays": 1292,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 17,
+    "friction_score": 2627.5
+  },
+  {
+    "line": "17350_700",
     "total_events": 1289,
     "delays": 1289,
     "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 2621.5
-  },
-  {
-    "line": "17350_700",
-    "total_events": 1262,
-    "delays": 1262,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 2597.0
+    "days_active": 17,
+    "friction_score": 2651.0
   },
   {
     "line": "10143_109",
-    "total_events": 1253,
-    "delays": 1253,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 2554.0
-  },
-  {
-    "line": "17369_700",
-    "total_events": 1252,
-    "delays": 1252,
-    "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 14,
-    "friction_score": 2823.0
-  },
-  {
-    "line": "17297_700",
-    "total_events": 1249,
-    "delays": 1249,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 15,
-    "friction_score": 2561.5
-  },
-  {
-    "line": "10223_109",
-    "total_events": 1229,
-    "delays": 1229,
+    "total_events": 1275,
+    "delays": 1275,
     "cancellations": 0,
     "severity_avg": 2.1,
     "days_active": 18,
-    "friction_score": 2499.5
+    "friction_score": 2598.0
+  },
+  {
+    "line": "17369_700",
+    "total_events": 1273,
+    "delays": 1273,
+    "cancellations": 0,
+    "severity_avg": 2.5,
+    "days_active": 15,
+    "friction_score": 2865.0
+  },
+  {
+    "line": "10223_109",
+    "total_events": 1240,
+    "delays": 1240,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 19,
+    "friction_score": 2521.5
+  },
+  {
+    "line": "17538_700",
+    "total_events": 1228,
+    "delays": 1228,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 16,
+    "friction_score": 2514.5
   },
   {
     "line": "10163_109",
@@ -558,6 +567,15 @@
     "friction_score": 2526.0
   },
   {
+    "line": "17319_700",
+    "total_events": 1188,
+    "delays": 1188,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 17,
+    "friction_score": 2427.5
+  },
+  {
     "line": "17378_700",
     "total_events": 1176,
     "delays": 1176,
@@ -565,6 +583,15 @@
     "severity_avg": 2.3,
     "days_active": 15,
     "friction_score": 2516.0
+  },
+  {
+    "line": "18931_700",
+    "total_events": 1171,
+    "delays": 1171,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 19,
+    "friction_score": 2437.0
   },
   {
     "line": "4287_700",
@@ -576,85 +603,94 @@
     "friction_score": 2398.5
   },
   {
-    "line": "17538_700",
-    "total_events": 1134,
-    "delays": 1134,
+    "line": "17325_700",
+    "total_events": 1152,
+    "delays": 1152,
     "cancellations": 0,
     "severity_avg": 2.1,
     "days_active": 15,
-    "friction_score": 2318.5
+    "friction_score": 2353.0
   },
   {
     "line": "17445_700",
-    "total_events": 1127,
-    "delays": 1127,
+    "total_events": 1152,
+    "delays": 1152,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 15,
-    "friction_score": 2356.0
-  },
-  {
-    "line": "18931_700",
-    "total_events": 1114,
-    "delays": 1114,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 18,
-    "friction_score": 2323.0
+    "days_active": 16,
+    "friction_score": 2417.5
   },
   {
     "line": "17362_700",
-    "total_events": 1112,
-    "delays": 1112,
+    "total_events": 1121,
+    "delays": 1121,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 15,
-    "friction_score": 2386.5
-  },
-  {
-    "line": "17319_700",
-    "total_events": 1109,
-    "delays": 1109,
-    "cancellations": 0,
-    "severity_avg": 2.1,
     "days_active": 16,
-    "friction_score": 2269.5
-  },
-  {
-    "line": "17330_700",
-    "total_events": 1064,
-    "delays": 1064,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 2177.0
-  },
-  {
-    "line": "17325_700",
-    "total_events": 1058,
-    "delays": 1058,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 14,
-    "friction_score": 2159.5
-  },
-  {
-    "line": "17497_700",
-    "total_events": 1034,
-    "delays": 1034,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 14,
-    "friction_score": 2068.5
+    "friction_score": 2404.5
   },
   {
     "line": "18898_700",
-    "total_events": 1020,
-    "delays": 1020,
+    "total_events": 1101,
+    "delays": 1101,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 15,
-    "friction_score": 2195.5
+    "days_active": 16,
+    "friction_score": 2357.5
+  },
+  {
+    "line": "17330_700",
+    "total_events": 1077,
+    "delays": 1077,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 17,
+    "friction_score": 2203.0
+  },
+  {
+    "line": "17497_700",
+    "total_events": 1070,
+    "delays": 1070,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 14,
+    "friction_score": 2140.5
+  },
+  {
+    "line": "17300_700",
+    "total_events": 1030,
+    "delays": 1030,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 14,
+    "friction_score": 2186.0
+  },
+  {
+    "line": "17341_700",
+    "total_events": 1001,
+    "delays": 1001,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 17,
+    "friction_score": 2042.5
+  },
+  {
+    "line": "17514_400",
+    "total_events": 999,
+    "delays": 999,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 18,
+    "friction_score": 2034.0
+  },
+  {
+    "line": "17320_700",
+    "total_events": 997,
+    "delays": 997,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 16,
+    "friction_score": 2015.5
   },
   {
     "line": "26781_700",
@@ -666,40 +702,49 @@
     "friction_score": 2414.0
   },
   {
-    "line": "17514_400",
-    "total_events": 992,
-    "delays": 992,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 17,
-    "friction_score": 2020.0
-  },
-  {
-    "line": "17320_700",
-    "total_events": 968,
-    "delays": 968,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 15,
-    "friction_score": 1957.5
-  },
-  {
-    "line": "17341_700",
-    "total_events": 965,
-    "delays": 965,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 1970.5
-  },
-  {
-    "line": "17300_700",
-    "total_events": 955,
-    "delays": 955,
+    "line": "17317_700",
+    "total_events": 986,
+    "delays": 986,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 13,
-    "friction_score": 2011.0
+    "days_active": 16,
+    "friction_score": 2062.5
+  },
+  {
+    "line": "22625_700",
+    "total_events": 981,
+    "delays": 981,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 19,
+    "friction_score": 2035.5
+  },
+  {
+    "line": "17377_700",
+    "total_events": 966,
+    "delays": 966,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 15,
+    "friction_score": 2017.0
+  },
+  {
+    "line": "17374_900",
+    "total_events": 964,
+    "delays": 964,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 18,
+    "friction_score": 1960.5
+  },
+  {
+    "line": "17444_900",
+    "total_events": 960,
+    "delays": 960,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 18,
+    "friction_score": 1943.0
   },
   {
     "line": "17372_700",
@@ -711,166 +756,157 @@
     "friction_score": 1938.5
   },
   {
-    "line": "17377_700",
-    "total_events": 944,
-    "delays": 944,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 14,
-    "friction_score": 1973.0
-  },
-  {
     "line": "10158_109",
-    "total_events": 937,
-    "delays": 937,
+    "total_events": 941,
+    "delays": 941,
     "cancellations": 0,
     "severity_avg": 2.3,
     "days_active": 17,
-    "friction_score": 2006.0
-  },
-  {
-    "line": "10141_109",
-    "total_events": 923,
-    "delays": 923,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 1886.5
-  },
-  {
-    "line": "17317_700",
-    "total_events": 919,
-    "delays": 919,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 15,
-    "friction_score": 1927.5
-  },
-  {
-    "line": "17444_900",
-    "total_events": 911,
-    "delays": 911,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 17,
-    "friction_score": 1833.5
-  },
-  {
-    "line": "17289_700",
-    "total_events": 903,
-    "delays": 903,
-    "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 15,
-    "friction_score": 2037.0
-  },
-  {
-    "line": "22625_700",
-    "total_events": 862,
-    "delays": 862,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 18,
-    "friction_score": 1783.5
-  },
-  {
-    "line": "17366_700",
-    "total_events": 862,
-    "delays": 862,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 15,
-    "friction_score": 1793.5
-  },
-  {
-    "line": "1548_700",
-    "total_events": 861,
-    "delays": 861,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 17,
-    "friction_score": 1746.0
+    "friction_score": 2014.0
   },
   {
     "line": "17299_700",
-    "total_events": 857,
-    "delays": 857,
+    "total_events": 937,
+    "delays": 937,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 1809.0
+    "days_active": 17,
+    "friction_score": 1981.0
   },
   {
-    "line": "17374_900",
-    "total_events": 849,
-    "delays": 849,
+    "line": "10141_109",
+    "total_events": 930,
+    "delays": 930,
     "cancellations": 0,
     "severity_avg": 2.1,
     "days_active": 17,
-    "friction_score": 1730.5
+    "friction_score": 1900.5
   },
   {
-    "line": "18909_700",
-    "total_events": 830,
-    "delays": 830,
+    "line": "17461_700",
+    "total_events": 925,
+    "delays": 925,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 16,
-    "friction_score": 1771.5
+    "days_active": 17,
+    "friction_score": 1970.0
   },
   {
     "line": "17328_700",
-    "total_events": 813,
-    "delays": 813,
+    "total_events": 910,
+    "delays": 910,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 12,
-    "friction_score": 1696.0
+    "days_active": 13,
+    "friction_score": 1907.0
+  },
+  {
+    "line": "17289_700",
+    "total_events": 906,
+    "delays": 906,
+    "cancellations": 0,
+    "severity_avg": 2.5,
+    "days_active": 16,
+    "friction_score": 2043.0
+  },
+  {
+    "line": "17366_700",
+    "total_events": 899,
+    "delays": 899,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 16,
+    "friction_score": 1876.5
+  },
+  {
+    "line": "18909_700",
+    "total_events": 879,
+    "delays": 879,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 17,
+    "friction_score": 1869.5
+  },
+  {
+    "line": "1548_700",
+    "total_events": 877,
+    "delays": 877,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 18,
+    "friction_score": 1778.5
+  },
+  {
+    "line": "10226_109",
+    "total_events": 832,
+    "delays": 832,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 18,
+    "friction_score": 1678.0
   },
   {
     "line": "17380_700",
+    "total_events": 819,
+    "delays": 819,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 11,
+    "friction_score": 1752.5
+  },
+  {
+    "line": "4281_700",
+    "total_events": 818,
+    "delays": 818,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 17,
+    "friction_score": 1682.5
+  },
+  {
+    "line": "17340_700",
+    "total_events": 817,
+    "delays": 817,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 14,
+    "friction_score": 1676.5
+  },
+  {
+    "line": "4265_700",
+    "total_events": 816,
+    "delays": 816,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 16,
+    "friction_score": 1646.5
+  },
+  {
+    "line": "17438_900",
     "total_events": 812,
     "delays": 812,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 10,
-    "friction_score": 1738.5
-  },
-  {
-    "line": "17438_900",
-    "total_events": 809,
-    "delays": 809,
-    "cancellations": 0,
-    "severity_avg": 2.3,
     "days_active": 17,
-    "friction_score": 1730.0
-  },
-  {
-    "line": "4265_700",
-    "total_events": 794,
-    "delays": 794,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 15,
-    "friction_score": 1602.5
-  },
-  {
-    "line": "17461_700",
-    "total_events": 794,
-    "delays": 794,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 1672.0
+    "friction_score": 1736.0
   },
   {
     "line": "17367_700",
-    "total_events": 792,
-    "delays": 792,
+    "total_events": 804,
+    "delays": 804,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 16,
-    "friction_score": 1661.5
+    "days_active": 17,
+    "friction_score": 1685.5
+  },
+  {
+    "line": "17363_700",
+    "total_events": 799,
+    "delays": 799,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 15,
+    "friction_score": 1673.0
   },
   {
     "line": "10167_109",
@@ -882,15 +918,6 @@
     "friction_score": 1586.5
   },
   {
-    "line": "17363_700",
-    "total_events": 780,
-    "delays": 780,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 14,
-    "friction_score": 1635.0
-  },
-  {
     "line": "17353_700",
     "total_events": 771,
     "delays": 771,
@@ -900,22 +927,22 @@
     "friction_score": 1610.5
   },
   {
-    "line": "17340_700",
-    "total_events": 762,
-    "delays": 762,
+    "line": "5238_700",
+    "total_events": 754,
+    "delays": 754,
     "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 13,
-    "friction_score": 1566.5
+    "severity_avg": 2.3,
+    "days_active": 17,
+    "friction_score": 1635.5
   },
   {
-    "line": "10226_109",
-    "total_events": 758,
-    "delays": 758,
+    "line": "17327_700",
+    "total_events": 753,
+    "delays": 753,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 17,
-    "friction_score": 1528.0
+    "severity_avg": 2.3,
+    "days_active": 13,
+    "friction_score": 1615.0
   },
   {
     "line": "24827_700",
@@ -928,39 +955,30 @@
   },
   {
     "line": "17523_400",
-    "total_events": 749,
-    "delays": 749,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 15,
-    "friction_score": 1529.0
-  },
-  {
-    "line": "4281_700",
-    "total_events": 744,
-    "delays": 744,
+    "total_events": 750,
+    "delays": 750,
     "cancellations": 0,
     "severity_avg": 2.1,
     "days_active": 16,
-    "friction_score": 1507.5
+    "friction_score": 1531.0
   },
   {
     "line": "17518_400",
-    "total_events": 738,
-    "delays": 738,
+    "total_events": 747,
+    "delays": 747,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 14,
-    "friction_score": 1574.5
+    "days_active": 15,
+    "friction_score": 1592.5
   },
   {
-    "line": "5238_700",
-    "total_events": 737,
-    "delays": 737,
+    "line": "22754_700",
+    "total_events": 732,
+    "delays": 732,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 16,
-    "friction_score": 1601.5
+    "severity_avg": 2.2,
+    "days_active": 15,
+    "friction_score": 1553.0
   },
   {
     "line": "17422_900",
@@ -972,13 +990,40 @@
     "friction_score": 1713.0
   },
   {
-    "line": "22754_700",
+    "line": "17452_900",
+    "total_events": 722,
+    "delays": 722,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 18,
+    "friction_score": 1561.5
+  },
+  {
+    "line": "17311_700",
     "total_events": 719,
     "delays": 719,
     "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 14,
-    "friction_score": 1527.0
+    "severity_avg": 2.1,
+    "days_active": 15,
+    "friction_score": 1456.5
+  },
+  {
+    "line": "18939_700",
+    "total_events": 715,
+    "delays": 715,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 16,
+    "friction_score": 1548.0
+  },
+  {
+    "line": "5235_700",
+    "total_events": 702,
+    "delays": 702,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 18,
+    "friction_score": 1428.0
   },
   {
     "line": "21284_700",
@@ -990,6 +1035,15 @@
     "friction_score": 1501.0
   },
   {
+    "line": "10145_109",
+    "total_events": 698,
+    "delays": 698,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 17,
+    "friction_score": 1414.0
+  },
+  {
     "line": "19155_109",
     "total_events": 697,
     "delays": 697,
@@ -999,58 +1053,40 @@
     "friction_score": 1410.0
   },
   {
-    "line": "10145_109",
-    "total_events": 690,
-    "delays": 690,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 1398.0
-  },
-  {
-    "line": "17311_700",
+    "line": "10155_109",
     "total_events": 684,
     "delays": 684,
     "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 14,
-    "friction_score": 1386.5
+    "days_active": 16,
+    "friction_score": 1397.5
   },
   {
-    "line": "18939_700",
-    "total_events": 677,
-    "delays": 677,
+    "line": "17451_700",
+    "total_events": 683,
+    "delays": 683,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 15,
-    "friction_score": 1453.0
-  },
-  {
-    "line": "5235_700",
-    "total_events": 673,
-    "delays": 673,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 17,
-    "friction_score": 1370.0
-  },
-  {
-    "line": "10155_109",
-    "total_events": 671,
-    "delays": 671,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 15,
-    "friction_score": 1365.0
+    "severity_avg": 2.0,
+    "days_active": 16,
+    "friction_score": 1380.0
   },
   {
     "line": "17333_700",
-    "total_events": 668,
-    "delays": 668,
+    "total_events": 682,
+    "delays": 682,
     "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 16,
-    "friction_score": 1453.5
+    "severity_avg": 2.3,
+    "days_active": 17,
+    "friction_score": 1481.5
+  },
+  {
+    "line": "17460_900",
+    "total_events": 666,
+    "delays": 666,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 12,
+    "friction_score": 1399.5
   },
   {
     "line": "17446_900",
@@ -1062,13 +1098,13 @@
     "friction_score": 1450.0
   },
   {
-    "line": "17451_700",
-    "total_events": 654,
-    "delays": 654,
+    "line": "4259_700",
+    "total_events": 657,
+    "delays": 657,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 15,
-    "friction_score": 1322.0
+    "severity_avg": 2.1,
+    "days_active": 17,
+    "friction_score": 1359.0
   },
   {
     "line": "5381_700",
@@ -1080,40 +1116,31 @@
     "friction_score": 1396.5
   },
   {
-    "line": "17452_900",
+    "line": "17361_700",
+    "total_events": 642,
+    "delays": 642,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 14,
+    "friction_score": 1375.5
+  },
+  {
+    "line": "24845_700",
     "total_events": 634,
     "delays": 634,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 17,
-    "friction_score": 1370.0
-  },
-  {
-    "line": "4259_700",
-    "total_events": 632,
-    "delays": 632,
-    "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 1309.0
+    "days_active": 17,
+    "friction_score": 1285.5
   },
   {
     "line": "17314_700",
-    "total_events": 618,
-    "delays": 618,
+    "total_events": 633,
+    "delays": 633,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 13,
-    "friction_score": 1284.0
-  },
-  {
-    "line": "17327_700",
-    "total_events": 605,
-    "delays": 605,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 12,
-    "friction_score": 1260.5
+    "days_active": 14,
+    "friction_score": 1314.0
   },
   {
     "line": "15274_700",
@@ -1125,67 +1152,94 @@
     "friction_score": 1299.5
   },
   {
-    "line": "24845_700",
-    "total_events": 600,
-    "delays": 600,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 1217.5
-  },
-  {
-    "line": "17361_700",
-    "total_events": 575,
-    "delays": 575,
-    "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 13,
-    "friction_score": 1241.5
-  },
-  {
     "line": "17494_700",
-    "total_events": 575,
-    "delays": 575,
+    "total_events": 584,
+    "delays": 584,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 15,
-    "friction_score": 1201.5
+    "days_active": 16,
+    "friction_score": 1219.5
   },
   {
     "line": "24759_700",
-    "total_events": 562,
-    "delays": 562,
-    "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 16,
-    "friction_score": 1221.5
-  },
-  {
-    "line": "17310_700",
-    "total_events": 549,
-    "delays": 549,
+    "total_events": 581,
+    "delays": 581,
     "cancellations": 0,
     "severity_avg": 2.4,
-    "days_active": 15,
-    "friction_score": 1202.5
+    "days_active": 17,
+    "friction_score": 1268.5
   },
   {
-    "line": "17460_900",
-    "total_events": 540,
-    "delays": 540,
+    "line": "27969_700",
+    "total_events": 581,
+    "delays": 581,
     "cancellations": 0,
-    "severity_avg": 2.2,
+    "severity_avg": 2.6,
     "days_active": 11,
-    "friction_score": 1147.5
+    "friction_score": 1331.5
   },
   {
     "line": "17301_900",
-    "total_events": 536,
-    "delays": 536,
+    "total_events": 555,
+    "delays": 555,
     "cancellations": 0,
     "severity_avg": 2.2,
     "days_active": 17,
-    "friction_score": 1116.5
+    "friction_score": 1154.5
+  },
+  {
+    "line": "17398_700",
+    "total_events": 555,
+    "delays": 555,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 15,
+    "friction_score": 1171.5
+  },
+  {
+    "line": "17310_700",
+    "total_events": 553,
+    "delays": 553,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 16,
+    "friction_score": 1210.5
+  },
+  {
+    "line": "24042_100",
+    "total_events": 545,
+    "delays": 545,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 16,
+    "friction_score": 1112.5
+  },
+  {
+    "line": "1923_700",
+    "total_events": 541,
+    "delays": 541,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 14,
+    "friction_score": 1193.5
+  },
+  {
+    "line": "17338_900",
+    "total_events": 537,
+    "delays": 537,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 12,
+    "friction_score": 1125.5
+  },
+  {
+    "line": "17413_700",
+    "total_events": 534,
+    "delays": 534,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 15,
+    "friction_score": 1184.5
   },
   {
     "line": "1938_700",
@@ -1206,31 +1260,22 @@
     "friction_score": 1129.5
   },
   {
-    "line": "27969_700",
-    "total_events": 529,
-    "delays": 529,
-    "cancellations": 0,
-    "severity_avg": 2.6,
-    "days_active": 10,
-    "friction_score": 1207.0
-  },
-  {
-    "line": "24042_100",
-    "total_events": 527,
-    "delays": 527,
+    "line": "18945_700",
+    "total_events": 528,
+    "delays": 528,
     "cancellations": 0,
     "severity_avg": 2.1,
     "days_active": 16,
-    "friction_score": 1076.5
+    "friction_score": 1077.5
   },
   {
     "line": "17532_700",
-    "total_events": 527,
-    "delays": 527,
+    "total_events": 528,
+    "delays": 528,
     "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 15,
-    "friction_score": 1070.5
+    "days_active": 16,
+    "friction_score": 1072.5
   },
   {
     "line": "17521_400",
@@ -1260,13 +1305,13 @@
     "friction_score": 1059.0
   },
   {
-    "line": "18945_700",
+    "line": "18920_700",
     "total_events": 505,
     "delays": 505,
     "cancellations": 0,
     "severity_avg": 2.1,
     "days_active": 15,
-    "friction_score": 1031.0
+    "friction_score": 1023.5
   },
   {
     "line": "17359_700",
@@ -1278,49 +1323,40 @@
     "friction_score": 1065.5
   },
   {
-    "line": "18920_700",
-    "total_events": 502,
-    "delays": 502,
+    "line": "17508_700",
+    "total_events": 504,
+    "delays": 504,
     "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 14,
-    "friction_score": 1017.5
+    "days_active": 16,
+    "friction_score": 1027.5
   },
   {
-    "line": "17398_700",
-    "total_events": 502,
-    "delays": 502,
+    "line": "17454_700",
+    "total_events": 500,
+    "delays": 500,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 17,
+    "friction_score": 1082.0
+  },
+  {
+    "line": "5236_700",
+    "total_events": 497,
+    "delays": 497,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 14,
-    "friction_score": 1063.5
-  },
-  {
-    "line": "17338_900",
-    "total_events": 499,
-    "delays": 499,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 11,
-    "friction_score": 1049.5
-  },
-  {
-    "line": "1923_700",
-    "total_events": 495,
-    "delays": 495,
-    "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 13,
-    "friction_score": 1087.5
+    "days_active": 16,
+    "friction_score": 1032.5
   },
   {
     "line": "24043_100",
-    "total_events": 492,
-    "delays": 492,
+    "total_events": 494,
+    "delays": 494,
     "cancellations": 0,
     "severity_avg": 2.4,
-    "days_active": 14,
-    "friction_score": 1075.0
+    "days_active": 15,
+    "friction_score": 1079.0
   },
   {
     "line": "11362_700",
@@ -1332,6 +1368,33 @@
     "friction_score": 1058.0
   },
   {
+    "line": "17471_700",
+    "total_events": 487,
+    "delays": 487,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 7,
+    "friction_score": 1068.0
+  },
+  {
+    "line": "23414_700",
+    "total_events": 485,
+    "delays": 485,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 12,
+    "friction_score": 1069.0
+  },
+  {
+    "line": "17535_700",
+    "total_events": 481,
+    "delays": 481,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 17,
+    "friction_score": 987.5
+  },
+  {
     "line": "18904_700",
     "total_events": 479,
     "delays": 479,
@@ -1339,15 +1402,6 @@
     "severity_avg": 2.3,
     "days_active": 5,
     "friction_score": 1026.5
-  },
-  {
-    "line": "17413_700",
-    "total_events": 477,
-    "delays": 477,
-    "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 14,
-    "friction_score": 1058.0
   },
   {
     "line": "17356_700",
@@ -1359,6 +1413,24 @@
     "friction_score": 1009.0
   },
   {
+    "line": "5233_700",
+    "total_events": 473,
+    "delays": 473,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 12,
+    "friction_score": 1004.0
+  },
+  {
+    "line": "17447_700",
+    "total_events": 469,
+    "delays": 469,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 15,
+    "friction_score": 968.0
+  },
+  {
     "line": "26783_106",
     "total_events": 467,
     "delays": 467,
@@ -1368,49 +1440,40 @@
     "friction_score": 970.0
   },
   {
-    "line": "17535_700",
-    "total_events": 464,
-    "delays": 464,
+    "line": "17329_700",
+    "total_events": 467,
+    "delays": 467,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 16,
+    "friction_score": 940.0
+  },
+  {
+    "line": "17348_700",
+    "total_events": 462,
+    "delays": 462,
     "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 953.5
+    "days_active": 15,
+    "friction_score": 941.5
   },
   {
     "line": "19712_700",
-    "total_events": 458,
-    "delays": 458,
+    "total_events": 459,
+    "delays": 459,
     "cancellations": 0,
     "severity_avg": 2.5,
-    "days_active": 16,
-    "friction_score": 1020.0
-  },
-  {
-    "line": "23414_700",
-    "total_events": 457,
-    "delays": 457,
-    "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 11,
-    "friction_score": 1013.0
-  },
-  {
-    "line": "17454_700",
-    "total_events": 454,
-    "delays": 454,
-    "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 16,
-    "friction_score": 974.0
+    "days_active": 17,
+    "friction_score": 1022.0
   },
   {
     "line": "17354_700",
-    "total_events": 454,
-    "delays": 454,
+    "total_events": 455,
+    "delays": 455,
     "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 930.0
+    "days_active": 17,
+    "friction_score": 932.0
   },
   {
     "line": "19127_700",
@@ -1422,76 +1485,85 @@
     "friction_score": 906.0
   },
   {
-    "line": "17471_700",
-    "total_events": 449,
-    "delays": 449,
+    "line": "20930_700",
+    "total_events": 452,
+    "delays": 452,
     "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 6,
-    "friction_score": 992.0
+    "severity_avg": 2.1,
+    "days_active": 13,
+    "friction_score": 919.5
   },
   {
-    "line": "17329_700",
+    "line": "24841_700",
+    "total_events": 447,
+    "delays": 447,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 16,
+    "friction_score": 980.0
+  },
+  {
+    "line": "5368_700",
     "total_events": 442,
     "delays": 442,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 15,
+    "days_active": 14,
     "friction_score": 884.0
   },
   {
-    "line": "17447_700",
-    "total_events": 438,
-    "delays": 438,
+    "line": "17492_700",
+    "total_events": 440,
+    "delays": 440,
     "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 14,
-    "friction_score": 906.0
-  },
-  {
-    "line": "24841_700",
-    "total_events": 430,
-    "delays": 430,
-    "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 15,
-    "friction_score": 946.0
-  },
-  {
-    "line": "17348_700",
-    "total_events": 427,
-    "delays": 427,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 14,
-    "friction_score": 871.5
+    "severity_avg": 2.0,
+    "days_active": 12,
+    "friction_score": 880.0
   },
   {
     "line": "18937_700",
-    "total_events": 424,
-    "delays": 424,
+    "total_events": 435,
+    "delays": 435,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 15,
-    "friction_score": 888.5
+    "days_active": 16,
+    "friction_score": 910.5
   },
   {
-    "line": "20930_700",
-    "total_events": 413,
-    "delays": 413,
+    "line": "24840_700",
+    "total_events": 420,
+    "delays": 420,
     "cancellations": 0,
-    "severity_avg": 2.1,
+    "severity_avg": 2.0,
+    "days_active": 17,
+    "friction_score": 840.0
+  },
+  {
+    "line": "17375_700",
+    "total_events": 419,
+    "delays": 419,
+    "cancellations": 0,
+    "severity_avg": 2.6,
     "days_active": 12,
-    "friction_score": 841.5
+    "friction_score": 966.5
   },
   {
-    "line": "17508_700",
-    "total_events": 411,
-    "delays": 411,
+    "line": "18908_700",
+    "total_events": 418,
+    "delays": 418,
+    "cancellations": 0,
+    "severity_avg": 2.5,
+    "days_active": 12,
+    "friction_score": 934.5
+  },
+  {
+    "line": "17309_700",
+    "total_events": 415,
+    "delays": 415,
     "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 15,
-    "friction_score": 841.5
+    "days_active": 14,
+    "friction_score": 856.5
   },
   {
     "line": "10224_109",
@@ -1504,39 +1576,21 @@
   },
   {
     "line": "17412_700",
-    "total_events": 402,
-    "delays": 402,
+    "total_events": 403,
+    "delays": 403,
     "cancellations": 0,
     "severity_avg": 2.4,
-    "days_active": 13,
-    "friction_score": 884.0
+    "days_active": 14,
+    "friction_score": 886.0
   },
   {
-    "line": "5236_700",
-    "total_events": 400,
-    "delays": 400,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 15,
-    "friction_score": 821.5
-  },
-  {
-    "line": "24840_700",
-    "total_events": 399,
-    "delays": 399,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 16,
-    "friction_score": 798.0
-  },
-  {
-    "line": "17375_700",
+    "line": "4243_700",
     "total_events": 397,
     "delays": 397,
     "cancellations": 0,
-    "severity_avg": 2.6,
-    "days_active": 11,
-    "friction_score": 922.5
+    "severity_avg": 2.1,
+    "days_active": 18,
+    "friction_score": 818.5
   },
   {
     "line": "10149_109",
@@ -1548,22 +1602,31 @@
     "friction_score": 837.0
   },
   {
-    "line": "5233_700",
-    "total_events": 393,
-    "delays": 393,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 11,
-    "friction_score": 831.0
-  },
-  {
-    "line": "17309_700",
-    "total_events": 391,
-    "delays": 391,
+    "line": "4238_700",
+    "total_events": 392,
+    "delays": 392,
     "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 13,
-    "friction_score": 808.5
+    "days_active": 15,
+    "friction_score": 805.5
+  },
+  {
+    "line": "5379_700",
+    "total_events": 388,
+    "delays": 388,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 17,
+    "friction_score": 835.5
+  },
+  {
+    "line": "18922_700",
+    "total_events": 385,
+    "delays": 385,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 11,
+    "friction_score": 819.5
   },
   {
     "line": "5254_3",
@@ -1575,13 +1638,31 @@
     "friction_score": 941.0
   },
   {
-    "line": "5379_700",
+    "line": "5239_700",
+    "total_events": 383,
+    "delays": 383,
+    "cancellations": 0,
+    "severity_avg": 2.5,
+    "days_active": 6,
+    "friction_score": 853.0
+  },
+  {
+    "line": "17315_700",
     "total_events": 381,
     "delays": 381,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 16,
-    "friction_score": 821.5
+    "severity_avg": 2.4,
+    "days_active": 12,
+    "friction_score": 838.5
+  },
+  {
+    "line": "22240_109",
+    "total_events": 379,
+    "delays": 379,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 15,
+    "friction_score": 779.5
   },
   {
     "line": "17416_900",
@@ -1593,67 +1674,22 @@
     "friction_score": 788.0
   },
   {
-    "line": "18908_700",
-    "total_events": 372,
-    "delays": 372,
+    "line": "10676_700",
+    "total_events": 374,
+    "delays": 374,
     "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 11,
-    "friction_score": 842.5
+    "severity_avg": 2.0,
+    "days_active": 15,
+    "friction_score": 748.0
   },
   {
     "line": "1554_700",
-    "total_events": 368,
-    "delays": 368,
+    "total_events": 371,
+    "delays": 371,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 11,
-    "friction_score": 799.5
-  },
-  {
-    "line": "17315_700",
-    "total_events": 367,
-    "delays": 367,
-    "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 11,
-    "friction_score": 804.5
-  },
-  {
-    "line": "4243_700",
-    "total_events": 366,
-    "delays": 366,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 17,
-    "friction_score": 756.5
-  },
-  {
-    "line": "4238_700",
-    "total_events": 366,
-    "delays": 366,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 14,
-    "friction_score": 753.5
-  },
-  {
-    "line": "10676_700",
-    "total_events": 365,
-    "delays": 365,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 14,
-    "friction_score": 730.0
-  },
-  {
-    "line": "22240_109",
-    "total_events": 364,
-    "delays": 364,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 14,
-    "friction_score": 749.5
+    "days_active": 12,
+    "friction_score": 805.5
   },
   {
     "line": "5241_700",
@@ -1674,15 +1710,6 @@
     "friction_score": 747.5
   },
   {
-    "line": "18922_700",
-    "total_events": 358,
-    "delays": 358,
-    "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 10,
-    "friction_score": 765.5
-  },
-  {
     "line": "17999_900",
     "total_events": 357,
     "delays": 357,
@@ -1692,22 +1719,22 @@
     "friction_score": 732.0
   },
   {
-    "line": "5239_700",
-    "total_events": 353,
-    "delays": 353,
+    "line": "19126_700",
+    "total_events": 354,
+    "delays": 354,
     "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 5,
-    "friction_score": 778.0
+    "severity_avg": 2.1,
+    "days_active": 13,
+    "friction_score": 732.0
   },
   {
-    "line": "19126_700",
+    "line": "13105_700",
     "total_events": 352,
     "delays": 352,
     "cancellations": 0,
-    "severity_avg": 2.1,
+    "severity_avg": 2.0,
     "days_active": 12,
-    "friction_score": 728.0
+    "friction_score": 704.0
   },
   {
     "line": "17365_700",
@@ -1719,22 +1746,31 @@
     "friction_score": 729.0
   },
   {
-    "line": "5368_700",
-    "total_events": 350,
-    "delays": 350,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 13,
-    "friction_score": 700.0
-  },
-  {
     "line": "17512_400",
-    "total_events": 341,
-    "delays": 341,
+    "total_events": 351,
+    "delays": 351,
     "cancellations": 0,
     "severity_avg": 2.1,
+    "days_active": 16,
+    "friction_score": 717.0
+  },
+  {
+    "line": "18923_700",
+    "total_events": 348,
+    "delays": 348,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 11,
+    "friction_score": 739.5
+  },
+  {
+    "line": "17393_700",
+    "total_events": 346,
+    "delays": 346,
+    "cancellations": 0,
+    "severity_avg": 2.2,
     "days_active": 15,
-    "friction_score": 697.0
+    "friction_score": 722.5
   },
   {
     "line": "10142_109",
@@ -1747,66 +1783,66 @@
   },
   {
     "line": "18370_700",
-    "total_events": 337,
-    "delays": 337,
+    "total_events": 339,
+    "delays": 339,
     "cancellations": 0,
     "severity_avg": 2.4,
-    "days_active": 10,
-    "friction_score": 745.0
-  },
-  {
-    "line": "17393_700",
-    "total_events": 331,
-    "delays": 331,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 14,
-    "friction_score": 685.5
-  },
-  {
-    "line": "17368_700",
-    "total_events": 330,
-    "delays": 330,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 13,
-    "friction_score": 690.0
+    "days_active": 11,
+    "friction_score": 749.5
   },
   {
     "line": "24049_100",
-    "total_events": 327,
-    "delays": 327,
+    "total_events": 338,
+    "delays": 338,
     "cancellations": 0,
     "severity_avg": 2.4,
-    "days_active": 14,
-    "friction_score": 722.5
+    "days_active": 15,
+    "friction_score": 744.5
   },
   {
     "line": "17357_700",
-    "total_events": 322,
-    "delays": 322,
+    "total_events": 336,
+    "delays": 336,
     "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 12,
-    "friction_score": 730.0
+    "severity_avg": 2.6,
+    "days_active": 13,
+    "friction_score": 765.0
+  },
+  {
+    "line": "17298_700",
+    "total_events": 336,
+    "delays": 336,
+    "cancellations": 0,
+    "severity_avg": 2.6,
+    "days_active": 11,
+    "friction_score": 767.0
+  },
+  {
+    "line": "17368_700",
+    "total_events": 335,
+    "delays": 335,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 14,
+    "friction_score": 700.0
   },
   {
     "line": "5369_700",
-    "total_events": 319,
-    "delays": 319,
+    "total_events": 328,
+    "delays": 328,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 12,
-    "friction_score": 671.0
+    "days_active": 13,
+    "friction_score": 689.0
   },
   {
     "line": "13108_700",
-    "total_events": 319,
-    "delays": 319,
+    "total_events": 325,
+    "delays": 325,
     "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 11,
-    "friction_score": 651.0
+    "days_active": 12,
+    "friction_score": 663.0
   },
   {
     "line": "25354_700",
@@ -1827,58 +1863,103 @@
     "friction_score": 634.0
   },
   {
-    "line": "3975_700",
-    "total_events": 303,
-    "delays": 303,
-    "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 11,
-    "friction_score": 680.0
-  },
-  {
     "line": "1546_700",
-    "total_events": 302,
-    "delays": 302,
+    "total_events": 315,
+    "delays": 315,
     "cancellations": 0,
     "severity_avg": 2.0,
+    "days_active": 16,
+    "friction_score": 630.0
+  },
+  {
+    "line": "5384_700",
+    "total_events": 315,
+    "delays": 315,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 14,
+    "friction_score": 635.0
+  },
+  {
+    "line": "13133_700",
+    "total_events": 314,
+    "delays": 314,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 12,
+    "friction_score": 662.5
+  },
+  {
+    "line": "17472_700",
+    "total_events": 313,
+    "delays": 313,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 10,
+    "friction_score": 626.0
+  },
+  {
+    "line": "1955_700",
+    "total_events": 309,
+    "delays": 309,
+    "cancellations": 0,
+    "severity_avg": 2.1,
     "days_active": 15,
-    "friction_score": 604.0
+    "friction_score": 633.0
   },
   {
     "line": "4250_700",
-    "total_events": 299,
-    "delays": 299,
+    "total_events": 307,
+    "delays": 307,
     "cancellations": 0,
     "severity_avg": 2.4,
-    "days_active": 9,
-    "friction_score": 656.0
-  },
-  {
-    "line": "17298_700",
-    "total_events": 298,
-    "delays": 298,
-    "cancellations": 0,
-    "severity_avg": 2.5,
     "days_active": 10,
     "friction_score": 672.0
   },
   {
-    "line": "10682_700",
-    "total_events": 296,
-    "delays": 296,
+    "line": "3975_700",
+    "total_events": 306,
+    "delays": 306,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 14,
-    "friction_score": 598.0
+    "severity_avg": 2.5,
+    "days_active": 12,
+    "friction_score": 686.0
   },
   {
-    "line": "5384_700",
-    "total_events": 296,
-    "delays": 296,
+    "line": "23416_700",
+    "total_events": 306,
+    "delays": 306,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 13,
+    "friction_score": 658.5
+  },
+  {
+    "line": "1551_700",
+    "total_events": 301,
+    "delays": 301,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 13,
-    "friction_score": 597.0
+    "days_active": 16,
+    "friction_score": 606.0
+  },
+  {
+    "line": "17370_700",
+    "total_events": 301,
+    "delays": 301,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 11,
+    "friction_score": 646.5
+  },
+  {
+    "line": "10682_700",
+    "total_events": 300,
+    "delays": 300,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 15,
+    "friction_score": 606.0
   },
   {
     "line": "17503_700",
@@ -1890,13 +1971,13 @@
     "friction_score": 592.0
   },
   {
-    "line": "18923_700",
-    "total_events": 295,
-    "delays": 295,
+    "line": "18326_700",
+    "total_events": 294,
+    "delays": 294,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 10,
-    "friction_score": 633.5
+    "severity_avg": 2.1,
+    "days_active": 17,
+    "friction_score": 595.5
   },
   {
     "line": "19065_100",
@@ -1908,31 +1989,49 @@
     "friction_score": 630.5
   },
   {
-    "line": "18326_700",
-    "total_events": 292,
-    "delays": 292,
+    "line": "17476_700",
+    "total_events": 287,
+    "delays": 287,
     "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 16,
-    "friction_score": 591.5
+    "severity_avg": 2.2,
+    "days_active": 8,
+    "friction_score": 597.5
   },
   {
-    "line": "13133_700",
+    "line": "27963_700",
     "total_events": 285,
     "delays": 285,
     "cancellations": 0,
-    "severity_avg": 2.2,
+    "severity_avg": 2.0,
     "days_active": 11,
-    "friction_score": 604.5
+    "friction_score": 570.0
   },
   {
-    "line": "1955_700",
-    "total_events": 283,
-    "delays": 283,
+    "line": "28311_100",
+    "total_events": 284,
+    "delays": 284,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 19,
+    "friction_score": 610.5
+  },
+  {
+    "line": "13113_700",
+    "total_events": 284,
+    "delays": 284,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 14,
+    "friction_score": 598.5
+  },
+  {
+    "line": "5339_700",
+    "total_events": 282,
+    "delays": 282,
     "cancellations": 0,
     "severity_avg": 2.1,
     "days_active": 14,
-    "friction_score": 581.0
+    "friction_score": 581.5
   },
   {
     "line": "26788_106",
@@ -1944,40 +2043,31 @@
     "friction_score": 579.0
   },
   {
-    "line": "27963_700",
-    "total_events": 281,
-    "delays": 281,
+    "line": "27954_700",
+    "total_events": 279,
+    "delays": 279,
     "cancellations": 0,
-    "severity_avg": 2.0,
+    "severity_avg": 2.1,
     "days_active": 10,
-    "friction_score": 562.0
+    "friction_score": 566.0
   },
   {
-    "line": "28311_100",
-    "total_events": 275,
-    "delays": 275,
-    "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 18,
-    "friction_score": 592.0
-  },
-  {
-    "line": "13113_700",
-    "total_events": 273,
-    "delays": 273,
+    "line": "7361_700",
+    "total_events": 278,
+    "delays": 278,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 13,
-    "friction_score": 576.5
+    "days_active": 18,
+    "friction_score": 582.0
   },
   {
     "line": "17295_700",
-    "total_events": 273,
-    "delays": 273,
+    "total_events": 274,
+    "delays": 274,
     "cancellations": 0,
     "severity_avg": 2.1,
-    "days_active": 12,
-    "friction_score": 554.5
+    "days_active": 13,
+    "friction_score": 556.5
   },
   {
     "line": "22691_700",
@@ -1989,13 +2079,13 @@
     "friction_score": 546.0
   },
   {
-    "line": "13105_700",
+    "line": "4251_700",
     "total_events": 273,
     "delays": 273,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 11,
-    "friction_score": 546.0
+    "severity_avg": 2.7,
+    "days_active": 5,
+    "friction_score": 639.5
   },
   {
     "line": "17332_700",
@@ -2007,15 +2097,6 @@
     "friction_score": 674.0
   },
   {
-    "line": "4251_700",
-    "total_events": 271,
-    "delays": 271,
-    "cancellations": 0,
-    "severity_avg": 2.7,
-    "days_active": 4,
-    "friction_score": 635.5
-  },
-  {
     "line": "17541_700",
     "total_events": 270,
     "delays": 270,
@@ -2025,31 +2106,40 @@
     "friction_score": 540.0
   },
   {
-    "line": "1551_700",
-    "total_events": 269,
-    "delays": 269,
+    "line": "17474_700",
+    "total_events": 270,
+    "delays": 270,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 15,
-    "friction_score": 541.0
+    "days_active": 8,
+    "friction_score": 540.0
   },
   {
-    "line": "5339_700",
-    "total_events": 267,
-    "delays": 267,
+    "line": "5345_700",
+    "total_events": 259,
+    "delays": 259,
     "cancellations": 0,
-    "severity_avg": 2.1,
+    "severity_avg": 2.0,
     "days_active": 13,
-    "friction_score": 551.5
+    "friction_score": 518.0
   },
   {
-    "line": "23416_700",
-    "total_events": 267,
-    "delays": 267,
+    "line": "5232_700",
+    "total_events": 259,
+    "delays": 259,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 12,
-    "friction_score": 580.5
+    "severity_avg": 2.2,
+    "days_active": 10,
+    "friction_score": 548.5
+  },
+  {
+    "line": "17517_700",
+    "total_events": 256,
+    "delays": 256,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 15,
+    "friction_score": 569.5
   },
   {
     "line": "5252_3",
@@ -2061,40 +2151,13 @@
     "friction_score": 635.0
   },
   {
-    "line": "7361_700",
-    "total_events": 253,
-    "delays": 253,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 17,
-    "friction_score": 532.0
-  },
-  {
-    "line": "17517_700",
+    "line": "24046_100",
     "total_events": 251,
     "delays": 251,
     "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 14,
-    "friction_score": 557.0
-  },
-  {
-    "line": "27954_700",
-    "total_events": 250,
-    "delays": 250,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 9,
-    "friction_score": 508.0
-  },
-  {
-    "line": "17472_700",
-    "total_events": 249,
-    "delays": 249,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 9,
-    "friction_score": 498.0
+    "severity_avg": 2.3,
+    "days_active": 18,
+    "friction_score": 544.0
   },
   {
     "line": "21750_700",
@@ -2115,13 +2178,22 @@
     "friction_score": 587.0
   },
   {
-    "line": "24046_100",
-    "total_events": 243,
-    "delays": 243,
+    "line": "15277_700",
+    "total_events": 244,
+    "delays": 244,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 17,
-    "friction_score": 526.0
+    "severity_avg": 2.1,
+    "days_active": 15,
+    "friction_score": 501.5
+  },
+  {
+    "line": "17322_700",
+    "total_events": 242,
+    "delays": 242,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 10,
+    "friction_score": 484.5
   },
   {
     "line": "17345_700",
@@ -2131,33 +2203,6 @@
     "severity_avg": 2.1,
     "days_active": 12,
     "friction_score": 499.0
-  },
-  {
-    "line": "17370_700",
-    "total_events": 241,
-    "delays": 241,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 10,
-    "friction_score": 506.0
-  },
-  {
-    "line": "15277_700",
-    "total_events": 240,
-    "delays": 240,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 14,
-    "friction_score": 493.0
-  },
-  {
-    "line": "5345_700",
-    "total_events": 239,
-    "delays": 239,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 12,
-    "friction_score": 478.0
   },
   {
     "line": "17373_700",
@@ -2196,22 +2241,31 @@
     "friction_score": 494.5
   },
   {
-    "line": "17476_700",
+    "line": "17337_700",
     "total_events": 238,
     "delays": 238,
     "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 7,
-    "friction_score": 498.0
+    "severity_avg": 2.4,
+    "days_active": 12,
+    "friction_score": 518.0
   },
   {
     "line": "20969_700",
-    "total_events": 235,
-    "delays": 235,
+    "total_events": 237,
+    "delays": 237,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 15,
-    "friction_score": 490.0
+    "days_active": 16,
+    "friction_score": 495.0
+  },
+  {
+    "line": "10227_109",
+    "total_events": 236,
+    "delays": 236,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 10,
+    "friction_score": 500.5
   },
   {
     "line": "17418_900",
@@ -2232,15 +2286,6 @@
     "friction_score": 478.5
   },
   {
-    "line": "17474_700",
-    "total_events": 230,
-    "delays": 230,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 7,
-    "friction_score": 460.0
-  },
-  {
     "line": "4477_700",
     "total_events": 229,
     "delays": 229,
@@ -2248,6 +2293,15 @@
     "severity_avg": 2.1,
     "days_active": 15,
     "friction_score": 473.0
+  },
+  {
+    "line": "18911_700",
+    "total_events": 229,
+    "delays": 229,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 12,
+    "friction_score": 458.0
   },
   {
     "line": "17488_700",
@@ -2260,21 +2314,21 @@
   },
   {
     "line": "5237_700",
-    "total_events": 224,
-    "delays": 224,
+    "total_events": 228,
+    "delays": 228,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 13,
-    "friction_score": 469.5
+    "days_active": 14,
+    "friction_score": 477.5
   },
   {
-    "line": "17337_700",
-    "total_events": 224,
-    "delays": 224,
+    "line": "17323_700",
+    "total_events": 226,
+    "delays": 226,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 11,
-    "friction_score": 483.0
+    "severity_avg": 2.2,
+    "days_active": 9,
+    "friction_score": 476.0
   },
   {
     "line": "4223_700",
@@ -2286,13 +2340,13 @@
     "friction_score": 481.5
   },
   {
-    "line": "5232_700",
-    "total_events": 219,
-    "delays": 219,
+    "line": "17293_700",
+    "total_events": 223,
+    "delays": 223,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 9,
-    "friction_score": 468.5
+    "severity_avg": 2.7,
+    "days_active": 11,
+    "friction_score": 518.5
   },
   {
     "line": "5248_700",
@@ -2304,22 +2358,13 @@
     "friction_score": 487.5
   },
   {
-    "line": "17322_700",
-    "total_events": 216,
-    "delays": 216,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 9,
-    "friction_score": 432.5
-  },
-  {
     "line": "17331_700",
-    "total_events": 216,
-    "delays": 216,
+    "total_events": 217,
+    "delays": 217,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 12,
-    "friction_score": 462.0
+    "days_active": 13,
+    "friction_score": 464.0
   },
   {
     "line": "17481_700",
@@ -2329,6 +2374,15 @@
     "severity_avg": 2.0,
     "days_active": 8,
     "friction_score": 432.0
+  },
+  {
+    "line": "5378_700",
+    "total_events": 215,
+    "delays": 215,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 12,
+    "friction_score": 467.0
   },
   {
     "line": "17425_900",
@@ -2349,6 +2403,15 @@
     "friction_score": 475.5
   },
   {
+    "line": "1925_700",
+    "total_events": 214,
+    "delays": 214,
+    "cancellations": 0,
+    "severity_avg": 2.6,
+    "days_active": 12,
+    "friction_score": 491.0
+  },
+  {
     "line": "5234_700",
     "total_events": 211,
     "delays": 211,
@@ -2356,6 +2419,51 @@
     "severity_avg": 2.1,
     "days_active": 12,
     "friction_score": 428.5
+  },
+  {
+    "line": "19009_700",
+    "total_events": 211,
+    "delays": 211,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 10,
+    "friction_score": 435.5
+  },
+  {
+    "line": "19110_700",
+    "total_events": 207,
+    "delays": 207,
+    "cancellations": 0,
+    "severity_avg": 2.7,
+    "days_active": 8,
+    "friction_score": 483.0
+  },
+  {
+    "line": "19059_100",
+    "total_events": 207,
+    "delays": 207,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 9,
+    "friction_score": 456.0
+  },
+  {
+    "line": "1870_700",
+    "total_events": 206,
+    "delays": 206,
+    "cancellations": 0,
+    "severity_avg": 2.9,
+    "days_active": 9,
+    "friction_score": 509.5
+  },
+  {
+    "line": "17525_400",
+    "total_events": 205,
+    "delays": 205,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 9,
+    "friction_score": 420.5
   },
   {
     "line": "4249_700",
@@ -2367,6 +2475,15 @@
     "friction_score": 452.5
   },
   {
+    "line": "24694_700",
+    "total_events": 202,
+    "delays": 202,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 9,
+    "friction_score": 448.0
+  },
+  {
     "line": "17326_700",
     "total_events": 201,
     "delays": 201,
@@ -2376,31 +2493,22 @@
     "friction_score": 424.5
   },
   {
-    "line": "1925_700",
-    "total_events": 199,
-    "delays": 199,
+    "line": "17470_700",
+    "total_events": 200,
+    "delays": 200,
     "cancellations": 0,
-    "severity_avg": 2.6,
+    "severity_avg": 2.0,
     "days_active": 11,
-    "friction_score": 453.5
-  },
-  {
-    "line": "1870_700",
-    "total_events": 197,
-    "delays": 197,
-    "cancellations": 0,
-    "severity_avg": 2.9,
-    "days_active": 8,
-    "friction_score": 487.0
+    "friction_score": 400.0
   },
   {
     "line": "18915_700",
-    "total_events": 197,
-    "delays": 197,
+    "total_events": 198,
+    "delays": 198,
     "cancellations": 0,
     "severity_avg": 2.4,
     "days_active": 8,
-    "friction_score": 430.0
+    "friction_score": 432.5
   },
   {
     "line": "17296_700",
@@ -2412,40 +2520,22 @@
     "friction_score": 394.0
   },
   {
-    "line": "17293_700",
-    "total_events": 196,
-    "delays": 196,
-    "cancellations": 0,
-    "severity_avg": 2.6,
-    "days_active": 10,
-    "friction_score": 451.0
-  },
-  {
-    "line": "17470_700",
-    "total_events": 195,
-    "delays": 195,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 9,
-    "friction_score": 390.0
-  },
-  {
-    "line": "19059_100",
-    "total_events": 195,
-    "delays": 195,
-    "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 8,
-    "friction_score": 430.0
-  },
-  {
-    "line": "17492_700",
+    "line": "18363_700",
     "total_events": 194,
     "delays": 194,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 11,
-    "friction_score": 388.0
+    "severity_avg": 2.5,
+    "days_active": 7,
+    "friction_score": 434.5
+  },
+  {
+    "line": "5247_700",
+    "total_events": 194,
+    "delays": 194,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 8,
+    "friction_score": 424.5
   },
   {
     "line": "17427_900",
@@ -2457,40 +2547,40 @@
     "friction_score": 417.0
   },
   {
-    "line": "17323_700",
-    "total_events": 193,
-    "delays": 193,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 8,
-    "friction_score": 410.0
-  },
-  {
     "line": "5635_900",
-    "total_events": 190,
-    "delays": 190,
+    "total_events": 191,
+    "delays": 191,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 13,
-    "friction_score": 408.5
+    "days_active": 14,
+    "friction_score": 410.5
   },
   {
-    "line": "17525_400",
+    "line": "17379_700",
+    "total_events": 191,
+    "delays": 191,
+    "cancellations": 0,
+    "severity_avg": 2.5,
+    "days_active": 11,
+    "friction_score": 434.5
+  },
+  {
+    "line": "5364_700",
     "total_events": 190,
     "delays": 190,
     "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 8,
-    "friction_score": 390.5
+    "severity_avg": 2.0,
+    "days_active": 12,
+    "friction_score": 380.0
   },
   {
-    "line": "18911_700",
+    "line": "1921_700",
     "total_events": 189,
     "delays": 189,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 11,
-    "friction_score": 378.0
+    "severity_avg": 2.1,
+    "days_active": 14,
+    "friction_score": 388.0
   },
   {
     "line": "17384_700",
@@ -2511,31 +2601,31 @@
     "friction_score": 374.0
   },
   {
-    "line": "1921_700",
-    "total_events": 186,
-    "delays": 186,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 13,
-    "friction_score": 382.0
-  },
-  {
-    "line": "10227_109",
-    "total_events": 184,
-    "delays": 184,
-    "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 9,
-    "friction_score": 396.5
-  },
-  {
     "line": "27934_700",
+    "total_events": 185,
+    "delays": 185,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 10,
+    "friction_score": 370.5
+  },
+  {
+    "line": "5353_700",
     "total_events": 184,
     "delays": 184,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 9,
-    "friction_score": 368.5
+    "days_active": 14,
+    "friction_score": 371.0
+  },
+  {
+    "line": "17281_700",
+    "total_events": 184,
+    "delays": 184,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 15,
+    "friction_score": 401.5
   },
   {
     "line": "18926_700",
@@ -2556,13 +2646,13 @@
     "friction_score": 431.0
   },
   {
-    "line": "5353_700",
+    "line": "4221_700",
     "total_events": 182,
     "delays": 182,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 13,
-    "friction_score": 367.0
+    "days_active": 10,
+    "friction_score": 366.0
   },
   {
     "line": "17464_700",
@@ -2574,22 +2664,13 @@
     "friction_score": 405.5
   },
   {
-    "line": "4221_700",
+    "line": "4247_700",
     "total_events": 180,
     "delays": 180,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 9,
-    "friction_score": 362.0
-  },
-  {
-    "line": "17281_700",
-    "total_events": 180,
-    "delays": 180,
-    "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 14,
-    "friction_score": 393.5
+    "severity_avg": 2.6,
+    "days_active": 6,
+    "friction_score": 411.0
   },
   {
     "line": "23154_700",
@@ -2601,22 +2682,13 @@
     "friction_score": 363.0
   },
   {
-    "line": "5364_700",
+    "line": "19124_700",
     "total_events": 178,
     "delays": 178,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 11,
-    "friction_score": 356.0
-  },
-  {
-    "line": "19110_700",
-    "total_events": 178,
-    "delays": 178,
-    "cancellations": 0,
-    "severity_avg": 2.6,
+    "severity_avg": 2.8,
     "days_active": 7,
-    "friction_score": 410.5
+    "friction_score": 428.5
   },
   {
     "line": "17414_700",
@@ -2628,22 +2700,49 @@
     "friction_score": 367.0
   },
   {
-    "line": "19124_700",
-    "total_events": 175,
-    "delays": 175,
-    "cancellations": 0,
-    "severity_avg": 2.8,
-    "days_active": 6,
-    "friction_score": 422.5
-  },
-  {
-    "line": "24694_700",
-    "total_events": 175,
-    "delays": 175,
+    "line": "18929_700",
+    "total_events": 176,
+    "delays": 176,
     "cancellations": 0,
     "severity_avg": 2.3,
     "days_active": 8,
-    "friction_score": 380.5
+    "friction_score": 379.5
+  },
+  {
+    "line": "18369_700",
+    "total_events": 176,
+    "delays": 176,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 8,
+    "friction_score": 376.5
+  },
+  {
+    "line": "24052_100",
+    "total_events": 175,
+    "delays": 175,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 14,
+    "friction_score": 371.5
+  },
+  {
+    "line": "18361_700",
+    "total_events": 174,
+    "delays": 174,
+    "cancellations": 0,
+    "severity_avg": 2.5,
+    "days_active": 11,
+    "friction_score": 389.0
+  },
+  {
+    "line": "17411_700",
+    "total_events": 174,
+    "delays": 174,
+    "cancellations": 0,
+    "severity_avg": 2.5,
+    "days_active": 7,
+    "friction_score": 393.5
   },
   {
     "line": "5365_700",
@@ -2664,49 +2763,49 @@
     "friction_score": 390.0
   },
   {
-    "line": "19009_700",
-    "total_events": 167,
-    "delays": 167,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 9,
-    "friction_score": 345.0
-  },
-  {
-    "line": "5247_700",
-    "total_events": 166,
-    "delays": 166,
-    "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 7,
-    "friction_score": 368.5
-  },
-  {
-    "line": "18929_700",
-    "total_events": 165,
-    "delays": 165,
+    "line": "27951_700",
+    "total_events": 168,
+    "delays": 168,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 7,
-    "friction_score": 357.5
+    "days_active": 9,
+    "friction_score": 362.5
   },
   {
     "line": "18371_700",
-    "total_events": 165,
-    "delays": 165,
+    "total_events": 166,
+    "delays": 166,
     "cancellations": 0,
     "severity_avg": 2.9,
-    "days_active": 4,
-    "friction_score": 407.5
+    "days_active": 5,
+    "friction_score": 409.5
   },
   {
-    "line": "17379_700",
+    "line": "18895_700",
     "total_events": 165,
     "delays": 165,
     "cancellations": 0,
-    "severity_avg": 2.5,
+    "severity_avg": 2.0,
     "days_active": 10,
-    "friction_score": 372.0
+    "friction_score": 332.5
+  },
+  {
+    "line": "1549_700",
+    "total_events": 163,
+    "delays": 163,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 12,
+    "friction_score": 326.5
+  },
+  {
+    "line": "24839_700",
+    "total_events": 163,
+    "delays": 163,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 9,
+    "friction_score": 327.5
   },
   {
     "line": "27948_700",
@@ -2727,13 +2826,13 @@
     "friction_score": 324.0
   },
   {
-    "line": "5378_700",
+    "line": "18913_700",
     "total_events": 161,
     "delays": 161,
     "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 11,
-    "friction_score": 359.0
+    "severity_avg": 2.2,
+    "days_active": 10,
+    "friction_score": 335.0
   },
   {
     "line": "4236_700",
@@ -2745,15 +2844,6 @@
     "friction_score": 392.0
   },
   {
-    "line": "1549_700",
-    "total_events": 160,
-    "delays": 160,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 11,
-    "friction_score": 320.5
-  },
-  {
     "line": "17526_400",
     "total_events": 160,
     "delays": 160,
@@ -2761,15 +2851,6 @@
     "severity_avg": 2.0,
     "days_active": 15,
     "friction_score": 320.0
-  },
-  {
-    "line": "18913_700",
-    "total_events": 160,
-    "delays": 160,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 9,
-    "friction_score": 333.0
   },
   {
     "line": "4268_700",
@@ -2781,13 +2862,13 @@
     "friction_score": 342.5
   },
   {
-    "line": "18361_700",
-    "total_events": 158,
-    "delays": 158,
+    "line": "17469_700",
+    "total_events": 160,
+    "delays": 160,
     "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 10,
-    "friction_score": 357.0
+    "severity_avg": 2.1,
+    "days_active": 8,
+    "friction_score": 328.0
   },
   {
     "line": "5370_700",
@@ -2799,15 +2880,6 @@
     "friction_score": 338.0
   },
   {
-    "line": "17469_700",
-    "total_events": 156,
-    "delays": 156,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 7,
-    "friction_score": 320.0
-  },
-  {
     "line": "18889_700",
     "total_events": 156,
     "delays": 156,
@@ -2817,15 +2889,6 @@
     "friction_score": 337.0
   },
   {
-    "line": "24052_100",
-    "total_events": 155,
-    "delays": 155,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 12,
-    "friction_score": 325.5
-  },
-  {
     "line": "18344_700",
     "total_events": 154,
     "delays": 154,
@@ -2833,15 +2896,6 @@
     "severity_avg": 2.8,
     "days_active": 6,
     "friction_score": 373.0
-  },
-  {
-    "line": "17411_700",
-    "total_events": 154,
-    "delays": 154,
-    "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 6,
-    "friction_score": 343.5
   },
   {
     "line": "10229_109",
@@ -2871,31 +2925,31 @@
     "friction_score": 336.0
   },
   {
-    "line": "27951_700",
-    "total_events": 151,
-    "delays": 151,
+    "line": "26785_106",
+    "total_events": 152,
+    "delays": 152,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 8,
-    "friction_score": 323.0
+    "severity_avg": 2.0,
+    "days_active": 14,
+    "friction_score": 305.0
   },
   {
-    "line": "18895_700",
+    "line": "1928_700",
     "total_events": 150,
     "delays": 150,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 9,
-    "friction_score": 302.5
+    "severity_avg": 2.3,
+    "days_active": 10,
+    "friction_score": 321.5
   },
   {
-    "line": "26785_106",
+    "line": "17468_700",
     "total_events": 149,
     "delays": 149,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 13,
-    "friction_score": 299.0
+    "days_active": 4,
+    "friction_score": 298.0
   },
   {
     "line": "5243_700",
@@ -2907,31 +2961,13 @@
     "friction_score": 326.0
   },
   {
-    "line": "24839_700",
+    "line": "5253_700",
     "total_events": 146,
     "delays": 146,
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 8,
-    "friction_score": 293.5
-  },
-  {
-    "line": "1928_700",
-    "total_events": 145,
-    "delays": 145,
-    "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 9,
-    "friction_score": 311.5
-  },
-  {
-    "line": "4247_700",
-    "total_events": 145,
-    "delays": 145,
-    "cancellations": 0,
-    "severity_avg": 2.7,
-    "days_active": 5,
-    "friction_score": 341.0
+    "friction_score": 295.0
   },
   {
     "line": "18949_109",
@@ -2943,6 +2979,15 @@
     "friction_score": 293.0
   },
   {
+    "line": "1872_700",
+    "total_events": 144,
+    "delays": 144,
+    "cancellations": 0,
+    "severity_avg": 2.9,
+    "days_active": 11,
+    "friction_score": 352.0
+  },
+  {
     "line": "13107_700",
     "total_events": 144,
     "delays": 144,
@@ -2952,13 +2997,13 @@
     "friction_score": 288.0
   },
   {
-    "line": "5253_700",
-    "total_events": 144,
-    "delays": 144,
+    "line": "10165_109",
+    "total_events": 142,
+    "delays": 142,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 7,
-    "friction_score": 291.0
+    "severity_avg": 2.1,
+    "days_active": 15,
+    "friction_score": 291.5
   },
   {
     "line": "1930_700",
@@ -2977,6 +3022,15 @@
     "severity_avg": 2.5,
     "days_active": 10,
     "friction_score": 323.0
+  },
+  {
+    "line": "22702_700",
+    "total_events": 142,
+    "delays": 142,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 8,
+    "friction_score": 290.0
   },
   {
     "line": "17406_700",
@@ -3006,13 +3060,22 @@
     "friction_score": 307.5
   },
   {
-    "line": "22702_700",
-    "total_events": 140,
-    "delays": 140,
+    "line": "5337_700",
+    "total_events": 139,
+    "delays": 139,
     "cancellations": 0,
-    "severity_avg": 2.1,
+    "severity_avg": 2.0,
     "days_active": 7,
-    "friction_score": 286.0
+    "friction_score": 278.0
+  },
+  {
+    "line": "13136_700",
+    "total_events": 138,
+    "delays": 138,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 12,
+    "friction_score": 278.5
   },
   {
     "line": "17421_900",
@@ -3024,31 +3087,22 @@
     "friction_score": 292.5
   },
   {
-    "line": "5337_700",
-    "total_events": 138,
-    "delays": 138,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 6,
-    "friction_score": 276.0
-  },
-  {
-    "line": "10165_109",
-    "total_events": 137,
-    "delays": 137,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 14,
-    "friction_score": 281.5
-  },
-  {
-    "line": "1872_700",
+    "line": "5371_700",
     "total_events": 134,
     "delays": 134,
     "cancellations": 0,
-    "severity_avg": 2.9,
-    "days_active": 10,
-    "friction_score": 327.0
+    "severity_avg": 2.3,
+    "days_active": 11,
+    "friction_score": 289.0
+  },
+  {
+    "line": "5373_700",
+    "total_events": 133,
+    "delays": 133,
+    "cancellations": 0,
+    "severity_avg": 2.5,
+    "days_active": 8,
+    "friction_score": 296.0
   },
   {
     "line": "21680_700",
@@ -3069,22 +3123,40 @@
     "friction_score": 304.5
   },
   {
-    "line": "18369_700",
-    "total_events": 131,
-    "delays": 131,
+    "line": "4225_700",
+    "total_events": 132,
+    "delays": 132,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 7,
+    "days_active": 10,
     "friction_score": 277.5
   },
   {
-    "line": "18363_700",
+    "line": "17537_700",
+    "total_events": 131,
+    "delays": 131,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 12,
+    "friction_score": 283.0
+  },
+  {
+    "line": "19105_700",
     "total_events": 130,
     "delays": 130,
     "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 6,
-    "friction_score": 275.0
+    "severity_avg": 2.9,
+    "days_active": 10,
+    "friction_score": 319.5
+  },
+  {
+    "line": "4245_700",
+    "total_events": 129,
+    "delays": 129,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 11,
+    "friction_score": 278.0
   },
   {
     "line": "17308_700",
@@ -3105,40 +3177,94 @@
     "friction_score": 322.5
   },
   {
-    "line": "5373_700",
-    "total_events": 129,
-    "delays": 129,
+    "line": "22390_700",
+    "total_events": 128,
+    "delays": 128,
     "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 7,
-    "friction_score": 286.0
+    "severity_avg": 2.3,
+    "days_active": 15,
+    "friction_score": 276.5
   },
   {
-    "line": "5371_700",
+    "line": "27947_700",
+    "total_events": 127,
+    "delays": 127,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 8,
+    "friction_score": 256.5
+  },
+  {
+    "line": "26454_700",
+    "total_events": 127,
+    "delays": 127,
+    "cancellations": 0,
+    "severity_avg": 2.9,
+    "days_active": 8,
+    "friction_score": 313.0
+  },
+  {
+    "line": "18360_700",
     "total_events": 126,
     "delays": 126,
     "cancellations": 0,
-    "severity_avg": 2.3,
+    "severity_avg": 2.5,
     "days_active": 10,
-    "friction_score": 273.0
+    "friction_score": 280.5
   },
   {
-    "line": "4225_700",
+    "line": "10684_700",
+    "total_events": 126,
+    "delays": 126,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 7,
+    "friction_score": 252.0
+  },
+  {
+    "line": "26954_100",
+    "total_events": 124,
+    "delays": 124,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 16,
+    "friction_score": 268.0
+  },
+  {
+    "line": "18343_700",
+    "total_events": 124,
+    "delays": 124,
+    "cancellations": 0,
+    "severity_avg": 2.5,
+    "days_active": 6,
+    "friction_score": 279.0
+  },
+  {
+    "line": "4240_700",
     "total_events": 124,
     "delays": 124,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 9,
-    "friction_score": 261.5
+    "days_active": 7,
+    "friction_score": 263.5
   },
   {
-    "line": "26954_100",
-    "total_events": 122,
-    "delays": 122,
+    "line": "17343_700",
+    "total_events": 123,
+    "delays": 123,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 15,
-    "friction_score": 264.0
+    "severity_avg": 2.0,
+    "days_active": 10,
+    "friction_score": 247.0
+  },
+  {
+    "line": "17307_700",
+    "total_events": 123,
+    "delays": 123,
+    "cancellations": 0,
+    "severity_avg": 2.6,
+    "days_active": 10,
+    "friction_score": 282.0
   },
   {
     "line": "23944_100",
@@ -3168,67 +3294,13 @@
     "friction_score": 253.0
   },
   {
-    "line": "13136_700",
+    "line": "17280_700",
     "total_events": 121,
     "delays": 121,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 11,
-    "friction_score": 244.5
-  },
-  {
-    "line": "18343_700",
-    "total_events": 121,
-    "delays": 121,
-    "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 5,
-    "friction_score": 271.5
-  },
-  {
-    "line": "17468_700",
-    "total_events": 121,
-    "delays": 121,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 3,
-    "friction_score": 242.0
-  },
-  {
-    "line": "4245_700",
-    "total_events": 120,
-    "delays": 120,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 10,
-    "friction_score": 260.0
-  },
-  {
-    "line": "19105_700",
-    "total_events": 120,
-    "delays": 120,
-    "cancellations": 0,
-    "severity_avg": 2.9,
-    "days_active": 9,
-    "friction_score": 295.5
-  },
-  {
-    "line": "17343_700",
-    "total_events": 120,
-    "delays": 120,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 9,
-    "friction_score": 241.0
-  },
-  {
-    "line": "17307_700",
-    "total_events": 120,
-    "delays": 120,
-    "cancellations": 0,
-    "severity_avg": 2.6,
-    "days_active": 9,
-    "friction_score": 276.0
+    "days_active": 2,
+    "friction_score": 257.5
   },
   {
     "line": "18888_700",
@@ -3258,6 +3330,15 @@
     "friction_score": 243.0
   },
   {
+    "line": "5256_700",
+    "total_events": 117,
+    "delays": 117,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 7,
+    "friction_score": 234.0
+  },
+  {
     "line": "27937_700",
     "total_events": 116,
     "delays": 116,
@@ -3267,22 +3348,31 @@
     "friction_score": 241.5
   },
   {
-    "line": "22390_700",
-    "total_events": 115,
-    "delays": 115,
+    "line": "27007_700",
+    "total_events": 116,
+    "delays": 116,
     "cancellations": 0,
     "severity_avg": 2.3,
-    "days_active": 14,
-    "friction_score": 245.5
+    "days_active": 7,
+    "friction_score": 249.5
   },
   {
-    "line": "4240_700",
+    "line": "26790_106",
     "total_events": 115,
     "delays": 115,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 6,
-    "friction_score": 245.5
+    "severity_avg": 2.0,
+    "days_active": 15,
+    "friction_score": 232.0
+  },
+  {
+    "line": "5251_700",
+    "total_events": 115,
+    "delays": 115,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 5,
+    "friction_score": 243.5
   },
   {
     "line": "17383_700",
@@ -3294,6 +3384,24 @@
     "friction_score": 258.5
   },
   {
+    "line": "13110_700",
+    "total_events": 115,
+    "delays": 115,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 7,
+    "friction_score": 230.0
+  },
+  {
+    "line": "16349_100",
+    "total_events": 114,
+    "delays": 114,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 10,
+    "friction_score": 238.5
+  },
+  {
     "line": "18900_700",
     "total_events": 114,
     "delays": 114,
@@ -3301,15 +3409,6 @@
     "severity_avg": 2.6,
     "days_active": 9,
     "friction_score": 260.5
-  },
-  {
-    "line": "26790_106",
-    "total_events": 114,
-    "delays": 114,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 14,
-    "friction_score": 230.0
   },
   {
     "line": "18933_700",
@@ -3321,13 +3420,31 @@
     "friction_score": 236.0
   },
   {
-    "line": "17537_700",
+    "line": "4261_700",
+    "total_events": 114,
+    "delays": 114,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 7,
+    "friction_score": 233.0
+  },
+  {
+    "line": "18362_700",
     "total_events": 114,
     "delays": 114,
     "cancellations": 0,
     "severity_avg": 2.4,
-    "days_active": 11,
-    "friction_score": 249.0
+    "days_active": 6,
+    "friction_score": 248.0
+  },
+  {
+    "line": "1920_700",
+    "total_events": 114,
+    "delays": 114,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 6,
+    "friction_score": 238.5
   },
   {
     "line": "17376_700",
@@ -3337,15 +3454,6 @@
     "severity_avg": 2.4,
     "days_active": 6,
     "friction_score": 248.0
-  },
-  {
-    "line": "27947_700",
-    "total_events": 112,
-    "delays": 112,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 7,
-    "friction_score": 226.5
   },
   {
     "line": "17294_700",
@@ -3366,6 +3474,33 @@
     "friction_score": 220.5
   },
   {
+    "line": "27945_700",
+    "total_events": 109,
+    "delays": 109,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 6,
+    "friction_score": 233.0
+  },
+  {
+    "line": "26979_700",
+    "total_events": 108,
+    "delays": 108,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 6,
+    "friction_score": 226.0
+  },
+  {
+    "line": "17352_900",
+    "total_events": 108,
+    "delays": 108,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 12,
+    "friction_score": 236.0
+  },
+  {
     "line": "17467_700",
     "total_events": 108,
     "delays": 108,
@@ -3384,15 +3519,6 @@
     "friction_score": 243.0
   },
   {
-    "line": "17352_900",
-    "total_events": 107,
-    "delays": 107,
-    "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 11,
-    "friction_score": 234.0
-  },
-  {
     "line": "18364_700",
     "total_events": 107,
     "delays": 107,
@@ -3400,6 +3526,15 @@
     "severity_avg": 2.2,
     "days_active": 6,
     "friction_score": 223.0
+  },
+  {
+    "line": "1945_700",
+    "total_events": 106,
+    "delays": 106,
+    "cancellations": 0,
+    "severity_avg": 2.5,
+    "days_active": 11,
+    "friction_score": 240.5
   },
   {
     "line": "4254_700",
@@ -3411,6 +3546,15 @@
     "friction_score": 257.0
   },
   {
+    "line": "17063_700",
+    "total_events": 104,
+    "delays": 104,
+    "cancellations": 0,
+    "severity_avg": 2.6,
+    "days_active": 8,
+    "friction_score": 240.5
+  },
+  {
     "line": "7251_700",
     "total_events": 103,
     "delays": 103,
@@ -3420,13 +3564,31 @@
     "friction_score": 223.5
   },
   {
-    "line": "26454_700",
-    "total_events": 103,
-    "delays": 103,
+    "line": "5350_700",
+    "total_events": 102,
+    "delays": 102,
     "cancellations": 0,
-    "severity_avg": 2.9,
-    "days_active": 7,
-    "friction_score": 253.0
+    "severity_avg": 2.0,
+    "days_active": 16,
+    "friction_score": 205.5
+  },
+  {
+    "line": "4520_700",
+    "total_events": 102,
+    "delays": 102,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 4,
+    "friction_score": 204.0
+  },
+  {
+    "line": "17536_700",
+    "total_events": 102,
+    "delays": 102,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 10,
+    "friction_score": 204.5
   },
   {
     "line": "5252_700",
@@ -3445,6 +3607,15 @@
     "severity_avg": 2.2,
     "days_active": 12,
     "friction_score": 209.0
+  },
+  {
+    "line": "17420_900",
+    "total_events": 100,
+    "delays": 100,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 5,
+    "friction_score": 208.5
   },
   {
     "line": "26780_700",
@@ -3474,13 +3645,13 @@
     "friction_score": 198.0
   },
   {
-    "line": "10684_700",
+    "line": "5334_700",
     "total_events": 99,
     "delays": 99,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 6,
-    "friction_score": 198.0
+    "severity_avg": 2.5,
+    "days_active": 7,
+    "friction_score": 224.0
   },
   {
     "line": "28258_100",
@@ -3492,15 +3663,6 @@
     "friction_score": 205.5
   },
   {
-    "line": "5251_700",
-    "total_events": 98,
-    "delays": 98,
-    "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 4,
-    "friction_score": 209.5
-  },
-  {
     "line": "17531_700",
     "total_events": 98,
     "delays": 98,
@@ -3510,31 +3672,31 @@
     "friction_score": 216.5
   },
   {
-    "line": "13110_700",
-    "total_events": 98,
-    "delays": 98,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 6,
-    "friction_score": 196.0
-  },
-  {
-    "line": "17063_700",
+    "line": "24844_700",
     "total_events": 97,
     "delays": 97,
     "cancellations": 0,
-    "severity_avg": 2.7,
-    "days_active": 7,
-    "friction_score": 226.5
+    "severity_avg": 2.1,
+    "days_active": 6,
+    "friction_score": 201.0
   },
   {
-    "line": "16349_100",
-    "total_events": 96,
-    "delays": 96,
+    "line": "26784_106",
+    "total_events": 97,
+    "delays": 97,
     "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 9,
-    "friction_score": 198.0
+    "severity_avg": 2.0,
+    "days_active": 11,
+    "friction_score": 194.0
+  },
+  {
+    "line": "18471_700",
+    "total_events": 97,
+    "delays": 97,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 5,
+    "friction_score": 202.5
   },
   {
     "line": "4498_700",
@@ -3546,6 +3708,15 @@
     "friction_score": 194.5
   },
   {
+    "line": "4239_700",
+    "total_events": 94,
+    "delays": 94,
+    "cancellations": 0,
+    "severity_avg": 2.8,
+    "days_active": 6,
+    "friction_score": 226.5
+  },
+  {
     "line": "5335_700",
     "total_events": 94,
     "delays": 94,
@@ -3553,6 +3724,15 @@
     "severity_avg": 2.2,
     "days_active": 7,
     "friction_score": 196.5
+  },
+  {
+    "line": "18347_700",
+    "total_events": 94,
+    "delays": 94,
+    "cancellations": 0,
+    "severity_avg": 2.9,
+    "days_active": 9,
+    "friction_score": 229.5
   },
   {
     "line": "17312_700",
@@ -3573,42 +3753,6 @@
     "friction_score": 199.0
   },
   {
-    "line": "24844_700",
-    "total_events": 93,
-    "delays": 93,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 5,
-    "friction_score": 193.0
-  },
-  {
-    "line": "4520_700",
-    "total_events": 93,
-    "delays": 93,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 3,
-    "friction_score": 186.0
-  },
-  {
-    "line": "5256_700",
-    "total_events": 92,
-    "delays": 92,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 6,
-    "friction_score": 184.0
-  },
-  {
-    "line": "4261_700",
-    "total_events": 92,
-    "delays": 92,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 6,
-    "friction_score": 189.0
-  },
-  {
     "line": "18935_700",
     "total_events": 92,
     "delays": 92,
@@ -3627,31 +3771,13 @@
     "friction_score": 184.0
   },
   {
-    "line": "26979_700",
+    "line": "23724_700",
     "total_events": 91,
     "delays": 91,
     "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 5,
-    "friction_score": 192.0
-  },
-  {
-    "line": "5350_700",
-    "total_events": 91,
-    "delays": 91,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 15,
-    "friction_score": 183.5
-  },
-  {
-    "line": "18347_700",
-    "total_events": 91,
-    "delays": 91,
-    "cancellations": 0,
-    "severity_avg": 2.9,
-    "days_active": 8,
-    "friction_score": 222.0
+    "severity_avg": 3.0,
+    "days_active": 6,
+    "friction_score": 225.5
   },
   {
     "line": "16859_700",
@@ -3672,22 +3798,22 @@
     "friction_score": 208.0
   },
   {
-    "line": "18471_700",
+    "line": "22687_700",
     "total_events": 90,
     "delays": 90,
     "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 4,
-    "friction_score": 188.5
+    "severity_avg": 2.3,
+    "days_active": 9,
+    "friction_score": 195.0
   },
   {
     "line": "17462_700",
-    "total_events": 89,
-    "delays": 89,
+    "total_events": 90,
+    "delays": 90,
     "cancellations": 0,
     "severity_avg": 2.4,
-    "days_active": 11,
-    "friction_score": 198.0
+    "days_active": 12,
+    "friction_score": 200.0
   },
   {
     "line": "1556_900",
@@ -3697,24 +3823,6 @@
     "severity_avg": 2.2,
     "days_active": 5,
     "friction_score": 185.5
-  },
-  {
-    "line": "18362_700",
-    "total_events": 87,
-    "delays": 87,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 5,
-    "friction_score": 180.5
-  },
-  {
-    "line": "1920_700",
-    "total_events": 87,
-    "delays": 87,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 5,
-    "friction_score": 184.5
   },
   {
     "line": "13125_700",
@@ -3735,22 +3843,13 @@
     "friction_score": 200.5
   },
   {
-    "line": "17536_700",
+    "line": "26998_700",
     "total_events": 87,
     "delays": 87,
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 9,
     "friction_score": 174.5
-  },
-  {
-    "line": "5334_700",
-    "total_events": 87,
-    "delays": 87,
-    "cancellations": 0,
-    "severity_avg": 2.6,
-    "days_active": 6,
-    "friction_score": 200.0
   },
   {
     "line": "18927_700",
@@ -3760,6 +3859,33 @@
     "severity_avg": 2.4,
     "days_active": 5,
     "friction_score": 190.5
+  },
+  {
+    "line": "22714_700",
+    "total_events": 86,
+    "delays": 86,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 8,
+    "friction_score": 172.0
+  },
+  {
+    "line": "24830_700",
+    "total_events": 86,
+    "delays": 86,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 5,
+    "friction_score": 187.0
+  },
+  {
+    "line": "5633_900",
+    "total_events": 85,
+    "delays": 85,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 9,
+    "friction_score": 170.0
   },
   {
     "line": "18374_700",
@@ -3789,58 +3915,22 @@
     "friction_score": 178.5
   },
   {
-    "line": "17280_700",
-    "total_events": 85,
-    "delays": 85,
+    "line": "5250_700",
+    "total_events": 83,
+    "delays": 83,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 1,
-    "friction_score": 183.0
-  },
-  {
-    "line": "22714_700",
-    "total_events": 84,
-    "delays": 84,
-    "cancellations": 0,
-    "severity_avg": 2.0,
+    "severity_avg": 2.1,
     "days_active": 7,
-    "friction_score": 168.0
+    "friction_score": 172.0
   },
   {
-    "line": "1945_700",
-    "total_events": 83,
-    "delays": 83,
-    "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 10,
-    "friction_score": 188.5
-  },
-  {
-    "line": "23724_700",
-    "total_events": 83,
-    "delays": 83,
-    "cancellations": 0,
-    "severity_avg": 3.0,
-    "days_active": 5,
-    "friction_score": 205.5
-  },
-  {
-    "line": "26784_106",
-    "total_events": 83,
-    "delays": 83,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 10,
-    "friction_score": 166.0
-  },
-  {
-    "line": "22687_700",
+    "line": "27959_700",
     "total_events": 82,
     "delays": 82,
     "cancellations": 0,
-    "severity_avg": 2.3,
+    "severity_avg": 2.0,
     "days_active": 8,
-    "friction_score": 177.0
+    "friction_score": 164.0
   },
   {
     "line": "5341_700",
@@ -3850,6 +3940,24 @@
     "severity_avg": 2.1,
     "days_active": 8,
     "friction_score": 167.5
+  },
+  {
+    "line": "13543_700",
+    "total_events": 81,
+    "delays": 81,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 4,
+    "friction_score": 162.0
+  },
+  {
+    "line": "19079_700",
+    "total_events": 80,
+    "delays": 80,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 13,
+    "friction_score": 160.0
   },
   {
     "line": "26786_106",
@@ -3888,24 +3996,6 @@
     "friction_score": 198.5
   },
   {
-    "line": "5633_900",
-    "total_events": 79,
-    "delays": 79,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 8,
-    "friction_score": 158.0
-  },
-  {
-    "line": "24830_700",
-    "total_events": 79,
-    "delays": 79,
-    "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 4,
-    "friction_score": 173.0
-  },
-  {
     "line": "27966_700",
     "total_events": 78,
     "delays": 78,
@@ -3924,15 +4014,6 @@
     "friction_score": 177.0
   },
   {
-    "line": "27945_700",
-    "total_events": 77,
-    "delays": 77,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 5,
-    "friction_score": 154.0
-  },
-  {
     "line": "10674_700",
     "total_events": 77,
     "delays": 77,
@@ -3942,13 +4023,13 @@
     "friction_score": 154.5
   },
   {
-    "line": "4239_700",
+    "line": "17419_900",
     "total_events": 76,
     "delays": 76,
     "cancellations": 0,
-    "severity_avg": 2.8,
-    "days_active": 5,
-    "friction_score": 181.5
+    "severity_avg": 2.6,
+    "days_active": 7,
+    "friction_score": 174.0
   },
   {
     "line": "18350_700",
@@ -3960,22 +4041,13 @@
     "friction_score": 162.0
   },
   {
-    "line": "5250_700",
-    "total_events": 76,
-    "delays": 76,
+    "line": "17385_700",
+    "total_events": 75,
+    "delays": 75,
     "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 6,
-    "friction_score": 158.0
-  },
-  {
-    "line": "19079_700",
-    "total_events": 74,
-    "delays": 74,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 12,
-    "friction_score": 148.0
+    "severity_avg": 2.3,
+    "days_active": 8,
+    "friction_score": 161.0
   },
   {
     "line": "1922_700",
@@ -3987,6 +4059,15 @@
     "friction_score": 161.5
   },
   {
+    "line": "18921_700",
+    "total_events": 73,
+    "delays": 73,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 6,
+    "friction_score": 146.0
+  },
+  {
     "line": "26748_100",
     "total_events": 73,
     "delays": 73,
@@ -3994,6 +4075,15 @@
     "severity_avg": 2.0,
     "days_active": 14,
     "friction_score": 146.0
+  },
+  {
+    "line": "6620_700",
+    "total_events": 73,
+    "delays": 73,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 9,
+    "friction_score": 155.0
   },
   {
     "line": "336_700",
@@ -4023,6 +4113,15 @@
     "friction_score": 149.0
   },
   {
+    "line": "6618_700",
+    "total_events": 72,
+    "delays": 72,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 6,
+    "friction_score": 144.0
+  },
+  {
     "line": "4258_700",
     "total_events": 72,
     "delays": 72,
@@ -4050,31 +4149,13 @@
     "friction_score": 153.0
   },
   {
-    "line": "6618_700",
+    "line": "17407_700",
     "total_events": 70,
     "delays": 70,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 5,
-    "friction_score": 140.0
-  },
-  {
-    "line": "13543_700",
-    "total_events": 70,
-    "delays": 70,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 3,
-    "friction_score": 140.0
-  },
-  {
-    "line": "27959_700",
-    "total_events": 69,
-    "delays": 69,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 7,
-    "friction_score": 138.0
+    "severity_avg": 2.3,
+    "days_active": 6,
+    "friction_score": 149.0
   },
   {
     "line": "340_900",
@@ -4104,6 +4185,15 @@
     "friction_score": 134.5
   },
   {
+    "line": "21726_700",
+    "total_events": 67,
+    "delays": 67,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 6,
+    "friction_score": 134.5
+  },
+  {
     "line": "17496_700",
     "total_events": 67,
     "delays": 67,
@@ -4122,6 +4212,24 @@
     "friction_score": 132.0
   },
   {
+    "line": "5246_700",
+    "total_events": 66,
+    "delays": 66,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 6,
+    "friction_score": 132.0
+  },
+  {
+    "line": "4237_700",
+    "total_events": 66,
+    "delays": 66,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 6,
+    "friction_score": 142.5
+  },
+  {
     "line": "17321_700",
     "total_events": 66,
     "delays": 66,
@@ -4129,6 +4237,15 @@
     "severity_avg": 2.0,
     "days_active": 5,
     "friction_score": 132.0
+  },
+  {
+    "line": "22700_700",
+    "total_events": 65,
+    "delays": 65,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 5,
+    "friction_score": 135.5
   },
   {
     "line": "18932_700",
@@ -4149,6 +4266,15 @@
     "friction_score": 128.0
   },
   {
+    "line": "5343_700",
+    "total_events": 64,
+    "delays": 64,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 8,
+    "friction_score": 128.0
+  },
+  {
     "line": "18917_700",
     "total_events": 64,
     "delays": 64,
@@ -4158,13 +4284,13 @@
     "friction_score": 128.0
   },
   {
-    "line": "17385_700",
+    "line": "5342_700",
     "total_events": 64,
     "delays": 64,
     "cancellations": 0,
     "severity_avg": 2.2,
-    "days_active": 7,
-    "friction_score": 133.5
+    "days_active": 5,
+    "friction_score": 136.0
   },
   {
     "line": "28260_900",
@@ -4176,13 +4302,13 @@
     "friction_score": 126.0
   },
   {
-    "line": "26998_700",
+    "line": "4256_700",
     "total_events": 63,
     "delays": 63,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 8,
-    "friction_score": 126.5
+    "severity_avg": 2.3,
+    "days_active": 6,
+    "friction_score": 135.5
   },
   {
     "line": "15279_700",
@@ -4221,21 +4347,21 @@
     "friction_score": 124.0
   },
   {
-    "line": "5343_700",
-    "total_events": 62,
-    "delays": 62,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 7,
-    "friction_score": 124.0
-  },
-  {
     "line": "26999_700",
     "total_events": 62,
     "delays": 62,
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 2,
+    "friction_score": 124.0
+  },
+  {
+    "line": "5372_700",
+    "total_events": 62,
+    "delays": 62,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 9,
     "friction_score": 124.0
   },
   {
@@ -4257,13 +4383,22 @@
     "friction_score": 127.5
   },
   {
-    "line": "5246_700",
-    "total_events": 61,
-    "delays": 61,
+    "line": "4228_700",
+    "total_events": 62,
+    "delays": 62,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 5,
-    "friction_score": 122.0
+    "severity_avg": 2.4,
+    "days_active": 6,
+    "friction_score": 135.0
+  },
+  {
+    "line": "10686_700",
+    "total_events": 62,
+    "delays": 62,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 4,
+    "friction_score": 135.0
   },
   {
     "line": "1939_700",
@@ -4302,15 +4437,6 @@
     "friction_score": 122.0
   },
   {
-    "line": "4256_700",
-    "total_events": 61,
-    "delays": 61,
-    "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 5,
-    "friction_score": 131.5
-  },
-  {
     "line": "24057_100",
     "total_events": 60,
     "delays": 60,
@@ -4338,22 +4464,13 @@
     "friction_score": 123.5
   },
   {
-    "line": "6620_700",
+    "line": "19019_700",
     "total_events": 60,
     "delays": 60,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 8,
-    "friction_score": 129.0
-  },
-  {
-    "line": "18360_700",
-    "total_events": 59,
-    "delays": 59,
-    "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 9,
-    "friction_score": 132.5
+    "severity_avg": 2.8,
+    "days_active": 5,
+    "friction_score": 144.0
   },
   {
     "line": "24849_700",
@@ -4365,6 +4482,15 @@
     "friction_score": 118.5
   },
   {
+    "line": "4257_700",
+    "total_events": 59,
+    "delays": 59,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 7,
+    "friction_score": 130.0
+  },
+  {
     "line": "22726_700",
     "total_events": 59,
     "delays": 59,
@@ -4372,24 +4498,6 @@
     "severity_avg": 2.0,
     "days_active": 4,
     "friction_score": 118.0
-  },
-  {
-    "line": "4228_700",
-    "total_events": 59,
-    "delays": 59,
-    "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 5,
-    "friction_score": 129.0
-  },
-  {
-    "line": "4257_700",
-    "total_events": 58,
-    "delays": 58,
-    "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 6,
-    "friction_score": 128.0
   },
   {
     "line": "18469_700",
@@ -4410,15 +4518,6 @@
     "friction_score": 127.5
   },
   {
-    "line": "21726_700",
-    "total_events": 58,
-    "delays": 58,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 5,
-    "friction_score": 116.5
-  },
-  {
     "line": "27939_700",
     "total_events": 58,
     "delays": 58,
@@ -4428,13 +4527,13 @@
     "friction_score": 134.0
   },
   {
-    "line": "17419_900",
-    "total_events": 57,
-    "delays": 57,
+    "line": "1926_700",
+    "total_events": 58,
+    "delays": 58,
     "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 5,
-    "friction_score": 127.0
+    "severity_avg": 2.0,
+    "days_active": 3,
+    "friction_score": 116.0
   },
   {
     "line": "27005_700",
@@ -4455,6 +4554,15 @@
     "friction_score": 115.0
   },
   {
+    "line": "5254_700",
+    "total_events": 57,
+    "delays": 57,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 6,
+    "friction_score": 114.5
+  },
+  {
     "line": "24843_700",
     "total_events": 57,
     "delays": 57,
@@ -4473,13 +4581,13 @@
     "friction_score": 140.0
   },
   {
-    "line": "18921_700",
-    "total_events": 55,
-    "delays": 55,
+    "line": "5355_700",
+    "total_events": 56,
+    "delays": 56,
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 5,
-    "friction_score": 110.0
+    "friction_score": 112.0
   },
   {
     "line": "4222_700",
@@ -4498,6 +4606,24 @@
     "severity_avg": 2.3,
     "days_active": 8,
     "friction_score": 117.0
+  },
+  {
+    "line": "18969_100",
+    "total_events": 54,
+    "delays": 54,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 10,
+    "friction_score": 115.5
+  },
+  {
+    "line": "10679_700",
+    "total_events": 54,
+    "delays": 54,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 7,
+    "friction_score": 116.0
   },
   {
     "line": "24846_700",
@@ -4545,24 +4671,6 @@
     "friction_score": 108.0
   },
   {
-    "line": "22700_700",
-    "total_events": 54,
-    "delays": 54,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 4,
-    "friction_score": 112.0
-  },
-  {
-    "line": "17407_700",
-    "total_events": 54,
-    "delays": 54,
-    "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 5,
-    "friction_score": 115.0
-  },
-  {
     "line": "28169_900",
     "total_events": 53,
     "delays": 53,
@@ -4581,15 +4689,6 @@
     "friction_score": 123.0
   },
   {
-    "line": "5355_700",
-    "total_events": 53,
-    "delays": 53,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 4,
-    "friction_score": 106.0
-  },
-  {
     "line": "1924_700",
     "total_events": 53,
     "delays": 53,
@@ -4597,6 +4696,15 @@
     "severity_avg": 2.0,
     "days_active": 2,
     "friction_score": 106.0
+  },
+  {
+    "line": "4231_700",
+    "total_events": 52,
+    "delays": 52,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 3,
+    "friction_score": 109.5
   },
   {
     "line": "4224_700",
@@ -4608,22 +4716,13 @@
     "friction_score": 108.0
   },
   {
-    "line": "18969_100",
-    "total_events": 51,
-    "delays": 51,
+    "line": "4511_700",
+    "total_events": 52,
+    "delays": 52,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 9,
-    "friction_score": 109.5
-  },
-  {
-    "line": "10679_700",
-    "total_events": 51,
-    "delays": 51,
-    "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 6,
-    "friction_score": 110.0
+    "severity_avg": 2.0,
+    "days_active": 3,
+    "friction_score": 104.0
   },
   {
     "line": "5596_700",
@@ -4635,13 +4734,13 @@
     "friction_score": 113.5
   },
   {
-    "line": "19019_700",
-    "total_events": 50,
-    "delays": 50,
+    "line": "5346_700",
+    "total_events": 51,
+    "delays": 51,
     "cancellations": 0,
-    "severity_avg": 2.8,
-    "days_active": 4,
-    "friction_score": 119.0
+    "severity_avg": 2.0,
+    "days_active": 3,
+    "friction_score": 102.0
   },
   {
     "line": "17399_700",
@@ -4662,22 +4761,22 @@
     "friction_score": 100.0
   },
   {
-    "line": "27007_700",
+    "line": "5351_700",
     "total_events": 49,
     "delays": 49,
     "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 6,
-    "friction_score": 100.0
+    "severity_avg": 2.0,
+    "days_active": 5,
+    "friction_score": 98.0
   },
   {
-    "line": "4237_700",
+    "line": "17313_700",
     "total_events": 49,
     "delays": 49,
     "cancellations": 0,
-    "severity_avg": 2.1,
+    "severity_avg": 2.5,
     "days_active": 5,
-    "friction_score": 101.0
+    "friction_score": 111.0
   },
   {
     "line": "15276_700",
@@ -4689,13 +4788,13 @@
     "friction_score": 107.0
   },
   {
-    "line": "5342_700",
+    "line": "21749_700",
     "total_events": 48,
     "delays": 48,
     "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 4,
-    "friction_score": 104.0
+    "severity_avg": 2.0,
+    "days_active": 5,
+    "friction_score": 96.0
   },
   {
     "line": "17400_700",
@@ -4743,6 +4842,15 @@
     "friction_score": 92.0
   },
   {
+    "line": "20479_700",
+    "total_events": 45,
+    "delays": 45,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 6,
+    "friction_score": 93.0
+  },
+  {
     "line": "27569_700",
     "total_events": 45,
     "delays": 45,
@@ -4761,31 +4869,13 @@
     "friction_score": 97.0
   },
   {
-    "line": "17313_700",
-    "total_events": 45,
-    "delays": 45,
-    "cancellations": 0,
-    "severity_avg": 2.6,
-    "days_active": 4,
-    "friction_score": 103.0
-  },
-  {
-    "line": "21749_700",
-    "total_events": 45,
-    "delays": 45,
+    "line": "4270_700",
+    "total_events": 44,
+    "delays": 44,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 4,
-    "friction_score": 90.0
-  },
-  {
-    "line": "10686_700",
-    "total_events": 45,
-    "delays": 45,
-    "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 3,
-    "friction_score": 101.0
+    "days_active": 6,
+    "friction_score": 88.0
   },
   {
     "line": "27946_700",
@@ -4795,6 +4885,15 @@
     "severity_avg": 2.4,
     "days_active": 4,
     "friction_score": 97.5
+  },
+  {
+    "line": "27943_700",
+    "total_events": 44,
+    "delays": 44,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 5,
+    "friction_score": 89.5
   },
   {
     "line": "22690_700",
@@ -4824,15 +4923,6 @@
     "friction_score": 95.5
   },
   {
-    "line": "5346_700",
-    "total_events": 44,
-    "delays": 44,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 88.0
-  },
-  {
     "line": "24047_100",
     "total_events": 43,
     "delays": 43,
@@ -4851,22 +4941,22 @@
     "friction_score": 86.0
   },
   {
-    "line": "1926_700",
-    "total_events": 43,
-    "delays": 43,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 86.0
-  },
-  {
-    "line": "20479_700",
+    "line": "25219_700",
     "total_events": 42,
     "delays": 42,
     "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 5,
-    "friction_score": 87.0
+    "severity_avg": 2.4,
+    "days_active": 12,
+    "friction_score": 92.0
+  },
+  {
+    "line": "17466_700",
+    "total_events": 42,
+    "delays": 42,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 4,
+    "friction_score": 84.0
   },
   {
     "line": "13114_700",
@@ -4887,6 +4977,33 @@
     "friction_score": 87.0
   },
   {
+    "line": "17609_700",
+    "total_events": 41,
+    "delays": 41,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 7,
+    "friction_score": 87.0
+  },
+  {
+    "line": "4226_700",
+    "total_events": 41,
+    "delays": 41,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 3,
+    "friction_score": 82.0
+  },
+  {
+    "line": "17401_700",
+    "total_events": 41,
+    "delays": 41,
+    "cancellations": 0,
+    "severity_avg": 2.8,
+    "days_active": 4,
+    "friction_score": 99.0
+  },
+  {
     "line": "4502_700",
     "total_events": 41,
     "delays": 41,
@@ -4894,6 +5011,33 @@
     "severity_avg": 2.0,
     "days_active": 2,
     "friction_score": 82.0
+  },
+  {
+    "line": "5340_700",
+    "total_events": 41,
+    "delays": 41,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 6,
+    "friction_score": 82.0
+  },
+  {
+    "line": "4518_700",
+    "total_events": 41,
+    "delays": 41,
+    "cancellations": 0,
+    "severity_avg": 3.0,
+    "days_active": 3,
+    "friction_score": 102.5
+  },
+  {
+    "line": "6626_700",
+    "total_events": 41,
+    "delays": 41,
+    "cancellations": 0,
+    "severity_avg": 2.6,
+    "days_active": 2,
+    "friction_score": 95.0
   },
   {
     "line": "26991_700",
@@ -4923,15 +5067,6 @@
     "friction_score": 90.0
   },
   {
-    "line": "17609_700",
-    "total_events": 40,
-    "delays": 40,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 6,
-    "friction_score": 85.0
-  },
-  {
     "line": "9696_700",
     "total_events": 40,
     "delays": 40,
@@ -4939,6 +5074,15 @@
     "severity_avg": 2.3,
     "days_active": 7,
     "friction_score": 85.5
+  },
+  {
+    "line": "26789_106",
+    "total_events": 40,
+    "delays": 40,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 10,
+    "friction_score": 80.0
   },
   {
     "line": "4456_700",
@@ -4950,13 +5094,31 @@
     "friction_score": 89.5
   },
   {
-    "line": "25219_700",
+    "line": "17499_700",
     "total_events": 40,
     "delays": 40,
     "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 11,
-    "friction_score": 88.0
+    "severity_avg": 2.0,
+    "days_active": 7,
+    "friction_score": 80.0
+  },
+  {
+    "line": "13122_700",
+    "total_events": 40,
+    "delays": 40,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 2,
+    "friction_score": 80.0
+  },
+  {
+    "line": "1882_900",
+    "total_events": 39,
+    "delays": 39,
+    "cancellations": 0,
+    "severity_avg": 2.6,
+    "days_active": 9,
+    "friction_score": 90.0
   },
   {
     "line": "18366_700",
@@ -4977,7 +5139,16 @@
     "friction_score": 79.0
   },
   {
-    "line": "5254_700",
+    "line": "17395_700",
+    "total_events": 39,
+    "delays": 39,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 9,
+    "friction_score": 81.0
+  },
+  {
+    "line": "22717_700",
     "total_events": 39,
     "delays": 39,
     "cancellations": 0,
@@ -5004,6 +5175,15 @@
     "friction_score": 78.0
   },
   {
+    "line": "16354_700",
+    "total_events": 39,
+    "delays": 39,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 5,
+    "friction_score": 78.0
+  },
+  {
     "line": "1936_700",
     "total_events": 38,
     "delays": 38,
@@ -5022,22 +5202,13 @@
     "friction_score": 76.5
   },
   {
-    "line": "17395_700",
+    "line": "22704_700",
     "total_events": 38,
     "delays": 38,
     "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 8,
-    "friction_score": 79.0
-  },
-  {
-    "line": "5340_700",
-    "total_events": 38,
-    "delays": 38,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 5,
-    "friction_score": 76.0
+    "severity_avg": 2.8,
+    "days_active": 4,
+    "friction_score": 91.0
   },
   {
     "line": "4269_700",
@@ -5046,15 +5217,6 @@
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 5,
-    "friction_score": 76.0
-  },
-  {
-    "line": "17499_700",
-    "total_events": 38,
-    "delays": 38,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 6,
     "friction_score": 76.0
   },
   {
@@ -5067,6 +5229,15 @@
     "friction_score": 76.0
   },
   {
+    "line": "18325_700",
+    "total_events": 38,
+    "delays": 38,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 3,
+    "friction_score": 76.0
+  },
+  {
     "line": "22674_700",
     "total_events": 38,
     "delays": 38,
@@ -5076,13 +5247,13 @@
     "friction_score": 76.0
   },
   {
-    "line": "1882_900",
+    "line": "1971_700",
     "total_events": 37,
     "delays": 37,
     "cancellations": 0,
-    "severity_avg": 2.6,
-    "days_active": 8,
-    "friction_score": 85.0
+    "severity_avg": 2.1,
+    "days_active": 9,
+    "friction_score": 75.0
   },
   {
     "line": "5332_700",
@@ -5112,15 +5283,6 @@
     "friction_score": 80.0
   },
   {
-    "line": "26789_106",
-    "total_events": 37,
-    "delays": 37,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 9,
-    "friction_score": 74.0
-  },
-  {
     "line": "5257_700",
     "total_events": 37,
     "delays": 37,
@@ -5139,13 +5301,13 @@
     "friction_score": 74.0
   },
   {
-    "line": "1971_700",
+    "line": "18368_700",
     "total_events": 36,
     "delays": 36,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 9,
-    "friction_score": 72.5
+    "days_active": 5,
+    "friction_score": 72.0
   },
   {
     "line": "17505_700",
@@ -5157,12 +5319,12 @@
     "friction_score": 72.0
   },
   {
-    "line": "22717_700",
+    "line": "27962_700",
     "total_events": 36,
     "delays": 36,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 4,
+    "days_active": 3,
     "friction_score": 72.0
   },
   {
@@ -5202,15 +5364,6 @@
     "friction_score": 70.0
   },
   {
-    "line": "4226_700",
-    "total_events": 35,
-    "delays": 35,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 70.0
-  },
-  {
     "line": "17391_700",
     "total_events": 35,
     "delays": 35,
@@ -5229,12 +5382,12 @@
     "friction_score": 75.0
   },
   {
-    "line": "5372_700",
+    "line": "1878_700",
     "total_events": 35,
     "delays": 35,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 8,
+    "days_active": 3,
     "friction_score": 70.0
   },
   {
@@ -5254,33 +5407,6 @@
     "severity_avg": 2.0,
     "days_active": 2,
     "friction_score": 70.0
-  },
-  {
-    "line": "18325_700",
-    "total_events": 35,
-    "delays": 35,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 70.0
-  },
-  {
-    "line": "17420_900",
-    "total_events": 34,
-    "delays": 34,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 4,
-    "friction_score": 69.0
-  },
-  {
-    "line": "17401_700",
-    "total_events": 34,
-    "delays": 34,
-    "cancellations": 0,
-    "severity_avg": 2.9,
-    "days_active": 3,
-    "friction_score": 82.5
   },
   {
     "line": "17410_700",
@@ -5319,6 +5445,15 @@
     "friction_score": 79.5
   },
   {
+    "line": "18351_700",
+    "total_events": 34,
+    "delays": 34,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 5,
+    "friction_score": 68.0
+  },
+  {
     "line": "17437_700",
     "total_events": 34,
     "delays": 34,
@@ -5326,15 +5461,6 @@
     "severity_avg": 2.4,
     "days_active": 1,
     "friction_score": 74.5
-  },
-  {
-    "line": "1878_700",
-    "total_events": 33,
-    "delays": 33,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 66.0
   },
   {
     "line": "18903_700",
@@ -5373,6 +5499,15 @@
     "friction_score": 72.5
   },
   {
+    "line": "17501_700",
+    "total_events": 33,
+    "delays": 33,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 6,
+    "friction_score": 72.5
+  },
+  {
     "line": "4493_700",
     "total_events": 33,
     "delays": 33,
@@ -5382,12 +5517,57 @@
     "friction_score": 66.0
   },
   {
+    "line": "13115_700",
+    "total_events": 33,
+    "delays": 33,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 2,
+    "friction_score": 66.0
+  },
+  {
+    "line": "4241_700",
+    "total_events": 32,
+    "delays": 32,
+    "cancellations": 0,
+    "severity_avg": 2.3,
+    "days_active": 5,
+    "friction_score": 69.0
+  },
+  {
     "line": "18354_700",
     "total_events": 32,
     "delays": 32,
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 4,
+    "friction_score": 64.0
+  },
+  {
+    "line": "27935_700",
+    "total_events": 32,
+    "delays": 32,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 3,
+    "friction_score": 65.5
+  },
+  {
+    "line": "10672_700",
+    "total_events": 32,
+    "delays": 32,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 3,
+    "friction_score": 64.0
+  },
+  {
+    "line": "5266_700",
+    "total_events": 32,
+    "delays": 32,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 3,
     "friction_score": 64.0
   },
   {
@@ -5409,15 +5589,6 @@
     "friction_score": 68.0
   },
   {
-    "line": "27935_700",
-    "total_events": 31,
-    "delays": 31,
-    "cancellations": 0,
-    "severity_avg": 2.1,
-    "days_active": 2,
-    "friction_score": 63.5
-  },
-  {
     "line": "18365_700",
     "total_events": 31,
     "delays": 31,
@@ -5425,51 +5596,6 @@
     "severity_avg": 2.4,
     "days_active": 5,
     "friction_score": 68.5
-  },
-  {
-    "line": "5351_700",
-    "total_events": 31,
-    "delays": 31,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 4,
-    "friction_score": 62.0
-  },
-  {
-    "line": "10672_700",
-    "total_events": 31,
-    "delays": 31,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 62.0
-  },
-  {
-    "line": "13115_700",
-    "total_events": 31,
-    "delays": 31,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
-    "friction_score": 62.0
-  },
-  {
-    "line": "16354_700",
-    "total_events": 31,
-    "delays": 31,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 4,
-    "friction_score": 62.0
-  },
-  {
-    "line": "4241_700",
-    "total_events": 30,
-    "delays": 30,
-    "cancellations": 0,
-    "severity_avg": 2.3,
-    "days_active": 4,
-    "friction_score": 65.0
   },
   {
     "line": "28397_700",
@@ -5481,13 +5607,13 @@
     "friction_score": 60.0
   },
   {
-    "line": "4231_700",
+    "line": "22709_700",
     "total_events": 30,
     "delays": 30,
     "cancellations": 0,
-    "severity_avg": 2.0,
+    "severity_avg": 2.7,
     "days_active": 2,
-    "friction_score": 60.0
+    "friction_score": 71.0
   },
   {
     "line": "17402_700",
@@ -5517,6 +5643,15 @@
     "friction_score": 60.0
   },
   {
+    "line": "5258_700",
+    "total_events": 30,
+    "delays": 30,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 3,
+    "friction_score": 60.0
+  },
+  {
     "line": "13123_700",
     "total_events": 30,
     "delays": 30,
@@ -5526,7 +5661,7 @@
     "friction_score": 60.0
   },
   {
-    "line": "4270_700",
+    "line": "24824_700",
     "total_events": 29,
     "delays": 29,
     "cancellations": 0,
@@ -5553,24 +5688,6 @@
     "friction_score": 60.0
   },
   {
-    "line": "5266_700",
-    "total_events": 29,
-    "delays": 29,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 58.0
-  },
-  {
-    "line": "5258_700",
-    "total_events": 29,
-    "delays": 29,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 58.0
-  },
-  {
     "line": "25297_100",
     "total_events": 28,
     "delays": 28,
@@ -5580,13 +5697,13 @@
     "friction_score": 56.0
   },
   {
-    "line": "27943_700",
+    "line": "12043_700",
     "total_events": 28,
     "delays": 28,
     "cancellations": 0,
-    "severity_avg": 2.1,
+    "severity_avg": 2.3,
     "days_active": 4,
-    "friction_score": 57.5
+    "friction_score": 60.5
   },
   {
     "line": "22694_700",
@@ -5616,13 +5733,13 @@
     "friction_score": 56.0
   },
   {
-    "line": "4518_700",
-    "total_events": 27,
-    "delays": 27,
+    "line": "15624_700",
+    "total_events": 28,
+    "delays": 28,
     "cancellations": 0,
-    "severity_avg": 3.0,
-    "days_active": 2,
-    "friction_score": 67.5
+    "severity_avg": 2.0,
+    "days_active": 6,
+    "friction_score": 56.0
   },
   {
     "line": "26981_700",
@@ -5641,6 +5758,15 @@
     "severity_avg": 3.0,
     "days_active": 2,
     "friction_score": 65.0
+  },
+  {
+    "line": "17390_700",
+    "total_events": 26,
+    "delays": 26,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 2,
+    "friction_score": 52.0
   },
   {
     "line": "5255_700",
@@ -5688,6 +5814,15 @@
     "friction_score": 61.5
   },
   {
+    "line": "22707_700",
+    "total_events": 26,
+    "delays": 26,
+    "cancellations": 0,
+    "severity_avg": 2.4,
+    "days_active": 6,
+    "friction_score": 57.0
+  },
+  {
     "line": "21205_700",
     "total_events": 26,
     "delays": 26,
@@ -5733,6 +5868,15 @@
     "friction_score": 60.0
   },
   {
+    "line": "26995_700",
+    "total_events": 25,
+    "delays": 25,
+    "cancellations": 0,
+    "severity_avg": 2.5,
+    "days_active": 4,
+    "friction_score": 56.5
+  },
+  {
     "line": "4521_700",
     "total_events": 25,
     "delays": 25,
@@ -5751,6 +5895,15 @@
     "friction_score": 50.0
   },
   {
+    "line": "5354_700",
+    "total_events": 25,
+    "delays": 25,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 5,
+    "friction_score": 50.0
+  },
+  {
     "line": "10677_700",
     "total_events": 25,
     "delays": 25,
@@ -5758,15 +5911,6 @@
     "severity_avg": 2.0,
     "days_active": 4,
     "friction_score": 50.0
-  },
-  {
-    "line": "17501_700",
-    "total_events": 25,
-    "delays": 25,
-    "cancellations": 0,
-    "severity_avg": 2.4,
-    "days_active": 4,
-    "friction_score": 54.5
   },
   {
     "line": "10913_700",
@@ -5803,15 +5947,6 @@
     "severity_avg": 2.6,
     "days_active": 2,
     "friction_score": 55.5
-  },
-  {
-    "line": "4511_700",
-    "total_events": 24,
-    "delays": 24,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 48.0
   },
   {
     "line": "27915_700",
@@ -5859,6 +5994,15 @@
     "friction_score": 46.0
   },
   {
+    "line": "27964_700",
+    "total_events": 23,
+    "delays": 23,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 2,
+    "friction_score": 46.0
+  },
+  {
     "line": "16734_700",
     "total_events": 23,
     "delays": 23,
@@ -5866,6 +6010,15 @@
     "severity_avg": 2.0,
     "days_active": 6,
     "friction_score": 46.5
+  },
+  {
+    "line": "22739_700",
+    "total_events": 23,
+    "delays": 23,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 3,
+    "friction_score": 46.0
   },
   {
     "line": "17064_700",
@@ -5919,6 +6072,15 @@
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 3,
+    "friction_score": 44.0
+  },
+  {
+    "line": "16374_700",
+    "total_events": 22,
+    "delays": 22,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 4,
     "friction_score": 44.0
   },
   {
@@ -6003,22 +6165,13 @@
     "friction_score": 40.0
   },
   {
-    "line": "16374_700",
+    "line": "24056_100",
     "total_events": 20,
     "delays": 20,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 3,
-    "friction_score": 40.0
-  },
-  {
-    "line": "22704_700",
-    "total_events": 20,
-    "delays": 20,
-    "cancellations": 0,
-    "severity_avg": 2.6,
-    "days_active": 3,
-    "friction_score": 46.0
+    "severity_avg": 2.2,
+    "days_active": 5,
+    "friction_score": 42.5
   },
   {
     "line": "18930_700",
@@ -6030,30 +6183,12 @@
     "friction_score": 40.0
   },
   {
-    "line": "18351_700",
-    "total_events": 20,
-    "delays": 20,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 4,
-    "friction_score": 40.0
-  },
-  {
     "line": "18905_700",
     "total_events": 20,
     "delays": 20,
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 2,
-    "friction_score": 40.0
-  },
-  {
-    "line": "15624_700",
-    "total_events": 20,
-    "delays": 20,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 5,
     "friction_score": 40.0
   },
   {
@@ -6120,13 +6255,13 @@
     "friction_score": 38.0
   },
   {
-    "line": "22707_700",
+    "line": "28399_700",
     "total_events": 19,
     "delays": 19,
     "cancellations": 0,
-    "severity_avg": 2.5,
-    "days_active": 5,
-    "friction_score": 43.0
+    "severity_avg": 2.0,
+    "days_active": 2,
+    "friction_score": 38.0
   },
   {
     "line": "27941_700",
@@ -6147,6 +6282,24 @@
     "friction_score": 38.0
   },
   {
+    "line": "14428_700",
+    "total_events": 19,
+    "delays": 19,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 2,
+    "friction_score": 38.0
+  },
+  {
+    "line": "22706_700",
+    "total_events": 19,
+    "delays": 19,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 2,
+    "friction_score": 38.0
+  },
+  {
     "line": "19129_700",
     "total_events": 19,
     "delays": 19,
@@ -6156,12 +6309,21 @@
     "friction_score": 38.0
   },
   {
-    "line": "12043_700",
+    "line": "18359_700",
+    "total_events": 18,
+    "delays": 18,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 3,
+    "friction_score": 36.5
+  },
+  {
+    "line": "4509_700",
     "total_events": 18,
     "delays": 18,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 3,
+    "days_active": 2,
     "friction_score": 36.0
   },
   {
@@ -6219,12 +6381,12 @@
     "friction_score": 36.0
   },
   {
-    "line": "18359_700",
+    "line": "27961_700",
     "total_events": 17,
     "delays": 17,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 2,
+    "days_active": 3,
     "friction_score": 34.0
   },
   {
@@ -6237,21 +6399,12 @@
     "friction_score": 38.0
   },
   {
-    "line": "27962_700",
+    "line": "22775_700",
     "total_events": 17,
     "delays": 17,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 34.0
-  },
-  {
-    "line": "4509_700",
-    "total_events": 17,
-    "delays": 17,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
+    "days_active": 3,
     "friction_score": 34.0
   },
   {
@@ -6261,6 +6414,24 @@
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 1,
+    "friction_score": 34.0
+  },
+  {
+    "line": "13134_700",
+    "total_events": 17,
+    "delays": 17,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 2,
+    "friction_score": 34.0
+  },
+  {
+    "line": "4519_700",
+    "total_events": 17,
+    "delays": 17,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 2,
     "friction_score": 34.0
   },
   {
@@ -6292,24 +6463,6 @@
   },
   {
     "line": "18950_109",
-    "total_events": 16,
-    "delays": 16,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 32.0
-  },
-  {
-    "line": "17390_700",
-    "total_events": 16,
-    "delays": 16,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
-    "friction_score": 32.0
-  },
-  {
-    "line": "27961_700",
     "total_events": 16,
     "delays": 16,
     "cancellations": 0,
@@ -6372,24 +6525,6 @@
     "friction_score": 40.0
   },
   {
-    "line": "24824_700",
-    "total_events": 15,
-    "delays": 15,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 4,
-    "friction_score": 30.0
-  },
-  {
-    "line": "22739_700",
-    "total_events": 15,
-    "delays": 15,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 30.0
-  },
-  {
     "line": "5240_700",
     "total_events": 15,
     "delays": 15,
@@ -6426,6 +6561,15 @@
     "friction_score": 37.0
   },
   {
+    "line": "1558_900",
+    "total_events": 15,
+    "delays": 15,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 4,
+    "friction_score": 30.0
+  },
+  {
     "line": "17527_700",
     "total_events": 15,
     "delays": 15,
@@ -6441,24 +6585,6 @@
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 3,
-    "friction_score": 30.0
-  },
-  {
-    "line": "6626_700",
-    "total_events": 15,
-    "delays": 15,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
-    "friction_score": 30.0
-  },
-  {
-    "line": "4519_700",
-    "total_events": 15,
-    "delays": 15,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
     "friction_score": 30.0
   },
   {
@@ -6480,15 +6606,6 @@
     "friction_score": 28.0
   },
   {
-    "line": "22709_700",
-    "total_events": 14,
-    "delays": 14,
-    "cancellations": 0,
-    "severity_avg": 2.8,
-    "days_active": 1,
-    "friction_score": 33.5
-  },
-  {
     "line": "27956_700",
     "total_events": 14,
     "delays": 14,
@@ -6498,21 +6615,21 @@
     "friction_score": 28.0
   },
   {
-    "line": "24056_100",
+    "line": "18893_700",
     "total_events": 14,
     "delays": 14,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 4,
+    "days_active": 2,
     "friction_score": 28.0
   },
   {
-    "line": "5354_700",
+    "line": "22689_700",
     "total_events": 14,
     "delays": 14,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 4,
+    "days_active": 3,
     "friction_score": 28.0
   },
   {
@@ -6534,30 +6651,12 @@
     "friction_score": 26.0
   },
   {
-    "line": "26995_700",
-    "total_events": 13,
-    "delays": 13,
-    "cancellations": 0,
-    "severity_avg": 3.0,
-    "days_active": 3,
-    "friction_score": 32.5
-  },
-  {
     "line": "4262_700",
     "total_events": 13,
     "delays": 13,
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 2,
-    "friction_score": 26.0
-  },
-  {
-    "line": "28399_700",
-    "total_events": 13,
-    "delays": 13,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
     "friction_score": 26.0
   },
   {
@@ -6579,6 +6678,15 @@
     "friction_score": 26.0
   },
   {
+    "line": "17403_700",
+    "total_events": 13,
+    "delays": 13,
+    "cancellations": 0,
+    "severity_avg": 2.8,
+    "days_active": 2,
+    "friction_score": 31.0
+  },
+  {
     "line": "4266_700",
     "total_events": 13,
     "delays": 13,
@@ -6597,6 +6705,15 @@
     "friction_score": 26.0
   },
   {
+    "line": "19116_700",
+    "total_events": 13,
+    "delays": 13,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 1,
+    "friction_score": 26.0
+  },
+  {
     "line": "26988_700",
     "total_events": 12,
     "delays": 12,
@@ -6604,15 +6721,6 @@
     "severity_avg": 2.1,
     "days_active": 5,
     "friction_score": 24.5
-  },
-  {
-    "line": "18368_700",
-    "total_events": 12,
-    "delays": 12,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 4,
-    "friction_score": 24.0
   },
   {
     "line": "6622_700",
@@ -6678,12 +6786,12 @@
     "friction_score": 24.0
   },
   {
-    "line": "13122_700",
+    "line": "10675_700",
     "total_events": 12,
     "delays": 12,
     "cancellations": 0,
     "severity_avg": 2.0,
-    "days_active": 1,
+    "days_active": 2,
     "friction_score": 24.0
   },
   {
@@ -6721,6 +6829,15 @@
     "severity_avg": 3.0,
     "days_active": 1,
     "friction_score": 27.5
+  },
+  {
+    "line": "22698_700",
+    "total_events": 11,
+    "delays": 11,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 1,
+    "friction_score": 22.0
   },
   {
     "line": "27288_700",
@@ -6768,15 +6885,6 @@
     "friction_score": 25.0
   },
   {
-    "line": "17403_700",
-    "total_events": 10,
-    "delays": 10,
-    "cancellations": 0,
-    "severity_avg": 3.0,
-    "days_active": 1,
-    "friction_score": 25.0
-  },
-  {
     "line": "24837_700",
     "total_events": 10,
     "delays": 10,
@@ -6804,13 +6912,13 @@
     "friction_score": 20.0
   },
   {
-    "line": "13134_700",
+    "line": "17394_700",
     "total_events": 10,
     "delays": 10,
     "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
-    "friction_score": 20.0
+    "severity_avg": 2.5,
+    "days_active": 4,
+    "friction_score": 22.5
   },
   {
     "line": "18914_700",
@@ -6840,6 +6948,15 @@
     "friction_score": 25.0
   },
   {
+    "line": "24833_700",
+    "total_events": 10,
+    "delays": 10,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 1,
+    "friction_score": 20.0
+  },
+  {
     "line": "22724_700",
     "total_events": 9,
     "delays": 9,
@@ -6867,7 +6984,7 @@
     "friction_score": 18.0
   },
   {
-    "line": "22775_700",
+    "line": "18358_700",
     "total_events": 9,
     "delays": 9,
     "cancellations": 0,
@@ -6894,6 +7011,15 @@
     "friction_score": 18.5
   },
   {
+    "line": "1934_700",
+    "total_events": 9,
+    "delays": 9,
+    "cancellations": 0,
+    "severity_avg": 2.2,
+    "days_active": 4,
+    "friction_score": 19.0
+  },
+  {
     "line": "16774_700",
     "total_events": 9,
     "delays": 9,
@@ -6901,6 +7027,24 @@
     "severity_avg": 2.6,
     "days_active": 2,
     "friction_score": 20.5
+  },
+  {
+    "line": "17288_700",
+    "total_events": 9,
+    "delays": 9,
+    "cancellations": 0,
+    "severity_avg": 2.1,
+    "days_active": 1,
+    "friction_score": 18.5
+  },
+  {
+    "line": "19106_700",
+    "total_events": 9,
+    "delays": 9,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 1,
+    "friction_score": 18.0
   },
   {
     "line": "1552_700",
@@ -6948,25 +7092,7 @@
     "friction_score": 16.5
   },
   {
-    "line": "1934_700",
-    "total_events": 8,
-    "delays": 8,
-    "cancellations": 0,
-    "severity_avg": 2.2,
-    "days_active": 3,
-    "friction_score": 17.0
-  },
-  {
     "line": "22684_700",
-    "total_events": 8,
-    "delays": 8,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
-    "friction_score": 16.0
-  },
-  {
-    "line": "14428_700",
     "total_events": 8,
     "delays": 8,
     "cancellations": 0,
@@ -6984,30 +7110,12 @@
     "friction_score": 16.0
   },
   {
-    "line": "17288_700",
-    "total_events": 8,
-    "delays": 8,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
-    "friction_score": 16.0
-  },
-  {
     "line": "21619_700",
     "total_events": 7,
     "delays": 7,
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 4,
-    "friction_score": 14.0
-  },
-  {
-    "line": "27964_700",
-    "total_events": 7,
-    "delays": 7,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
     "friction_score": 14.0
   },
   {
@@ -7065,13 +7173,13 @@
     "friction_score": 14.0
   },
   {
-    "line": "17394_700",
+    "line": "13443_700",
     "total_events": 7,
     "delays": 7,
     "cancellations": 0,
-    "severity_avg": 2.7,
-    "days_active": 3,
-    "friction_score": 16.5
+    "severity_avg": 2.0,
+    "days_active": 2,
+    "friction_score": 14.0
   },
   {
     "line": "5607_700",
@@ -7110,21 +7218,21 @@
     "friction_score": 12.0
   },
   {
-    "line": "17466_700",
-    "total_events": 6,
-    "delays": 6,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 12.0
-  },
-  {
     "line": "24864_109",
     "total_events": 6,
     "delays": 6,
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 3,
+    "friction_score": 12.0
+  },
+  {
+    "line": "5348_700",
+    "total_events": 6,
+    "delays": 6,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 2,
     "friction_score": 12.0
   },
   {
@@ -7146,6 +7254,33 @@
     "friction_score": 15.0
   },
   {
+    "line": "10150_109",
+    "total_events": 6,
+    "delays": 6,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 1,
+    "friction_score": 12.0
+  },
+  {
+    "line": "18892_700",
+    "total_events": 6,
+    "delays": 6,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 1,
+    "friction_score": 12.0
+  },
+  {
+    "line": "20810_700",
+    "total_events": 5,
+    "delays": 5,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 3,
+    "friction_score": 10.0
+  },
+  {
     "line": "1881_900",
     "total_events": 5,
     "delays": 5,
@@ -7162,15 +7297,6 @@
     "severity_avg": 2.4,
     "days_active": 2,
     "friction_score": 11.0
-  },
-  {
-    "line": "18893_700",
-    "total_events": 5,
-    "delays": 5,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
-    "friction_score": 10.0
   },
   {
     "line": "16214_700",
@@ -7200,13 +7326,13 @@
     "friction_score": 10.0
   },
   {
-    "line": "1558_900",
+    "line": "24048_100",
     "total_events": 5,
     "delays": 5,
     "cancellations": 0,
-    "severity_avg": 2.0,
+    "severity_avg": 2.4,
     "days_active": 3,
-    "friction_score": 10.0
+    "friction_score": 11.0
   },
   {
     "line": "13418_700",
@@ -7237,15 +7363,6 @@
   },
   {
     "line": "4515_700",
-    "total_events": 5,
-    "delays": 5,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
-    "friction_score": 10.0
-  },
-  {
-    "line": "5348_700",
     "total_events": 5,
     "delays": 5,
     "cancellations": 0,
@@ -7299,15 +7416,6 @@
     "friction_score": 9.0
   },
   {
-    "line": "20810_700",
-    "total_events": 4,
-    "delays": 4,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 8.0
-  },
-  {
     "line": "15020_700",
     "total_events": 4,
     "delays": 4,
@@ -7336,6 +7444,15 @@
   },
   {
     "line": "5363_700",
+    "total_events": 4,
+    "delays": 4,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 2,
+    "friction_score": 8.0
+  },
+  {
+    "line": "4496_700",
     "total_events": 4,
     "delays": 4,
     "cancellations": 0,
@@ -7407,6 +7524,15 @@
     "friction_score": 8.0
   },
   {
+    "line": "19123_700",
+    "total_events": 4,
+    "delays": 4,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 2,
+    "friction_score": 8.0
+  },
+  {
     "line": "17694_700",
     "total_events": 4,
     "delays": 4,
@@ -7431,15 +7557,6 @@
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 2,
-    "friction_score": 6.0
-  },
-  {
-    "line": "4496_700",
-    "total_events": 3,
-    "delays": 3,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
     "friction_score": 6.0
   },
   {
@@ -7470,21 +7587,21 @@
     "friction_score": 7.0
   },
   {
+    "line": "27967_700",
+    "total_events": 3,
+    "delays": 3,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 3,
+    "friction_score": 6.0
+  },
+  {
     "line": "19122_700",
     "total_events": 3,
     "delays": 3,
     "cancellations": 0,
     "severity_avg": 2.0,
     "days_active": 1,
-    "friction_score": 6.0
-  },
-  {
-    "line": "22689_700",
-    "total_events": 3,
-    "delays": 3,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
     "friction_score": 6.0
   },
   {
@@ -7498,15 +7615,6 @@
   },
   {
     "line": "1879_900",
-    "total_events": 3,
-    "delays": 3,
-    "cancellations": 0,
-    "severity_avg": 2.7,
-    "days_active": 2,
-    "friction_score": 7.0
-  },
-  {
-    "line": "24048_100",
     "total_events": 3,
     "delays": 3,
     "cancellations": 0,
@@ -7552,6 +7660,15 @@
   },
   {
     "line": "19085_700",
+    "total_events": 3,
+    "delays": 3,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 1,
+    "friction_score": 6.0
+  },
+  {
+    "line": "27009_700",
     "total_events": 3,
     "delays": 3,
     "cancellations": 0,
@@ -7632,15 +7749,6 @@
     "friction_score": 4.0
   },
   {
-    "line": "27967_700",
-    "total_events": 2,
-    "delays": 2,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 2,
-    "friction_score": 4.0
-  },
-  {
     "line": "10685_700",
     "total_events": 2,
     "delays": 2,
@@ -7669,15 +7777,6 @@
   },
   {
     "line": "5269_700",
-    "total_events": 2,
-    "delays": 2,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
-    "friction_score": 4.0
-  },
-  {
-    "line": "19123_700",
     "total_events": 2,
     "delays": 2,
     "cancellations": 0,
@@ -7758,43 +7857,7 @@
     "friction_score": 2.0
   },
   {
-    "line": "18358_700",
-    "total_events": 1,
-    "delays": 1,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
-    "friction_score": 2.0
-  },
-  {
     "line": "27916_700",
-    "total_events": 1,
-    "delays": 1,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
-    "friction_score": 2.0
-  },
-  {
-    "line": "13443_700",
-    "total_events": 1,
-    "delays": 1,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
-    "friction_score": 2.0
-  },
-  {
-    "line": "10675_700",
-    "total_events": 1,
-    "delays": 1,
-    "cancellations": 0,
-    "severity_avg": 2.0,
-    "days_active": 1,
-    "friction_score": 2.0
-  },
-  {
-    "line": "22706_700",
     "total_events": 1,
     "delays": 1,
     "cancellations": 0,
@@ -7813,6 +7876,24 @@
   },
   {
     "line": "17424_900",
+    "total_events": 1,
+    "delays": 1,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 1,
+    "friction_score": 2.0
+  },
+  {
+    "line": "17487_700",
+    "total_events": 1,
+    "delays": 1,
+    "cancellations": 0,
+    "severity_avg": 2.0,
+    "days_active": 1,
+    "friction_score": 2.0
+  },
+  {
+    "line": "22688_700",
     "total_events": 1,
     "delays": 1,
     "cancellations": 0,
