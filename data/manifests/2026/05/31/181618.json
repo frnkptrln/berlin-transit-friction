@@ -1,0 +1,115 @@
+{
+  "run_id": "20260531T181618Z",
+  "started_at": "2026-05-31T18:16:18.919142+00:00",
+  "finished_at": "2026-05-31T18:18:21.372173+00:00",
+  "git_sha": "unknown",
+  "sources_attempted": [
+    "vbb_gtfs_rt",
+    "brokenlifts",
+    "vbb_transport_rest",
+    "bvg_transport_rest"
+  ],
+  "sources_succeeded": [
+    "vbb_gtfs_rt",
+    "brokenlifts"
+  ],
+  "sources_failed": [
+    "vbb_transport_rest",
+    "bvg_transport_rest"
+  ],
+  "source_results": [
+    {
+      "source_id": "vbb_gtfs_rt",
+      "success": true,
+      "status_code": 200,
+      "event_count": 1000,
+      "warnings": [],
+      "duration_ms": 2158,
+      "parser_status": "0.2"
+    },
+    {
+      "source_id": "brokenlifts",
+      "success": true,
+      "status_code": 200,
+      "event_count": 1,
+      "warnings": [],
+      "duration_ms": 2448,
+      "parser_status": "0.2"
+    },
+    {
+      "source_id": "vbb_transport_rest",
+      "success": false,
+      "status_code": 404,
+      "event_count": 0,
+      "warnings": [
+        "no departures returned from configured transport.rest endpoints",
+        "https://v6.vbb.transport.rest/stops/900000003201/departures: HTTP 404",
+        "https://v6.vbb.transport.rest/stops/900000100003/departures: HTTP 404",
+        "https://v6.vbb.transport.rest/stops/900000024101/departures: HTTP 404",
+        "https://v5.vbb.transport.rest/stops/900000003201/departures: HTTPSConnectionPool(host='v5.vbb.transport.rest', port=443): Read timed out. (read timeout=20)",
+        "https://v5.vbb.transport.rest/stops/900000100003/departures: HTTPSConnectionPool(host='v5.vbb.transport.rest', port=443): Read timed out. (read timeout=20)",
+        "https://v5.vbb.transport.rest/stops/900000024101/departures: HTTPSConnectionPool(host='v5.vbb.transport.rest', port=443): Read timed out. (read timeout=20)"
+      ],
+      "duration_ms": 65691,
+      "parser_status": "0.2"
+    },
+    {
+      "source_id": "bvg_transport_rest",
+      "success": false,
+      "status_code": 503,
+      "event_count": 0,
+      "warnings": [
+        "no departures returned from configured transport.rest endpoints",
+        "https://v6.bvg.transport.rest/stops/900000003201/departures: HTTP 404",
+        "https://v6.bvg.transport.rest/stops/900000100003/departures: HTTP 404",
+        "https://v6.bvg.transport.rest/stops/900000024101/departures: HTTP 404",
+        "https://v5.bvg.transport.rest/stops/900000003201/departures: HTTP 503",
+        "https://v5.bvg.transport.rest/stops/900000100003/departures: HTTP 503",
+        "https://v5.bvg.transport.rest/stops/900000024101/departures: HTTP 503"
+      ],
+      "duration_ms": 34472,
+      "parser_status": "0.2"
+    }
+  ],
+  "bronze_files_written": [
+    "data/bronze/vbb_gtfs_rt/2026/05/31/181618.json.gz",
+    "data/bronze/brokenlifts/2026/05/31/181618.json.gz",
+    "data/bronze/vbb_transport_rest/2026/05/31/181618.json.gz",
+    "data/bronze/bvg_transport_rest/2026/05/31/181618.json.gz",
+    "data/bronze/vbb_departures/2026/05/31/900000100003_181618.json.gz",
+    "data/bronze/vbb_departures/2026/05/31/900000120003_181618.json.gz",
+    "data/bronze/vbb_departures/2026/05/31/900000160004_181618.json.gz",
+    "data/bronze/vbb_departures/2026/05/31/900000003201_181618.json.gz",
+    "data/bronze/vbb_departures/2026/05/31/900000003201_181618.json.gz",
+    "data/bronze/vbb_departures/2026/05/31/900000023201_181618.json.gz",
+    "data/bronze/vbb_departures/2026/05/31/900000100001_181618.json.gz",
+    "data/bronze/vbb_departures/2026/05/31/900000054101_181618.json.gz",
+    "data/bronze/vbb_journeys/2026/05/31/alex_to_ostkreuz_181618.json.gz",
+    "data/bronze/vbb_journeys/2026/05/31/hbf_to_hermannplatz_181618.json.gz",
+    "data/bronze/vbb_journeys/2026/05/31/zoo_to_pankow_181618.json.gz"
+  ],
+  "silver_files_written": [
+    "data/silver/friction_events/2026-05-31.jsonl"
+  ],
+  "normalized_event_count": 779,
+  "warnings": [
+    "vbb_transport_rest: no departures returned from configured transport.rest endpoints",
+    "vbb_transport_rest: https://v6.vbb.transport.rest/stops/900000003201/departures: HTTP 404",
+    "vbb_transport_rest: https://v6.vbb.transport.rest/stops/900000100003/departures: HTTP 404",
+    "vbb_transport_rest: https://v6.vbb.transport.rest/stops/900000024101/departures: HTTP 404",
+    "vbb_transport_rest: https://v5.vbb.transport.rest/stops/900000003201/departures: HTTPSConnectionPool(host='v5.vbb.transport.rest', port=443): Read timed out. (read timeout=20)",
+    "vbb_transport_rest: https://v5.vbb.transport.rest/stops/900000100003/departures: HTTPSConnectionPool(host='v5.vbb.transport.rest', port=443): Read timed out. (read timeout=20)",
+    "vbb_transport_rest: https://v5.vbb.transport.rest/stops/900000024101/departures: HTTPSConnectionPool(host='v5.vbb.transport.rest', port=443): Read timed out. (read timeout=20)",
+    "bvg_transport_rest: no departures returned from configured transport.rest endpoints",
+    "bvg_transport_rest: https://v6.bvg.transport.rest/stops/900000003201/departures: HTTP 404",
+    "bvg_transport_rest: https://v6.bvg.transport.rest/stops/900000100003/departures: HTTP 404",
+    "bvg_transport_rest: https://v6.bvg.transport.rest/stops/900000024101/departures: HTTP 404",
+    "bvg_transport_rest: https://v5.bvg.transport.rest/stops/900000003201/departures: HTTP 503",
+    "bvg_transport_rest: https://v5.bvg.transport.rest/stops/900000100003/departures: HTTP 503",
+    "bvg_transport_rest: https://v5.bvg.transport.rest/stops/900000024101/departures: HTTP 503"
+  ],
+  "dependency_warnings": [],
+  "rate_limit_notes": "conservative MVP polling",
+  "raw_storage_policy": "compact_json_gz_no_raw_protobuf",
+  "manifest_path": "data/manifests/2026/05/31/181618.json"
+}
