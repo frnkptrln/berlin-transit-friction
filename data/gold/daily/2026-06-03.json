@@ -1,15 +1,15 @@
 {
   "date": "2026-06-03",
   "total_events": 8767,
-  "events_by_category": {
-    "delay": 8746,
-    "elevator_or_accessibility_issue": 12,
-    "disruption": 9
-  },
   "events_by_source": {
     "vbb_gtfs_rt": 8746,
     "brokenlifts": 12,
     "bvg_traffic_news": 9
+  },
+  "events_by_category": {
+    "delay": 8746,
+    "elevator_or_accessibility_issue": 12,
+    "disruption": 9
   },
   "events_by_line": {
     "17471_700": 8,
@@ -256,12 +256,11 @@
     "26979_700": 9
   },
   "accessibility_friction": 12,
-  "data_coverage": {
-    "friction_events": 8767,
-    "departure_observations": 0,
-    "journey_observations": 0
+  "state_counts": {
+    "new": 8763,
+    "observed": 4
   },
-  "severe_events": [
+  "severe": [
     {
       "event_id": "4405a0c1bf81b4919dfe",
       "source": "vbb_gtfs_rt",
@@ -336,11 +335,91 @@
       "title": "GTFS Trip Delay",
       "description": "Delay of 900 seconds on route 23415_700 at stop de:11000:900057150::2",
       "confidence": 0.9
+    },
+    {
+      "event_id": "ef8573aee6d86a08bd24",
+      "source": "vbb_gtfs_rt",
+      "collected_at": "2026-06-03T00:24:13.540338+00:00",
+      "first_seen_at": "2026-06-03T00:24:13.540315+00:00",
+      "last_seen_at": "2026-06-03T00:24:13.540315+00:00",
+      "event_state": "new",
+      "line": "23415_700",
+      "stop_name": "de:11000:900057104::1",
+      "category": "delay",
+      "severity": 3,
+      "title": "GTFS Trip Delay",
+      "description": "Delay of 900 seconds on route 23415_700 at stop de:11000:900057104::1",
+      "confidence": 0.9
+    },
+    {
+      "event_id": "83dd9f4746d01a0a3903",
+      "source": "vbb_gtfs_rt",
+      "collected_at": "2026-06-03T00:24:13.540338+00:00",
+      "first_seen_at": "2026-06-03T00:24:13.540315+00:00",
+      "last_seen_at": "2026-06-03T00:24:13.540315+00:00",
+      "event_state": "new",
+      "line": "23415_700",
+      "stop_name": "de:11000:900054109::2",
+      "category": "delay",
+      "severity": 3,
+      "title": "GTFS Trip Delay",
+      "description": "Delay of 960 seconds on route 23415_700 at stop de:11000:900054109::2",
+      "confidence": 0.9
+    },
+    {
+      "event_id": "886d5f6e9b53f442175c",
+      "source": "vbb_gtfs_rt",
+      "collected_at": "2026-06-03T00:24:13.540338+00:00",
+      "first_seen_at": "2026-06-03T00:24:13.540315+00:00",
+      "last_seen_at": "2026-06-03T00:24:13.540315+00:00",
+      "event_state": "new",
+      "line": "23415_700",
+      "stop_name": "de:11000:900054151::1",
+      "category": "delay",
+      "severity": 3,
+      "title": "GTFS Trip Delay",
+      "description": "Delay of 1020 seconds on route 23415_700 at stop de:11000:900054151::1",
+      "confidence": 0.9
+    },
+    {
+      "event_id": "de49d4e98641f578d841",
+      "source": "vbb_gtfs_rt",
+      "collected_at": "2026-06-03T00:24:13.540338+00:00",
+      "first_seen_at": "2026-06-03T00:24:13.540315+00:00",
+      "last_seen_at": "2026-06-03T00:24:13.540315+00:00",
+      "event_state": "new",
+      "line": "23416_700",
+      "stop_name": "de:11000:900044201::13",
+      "category": "delay",
+      "severity": 3,
+      "title": "GTFS Trip Delay",
+      "description": "Delay of 1020 seconds on route 23416_700 at stop de:11000:900044201::13",
+      "confidence": 0.9
+    },
+    {
+      "event_id": "f07b2fae25b1d5c3babc",
+      "source": "vbb_gtfs_rt",
+      "collected_at": "2026-06-03T01:39:57.805224+00:00",
+      "first_seen_at": "2026-06-03T01:39:57.805202+00:00",
+      "last_seen_at": "2026-06-03T01:39:57.805202+00:00",
+      "event_state": "new",
+      "line": "17469_700",
+      "stop_name": "de:11000:900003201::9",
+      "category": "delay",
+      "severity": 3,
+      "title": "GTFS Trip Delay",
+      "description": "Delay of 960 seconds on route 17469_700 at stop de:11000:900003201::9",
+      "confidence": 0.9
     }
   ],
   "connection_watchlist_count": 0,
-  "worst_relation": null,
+  "worst_relation_by_delay_delta": null,
   "relations_with_cancellations": [],
   "stations_with_most_delayed_departures": [],
-  "generated_at": "2026-06-03T19:46:27.219118+00:00"
+  "data_coverage": {
+    "friction_events": 8767,
+    "departure_observations": 0,
+    "journey_observations": 0
+  },
+  "limitations": "BrokenLifts is included as a side-channel signal, not the primary service quality metric."
 }
