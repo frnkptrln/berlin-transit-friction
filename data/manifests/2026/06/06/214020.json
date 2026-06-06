@@ -1,0 +1,59 @@
+{
+  "run_id": "20260606T214020Z",
+  "started_at": "2026-06-06T21:40:20.535025+00:00",
+  "finished_at": "2026-06-06T21:40:27.855475+00:00",
+  "git_sha": "unknown",
+  "sources_attempted": [
+    "bvg_traffic_news",
+    "sbahn_disruptions"
+  ],
+  "sources_succeeded": [
+    "bvg_traffic_news",
+    "sbahn_disruptions"
+  ],
+  "sources_failed": [],
+  "source_results": [
+    {
+      "source_id": "bvg_traffic_news",
+      "success": true,
+      "status_code": 200,
+      "event_count": 2,
+      "warnings": [],
+      "duration_ms": 763,
+      "parser_status": "0.2"
+    },
+    {
+      "source_id": "sbahn_disruptions",
+      "success": true,
+      "status_code": 200,
+      "event_count": 0,
+      "warnings": [],
+      "duration_ms": 982,
+      "parser_status": "0.2"
+    }
+  ],
+  "bronze_files_written": [
+    "data/bronze/bvg_traffic_news/2026/06/06/214020.json.gz",
+    "data/bronze/sbahn_disruptions/2026/06/06/214020.json.gz",
+    "data/bronze/vbb_departures/2026/06/06/900000100003_214020.json.gz",
+    "data/bronze/vbb_departures/2026/06/06/900000120003_214020.json.gz",
+    "data/bronze/vbb_departures/2026/06/06/900000160004_214020.json.gz",
+    "data/bronze/vbb_departures/2026/06/06/900000003201_214020.json.gz",
+    "data/bronze/vbb_departures/2026/06/06/900000003201_214020.json.gz",
+    "data/bronze/vbb_departures/2026/06/06/900000023201_214020.json.gz",
+    "data/bronze/vbb_departures/2026/06/06/900000100001_214020.json.gz",
+    "data/bronze/vbb_departures/2026/06/06/900000054101_214020.json.gz",
+    "data/bronze/vbb_journeys/2026/06/06/alex_to_ostkreuz_214020.json.gz",
+    "data/bronze/vbb_journeys/2026/06/06/hbf_to_hermannplatz_214020.json.gz",
+    "data/bronze/vbb_journeys/2026/06/06/zoo_to_pankow_214020.json.gz"
+  ],
+  "silver_files_written": [
+    "data/silver/friction_events/2026-06-06.jsonl"
+  ],
+  "normalized_event_count": 1,
+  "warnings": [],
+  "dependency_warnings": [],
+  "rate_limit_notes": "conservative MVP polling",
+  "raw_storage_policy": "compact_json_gz_no_raw_protobuf",
+  "manifest_path": "data/manifests/2026/06/06/214020.json"
+}
