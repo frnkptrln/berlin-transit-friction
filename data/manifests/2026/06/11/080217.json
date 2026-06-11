@@ -1,0 +1,50 @@
+{
+  "run_id": "20260611T080217Z",
+  "started_at": "2026-06-11T08:02:17.606305+00:00",
+  "finished_at": "2026-06-11T08:02:48.250863+00:00",
+  "git_sha": "unknown",
+  "sources_attempted": [
+    "bvg_traffic_news",
+    "sbahn_disruptions"
+  ],
+  "sources_succeeded": [
+    "bvg_traffic_news",
+    "sbahn_disruptions"
+  ],
+  "sources_failed": [],
+  "source_results": [
+    {
+      "source_id": "bvg_traffic_news",
+      "success": true,
+      "status_code": 200,
+      "event_count": 2,
+      "warnings": [],
+      "duration_ms": 982,
+      "parser_status": "0.2"
+    },
+    {
+      "source_id": "sbahn_disruptions",
+      "success": true,
+      "status_code": 200,
+      "event_count": 0,
+      "warnings": [],
+      "duration_ms": 759,
+      "parser_status": "0.2"
+    }
+  ],
+  "bronze_files_written": [
+    "data/bronze/bvg_traffic_news/2026/06/11/080217.json.gz",
+    "data/bronze/sbahn_disruptions/2026/06/11/080217.json.gz"
+  ],
+  "silver_files_written": [
+    "data/silver/friction_events/2026-06-11.jsonl"
+  ],
+  "normalized_event_count": 1,
+  "warnings": [
+    "watchlist collectors: HTTPSConnectionPool(host='v6.vbb.transport.rest', port=443): Read timed out. (read timeout=20)"
+  ],
+  "dependency_warnings": [],
+  "rate_limit_notes": "conservative MVP polling",
+  "raw_storage_policy": "compact_json_gz_no_raw_protobuf",
+  "manifest_path": "data/manifests/2026/06/11/080217.json"
+}
