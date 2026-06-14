@@ -11,7 +11,7 @@
   },
   "brokenlifts": {
     "last_success": "2026-06-14T05:48:39.514999+00:00",
-    "last_failure": "2026-06-11T01:25:32.239737+00:00",
+    "last_failure": "2026-06-14T11:12:46.331167+00:00",
     "consecutive_failures": 0,
     "average_response_time_ms": 2828,
     "last_status_code": 200,
@@ -22,8 +22,8 @@
   "vbb_transport_rest": {
     "last_success": null,
     "last_failure": "2026-06-14T05:48:39.514999+00:00",
-    "consecutive_failures": 1042,
-    "average_response_time_ms": 51309,
+    "consecutive_failures": 1043,
+    "average_response_time_ms": 51377,
     "last_status_code": 404,
     "parser_status": "0.2",
     "last_event_count": 0,
@@ -32,8 +32,8 @@
   "bvg_transport_rest": {
     "last_success": null,
     "last_failure": "2026-06-14T05:48:39.514999+00:00",
-    "consecutive_failures": 1042,
-    "average_response_time_ms": 35531,
+    "consecutive_failures": 1043,
+    "average_response_time_ms": 35530,
     "last_status_code": 503,
     "parser_status": "0.2",
     "last_event_count": 0,
