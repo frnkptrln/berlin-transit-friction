@@ -40,7 +40,7 @@
     "last_warning": "https://v5.bvg.transport.rest/stops/900000024101/departures: HTTP 503"
   },
   "bvg_traffic_news": {
-    "last_success": "2026-06-14T07:54:52.893948+00:00",
+    "last_success": "2026-06-14T09:28:42.294405+00:00",
     "last_failure": "2026-05-07T13:59:01.933009+00:00",
     "consecutive_failures": 0,
     "average_response_time_ms": 840,
@@ -50,7 +50,7 @@
     "last_warning": "not implemented"
   },
   "sbahn_disruptions": {
-    "last_success": "2026-06-14T07:54:52.893948+00:00",
+    "last_success": "2026-06-14T09:28:42.294405+00:00",
     "last_failure": "2026-05-14T10:03:12.777379+00:00",
     "consecutive_failures": 0,
     "average_response_time_ms": 833,
