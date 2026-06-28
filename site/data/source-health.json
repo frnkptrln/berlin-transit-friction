@@ -22,8 +22,8 @@
   "vbb_transport_rest": {
     "last_success": null,
     "last_failure": "2026-06-28T05:14:59.854185+00:00",
-    "consecutive_failures": 1370,
-    "average_response_time_ms": 57107,
+    "consecutive_failures": 1371,
+    "average_response_time_ms": 57168,
     "last_status_code": null,
     "parser_status": "0.2",
     "last_event_count": 0,
@@ -32,8 +32,8 @@
   "bvg_transport_rest": {
     "last_success": null,
     "last_failure": "2026-06-28T05:14:59.854185+00:00",
-    "consecutive_failures": 1370,
-    "average_response_time_ms": 36639,
+    "consecutive_failures": 1371,
+    "average_response_time_ms": 36684,
     "last_status_code": null,
     "parser_status": "0.2",
     "last_event_count": 0,
