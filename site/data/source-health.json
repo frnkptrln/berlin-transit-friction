@@ -1,16 +1,16 @@
 {
   "vbb_gtfs_rt": {
-    "last_success": "2026-07-04T16:45:41.381240+00:00",
+    "last_success": "2026-07-04T20:20:35.496778+00:00",
     "last_failure": "2026-05-06T15:37:57.779920+00:00",
     "consecutive_failures": 0,
     "average_response_time_ms": 2288,
     "last_status_code": 200,
     "parser_status": "0.2",
-    "last_event_count": 1000,
+    "last_event_count": 814,
     "last_warning": "network disabled or requests missing"
   },
   "brokenlifts": {
-    "last_success": "2026-07-04T16:45:41.381240+00:00",
+    "last_success": "2026-07-04T20:20:35.496778+00:00",
     "last_failure": "2026-07-01T13:35:40.966823+00:00",
     "consecutive_failures": 0,
     "average_response_time_ms": 3044,
@@ -21,9 +21,9 @@
   },
   "vbb_transport_rest": {
     "last_success": null,
-    "last_failure": "2026-07-04T16:45:41.381240+00:00",
-    "consecutive_failures": 1500,
-    "average_response_time_ms": 63849,
+    "last_failure": "2026-07-04T20:20:35.496778+00:00",
+    "consecutive_failures": 1501,
+    "average_response_time_ms": 63908,
     "last_status_code": null,
     "parser_status": "0.2",
     "last_event_count": 0,
@@ -31,9 +31,9 @@
   },
   "bvg_transport_rest": {
     "last_success": null,
-    "last_failure": "2026-07-04T16:45:41.381240+00:00",
-    "consecutive_failures": 1500,
-    "average_response_time_ms": 40935,
+    "last_failure": "2026-07-04T20:20:35.496778+00:00",
+    "consecutive_failures": 1501,
+    "average_response_time_ms": 40955,
     "last_status_code": 503,
     "parser_status": "0.2",
     "last_event_count": 0,
