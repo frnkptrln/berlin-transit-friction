@@ -1,0 +1,92 @@
+{
+  "vbb_gtfs_rt": {
+    "last_success": "2026-07-04T20:20:35.496778+00:00",
+    "last_failure": "2026-05-06T15:37:57.779920+00:00",
+    "consecutive_failures": 0,
+    "average_response_time_ms": 2282,
+    "last_status_code": 200,
+    "parser_status": "0.2",
+    "last_event_count": 814,
+    "last_warning": "network disabled or requests missing"
+  },
+  "brokenlifts": {
+    "last_success": "2026-07-04T20:20:35.496778+00:00",
+    "last_failure": "2026-07-01T13:35:40.966823+00:00",
+    "consecutive_failures": 0,
+    "average_response_time_ms": 3041,
+    "last_status_code": 200,
+    "parser_status": "0.2",
+    "last_event_count": 1,
+    "last_warning": "network disabled or requests missing"
+  },
+  "vbb_transport_rest": {
+    "last_success": null,
+    "last_failure": "2026-07-04T20:20:35.496778+00:00",
+    "consecutive_failures": 1527,
+    "average_response_time_ms": 64995,
+    "last_status_code": null,
+    "parser_status": "0.2",
+    "last_event_count": 0,
+    "last_warning": "https://v5.vbb.transport.rest/stops/900000024101/departures: HTTPSConnectionPool(host='v5.vbb.transport.rest', port=443): Read timed out. (read timeout=20)"
+  },
+  "bvg_transport_rest": {
+    "last_success": null,
+    "last_failure": "2026-07-04T20:20:35.496778+00:00",
+    "consecutive_failures": 1527,
+    "average_response_time_ms": 41528,
+    "last_status_code": 503,
+    "parser_status": "0.2",
+    "last_event_count": 0,
+    "last_warning": "https://v5.bvg.transport.rest/stops/900000024101/departures: HTTP 503"
+  },
+  "bvg_traffic_news": {
+    "last_success": "2026-07-04T15:32:50.641865+00:00",
+    "last_failure": "2026-05-07T13:59:01.933009+00:00",
+    "consecutive_failures": 0,
+    "average_response_time_ms": 876,
+    "last_status_code": 200,
+    "parser_status": "0.2",
+    "last_event_count": 3,
+    "last_warning": "not implemented"
+  },
+  "sbahn_disruptions": {
+    "last_success": "2026-07-04T15:32:50.641865+00:00",
+    "last_failure": "2026-05-14T10:03:12.777379+00:00",
+    "consecutive_failures": 0,
+    "average_response_time_ms": 862,
+    "last_status_code": 200,
+    "parser_status": "0.2",
+    "last_event_count": 0,
+    "last_warning": "HTTPSConnectionPool(host='sbahn.berlin', port=443): Max retries exceeded with url: /fahren/bauen-stoerung/ (Caused by NameResolutionError(\"HTTPSConnection(host='sbahn.berlin', port=443): Failed to resolve 'sbahn.berlin' ([Errno -3] Temporary failure in name resolution)\"))"
+  },
+  "viz_public_transport": {
+    "last_success": null,
+    "last_failure": "2026-05-07T13:59:01.933009+00:00",
+    "consecutive_failures": 68,
+    "average_response_time_ms": 0,
+    "last_status_code": null,
+    "parser_status": "0.2",
+    "last_event_count": 0,
+    "last_warning": "not implemented"
+  },
+  "bvg_disturbed_network_wfs": {
+    "last_success": null,
+    "last_failure": "2026-05-07T13:59:01.933009+00:00",
+    "consecutive_failures": 68,
+    "average_response_time_ms": 0,
+    "last_status_code": null,
+    "parser_status": "0.2",
+    "last_event_count": 0,
+    "last_warning": "not implemented"
+  },
+  "vbb_fahrinfo_api": {
+    "last_success": null,
+    "last_failure": "2026-05-07T13:59:01.933009+00:00",
+    "consecutive_failures": 68,
+    "average_response_time_ms": 0,
+    "last_status_code": null,
+    "parser_status": "0.2",
+    "last_event_count": 0,
+    "last_warning": "not implemented"
+  }
+}
