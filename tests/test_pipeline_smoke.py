@@ -27,24 +27,21 @@ def test_collector_and_build_smoke(tmp_path):
     assert (site_data / "latest.json").exists(), "site latest output should be written"
 
 
-def test_workflow_git_add_paths_match_outputs():
-    expected = "git add data/bronze data/silver data/gold data/manifests site/data"
+def test_legacy_collection_workflows_are_paused():
     workflows = [
         ".github/workflows/collect.yml",
         ".github/workflows/collect-frequent.yml",
         ".github/workflows/collect-hourly.yml",
+        ".github/workflows/collect-daily.yml",
+        ".github/workflows/collect-static.yml",
+        ".github/workflows/daily-summary.yml",
     ]
     for workflow in workflows:
         content = (REPO_ROOT / workflow).read_text(encoding="utf-8")
-        assert expected in content, f"{workflow} should add current output paths"
-
-    daily_workflows = [
-        ".github/workflows/collect-daily.yml",
-        ".github/workflows/daily-summary.yml",
-    ]
-    for workflow in daily_workflows:
-        content = (REPO_ROOT / workflow).read_text(encoding="utf-8")
-        assert "git add data/gold data/manifests site/data" in content
+        assert "schedule:" not in content, f"{workflow} must not be scheduled"
+        assert "cron:" not in content, f"{workflow} must not contain a cron trigger"
+        assert "contents: write" not in content, f"{workflow} must be read-only"
+        assert "git add" not in content, f"{workflow} must not commit data"
 
     forbidden = ["data/normalized", "data/summaries"]
     for workflow in (REPO_ROOT / ".github/workflows").glob("*.yml"):
