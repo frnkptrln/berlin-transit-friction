@@ -1,36 +1,56 @@
 # Transit Friction
 
-An open observatory for making friction in Berlin public transport visible, analyzable, and narratable. 
+> **Status: legacy prototype paused on 2026-07-10.**
 
-🌐 **[View the Live Dashboard](https://frnkptrln.github.io/berlin-transit-friction/)** (updates every 15 minutes)
+The automated collectors and published dashboard have been stopped. The historical output must not be interpreted as a measure of Berlin public transport reliability.
 
-## The Dashboard
-The project features a client-side, zero-dependency dashboard that visualizes:
-- Live disruption metrics and daily trends
-- Real-time station friction charts
-- S-Bahn/U-Bahn line rankings based on delays and cancellations 
-- Automated source health tracking
+The exact pre-pause state is preserved on the [`legacy-v0` branch](https://github.com/frnkptrln/berlin-transit-friction/tree/legacy-v0).
 
-## Data layers
-- Bronze: `data/bronze/<source>/<YYYY>/<MM>/<DD>/<HHMMSS>.json.gz`
-- Silver: `data/silver/friction_events/<YYYY-MM-DD>.jsonl`
-- Gold: `data/gold/daily/*.json|*.md`, `site/data/*.json`
+## Why collection was paused
 
-## Collected now
-- vbb_gtfs_rt (metadata-first, compact)
-- brokenlifts (accessibility signal probing)
-- vbb_transport_rest departures remarks probe
-- bvg_transport_rest departures remarks probe
+The prototype combined fundamentally different observations—GTFS-RT stop-time updates, disruption notices, elevator signals, journey probes, and source availability—under one undefined “friction” count.
 
-## Planned/partial
-- sbahn disruptions, BVG traffic news, WFS disturbed network, VIZ, static GTFS derived indexes.
+A review found that:
 
-## Local run
-`python scripts/check_environment.py`
-`python scripts/collect_snapshot.py --no-network --dry-run`
-`python scripts/build_daily_summary.py`
-`python scripts/build_site_data.py`
-`python scripts/build_source_health.py`
+- event IDs included the collection timestamp, so the same condition became a new event on every poll;
+- lifecycle state was not persisted between GitHub Actions runners;
+- repeated observations were counted as distinct disruptions;
+- GTFS-RT output was capped without a population denominator or static-GTFS join;
+- the BrokenLifts collector detected a keyword on the landing page rather than individual outages;
+- dead wrapper endpoints kept running and committing failures;
+- map positions could be assigned without an observed location.
+
+The resulting daily counts, rankings, scores, and trends are therefore methodologically invalid. The legacy manifests may still be useful for a postmortem of the pipeline itself, but not for claims about transit quality.
+
+See [docs/legacy-assessment.md](docs/legacy-assessment.md) for the assessment and reboot criteria.
+
+## Proposed reboot
+
+The repository will only resume collection around one bounded question:
+
+> **How does elevator availability change the accessible topology of Berlin public transport over time?**
+
+The first valid version will focus on structured elevator-outage lifecycles:
+
+- stable asset and station identities;
+- explicit `first_seen_at`, `last_seen_at`, and `resolved_at`;
+- no resolution when a source fetch fails or is incomplete;
+- outage duration and recurrence rather than poll counts;
+- source freshness and coverage kept separate from transport conditions;
+- compact daily publication instead of committing every raw poll;
+- no map or network claim without observed coordinates and topology.
+
+## Publication gates
+
+Scheduled collection stays disabled until all of the following are true:
+
+1. fixture-backed parser tests pass;
+2. event identity is stable across repeated snapshots;
+3. state persists across independent runs;
+4. a failed source cannot resolve active outages;
+5. aggregates have explicit definitions and coverage;
+6. a shadow run has been reviewed before public publication.
 
 ## Boundaries
-Public data only, no passenger tracking, no private/social scraping, no false precision, no crowding claims without direct source data.
+
+Public data only. No passenger tracking, individual movement analysis, private or social-media scraping, fabricated geolocation, or unsupported precision.
