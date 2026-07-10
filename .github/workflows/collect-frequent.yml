@@ -1,72 +1,17 @@
-name: collect-frequent
+name: frequent collector (paused)
+
 on:
   workflow_dispatch:
-  schedule: [{ cron: '7,22,37,52 * * * *' }]
-concurrency:
-  group: transit-data-writes
-  cancel-in-progress: false
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 permissions:
-  contents: write
+  contents: read
+
 jobs:
-  run:
+  paused:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with: { python-version: '3.12' }
-      - run: 'pip install -r requirements.txt || true'
-      - name: Collect frequent data
+      - name: Explain pause
         run: |
-          python scripts/collect_snapshot.py --frequent | tee /tmp/collect_manifest.log
-          python scripts/build_source_health.py
-          python scripts/check_storage_size.py
-      - name: Debug status
-        run: |
-          pwd
-          git status --short
-          find data -maxdepth 5 -type f || true
-          find site/data -maxdepth 3 -type f || true
-      - name: Commit changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          mkdir -p data/bronze data/silver data/gold data/manifests site/data
-
-          echo "Recent commits:"
-          git log --oneline -3 || true
-
-          echo "Status before pre-stage rebase:"
-          git status --short
-          git pull --rebase origin main || true
-          echo "Status after pre-stage rebase:"
-          git status --short
-
-          git add data/bronze data/silver data/gold data/manifests site/data
-          if git diff --cached --quiet; then
-            echo "No data changes to commit."
-            exit 0
-          fi
-
-          git commit -m "chore(data): frequent collection"
-
-          echo "Status before push rebase:"
-          git status --short
-          git pull --rebase origin main
-          echo "Status after push rebase:"
-          git status --short
-
-          for attempt in 1 2 3; do
-            if git push origin main; then
-              echo "Push succeeded on attempt ${attempt}."
-              exit 0
-            fi
-            if [ "$attempt" -lt 3 ]; then
-              echo "Push failed on attempt ${attempt}; rebasing and retrying..."
-              git pull --rebase origin main
-            fi
-          done
-
-          echo "Push failed after 3 attempts."
-          exit 1
+          echo "The legacy Transit Friction pipeline is paused."
+          echo "Its event identity, lifecycle persistence, and aggregate metrics were not methodologically valid."
+          echo "See README.md and the legacy-v0 branch before reactivating collection."
