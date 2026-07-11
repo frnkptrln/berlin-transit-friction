@@ -49,3 +49,20 @@ unit, and observation coverage.
 - no raw snapshot commits.
 
 Those layers require separate evidence and review.
+
+## One-shot shadow operation
+
+The shadow runner observes the source once, reconciles it with a local versioned
+state file, and records only lifecycle transitions plus a compact run summary:
+
+```bash
+python scripts/accessibility_shadow.py
+```
+
+By default it writes below `.shadow/`, which is ignored by Git. It never commits,
+publishes, or schedules a run. Use `--dry-run` to parse and reconcile without
+writing state. Use `--input-html` for fixture or captured-page validation.
+
+The transition journal records only `new` and `resolved` changes. Repeated
+`ongoing` observations stay in the state file and run summary, avoiding a new
+event stream whose size merely reflects polling frequency.

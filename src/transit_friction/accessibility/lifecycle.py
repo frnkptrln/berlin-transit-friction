@@ -110,7 +110,7 @@ def reconcile(
         and snapshot.source_updated_at is not None
         and (
             latest_source_timestamp is None
-            or snapshot.source_updated_at >= latest_source_timestamp
+            or snapshot.source_updated_at > latest_source_timestamp
         )
     )
 
