@@ -40,6 +40,20 @@ The first valid version will focus on structured elevator-outage lifecycles:
 - compact daily publication instead of committing every raw poll;
 - no map or network claim without observed coordinates and topology.
 
+## Data architecture
+
+Written before collection resumes, so that the reboot collects the right thing:
+
+- [docs/data-architecture.md](docs/data-architecture.md) — three layers; why we
+  archive state transitions instead of GTFS-RT frames.
+- [docs/event-schema.md](docs/event-schema.md) — what a transition is, how
+  flapping is damped, and why a missing poll is `unknown` rather than `0`.
+- [docs/partitioning.md](docs/partitioning.md) — append-only Parquet by day,
+  sealed with content hashes, rolled up to monthly files after 30 days.
+- [RETENTION.md](RETENTION.md) — per layer: what stays, how long, and why.
+- [docs/decisions/0001-timeseries-hosting.md](docs/decisions/0001-timeseries-hosting.md)
+  — Hugging Face dataset or git; decision and revisit triggers.
+
 ## Publication gates
 
 Scheduled collection stays disabled until all of the following are true:
