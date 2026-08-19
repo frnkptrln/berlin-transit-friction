@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 sys.path.append(str(Path(__file__).resolve().parents[1]/"src"))
 from transit_friction.health import build_source_health
-BASE=Path(__file__).resolve().parents[1]
+from transit_friction.config import OUTPUT_ROOT as BASE
 manifests=list((BASE/"data/manifests").glob("**/*.json"))
 objs=[json.loads(m.read_text()) for m in manifests]
 health=build_source_health(objs)

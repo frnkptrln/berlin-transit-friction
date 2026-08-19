@@ -44,7 +44,7 @@ def test_collect_departure_events_cancellation_overrides_category():
 
 def test_fallback_departures_from_silver_reads_today_file(tmp_path, monkeypatch):
     from scripts import collect_snapshot as mod
-    monkeypatch.setattr(mod, "BASE_DIR", tmp_path)
+    monkeypatch.setattr(mod, "DATA_DIR", tmp_path / "data")
     now = datetime(2026, 5, 20, tzinfo=timezone.utc)
     p = tmp_path / "data/silver/departure_observations/2026-05-20.jsonl"
     p.parent.mkdir(parents=True, exist_ok=True)

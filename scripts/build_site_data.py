@@ -15,8 +15,10 @@ import json
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
+import sys
 
-BASE = Path(__file__).resolve().parents[1]
+sys.path.append(str(Path(__file__).resolve().parents[1] / "src"))
+from transit_friction.config import OUTPUT_ROOT as BASE
 GOLD_DAILY = BASE / "data/gold/daily"
 SILVER_FRICTION = BASE / "data/silver/friction_events"
 SILVER_DEPARTURES = BASE / "data/silver/departure_observations"

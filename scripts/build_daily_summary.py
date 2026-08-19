@@ -4,8 +4,9 @@ import argparse, json
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
-
-BASE=Path(__file__).resolve().parents[1]
+import sys
+sys.path.append(str(Path(__file__).resolve().parents[1] / "src"))
+from transit_friction.config import OUTPUT_ROOT as BASE
 ap=argparse.ArgumentParser(); ap.add_argument("--date"); a=ap.parse_args()
 date=a.date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
 

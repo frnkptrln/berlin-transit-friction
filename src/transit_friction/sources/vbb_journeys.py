@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 import requests
 
-from transit_friction.config import BASE_DIR
+from transit_friction.config import BASE_DIR, DATA_DIR, OUTPUT_ROOT
 from transit_friction.storage import write_json_gz, write_jsonl
 
 BASE = "https://v6.vbb.transport.rest"
@@ -74,13 +74,13 @@ def collect(now: datetime | None = None) -> tuple[list[str], list[dict]]:
         )
         payload = r.json() if r.ok else {"journeys": []}
         journeys = payload.get("journeys", []) if isinstance(payload, dict) else []
-        raw_path = BASE_DIR / "data/bronze/vbb_journeys" / now.strftime("%Y/%m/%d") / f"{rel['id']}_{now.strftime('%H%M%S')}.json.gz"
+        raw_path = DATA_DIR / "bronze/vbb_journeys" / now.strftime("%Y/%m/%d") / f"{rel['id']}_{now.strftime('%H%M%S')}.json.gz"
         write_json_gz(raw_path, {"observed_at": observed_at, "relation": rel, "payload": payload, "status_code": r.status_code})
-        bronze_files.append(str(raw_path.relative_to(BASE_DIR)))
+        bronze_files.append(str(raw_path.relative_to(OUTPUT_ROOT)))
         for j in journeys:
             row = {"relation_id": rel["id"], "relation_label": rel["label"], "observed_at": observed_at, **_journey_metrics(j), "refresh_token": payload.get("refreshToken")}
             rows.append(row)
-    silver_path = BASE_DIR / "data/silver/journey_observations" / f"{day}.jsonl"
+    silver_path = DATA_DIR / "silver/journey_observations" / f"{day}.jsonl"
     if rows:
         write_jsonl(silver_path, rows, append=True)
     return bronze_files, rows
