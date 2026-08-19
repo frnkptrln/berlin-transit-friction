@@ -108,6 +108,11 @@ class PendingChange:
     Lives in the ephemeral raw layer, never in the ledger. Its timestamps are
     those of the *first* observation that showed the new state, so debouncing
     delays writing without ever distorting dating.
+
+    It has to survive between runs: a collector invoked as a fresh process each
+    poll would otherwise never reach a second confirmation, and nothing would
+    ever close. Losing it costs one extra confirmation cycle and nothing else,
+    which is why it belongs in the 7-day layer rather than in the ledger.
     """
 
     entity_uid: str
@@ -130,7 +135,55 @@ class PendingChange:
             "first_observation_id": self.first_observation_id,
             "last_seen_at": self.last_seen_at.isoformat(),
             "first_prev_observation_id": self.first_prev_observation_id,
+            "entity": (
+                {
+                    "source_native_id": self.entity.source_native_id,
+                    "entity_type": self.entity.entity_type,
+                    "station_id": self.entity.station_id,
+                    "station_name": self.entity.station_name,
+                    "line_id": self.entity.line_id,
+                    "status_text": self.entity.status_text,
+                    "t_source": (
+                        self.entity.t_source.isoformat()
+                        if self.entity.t_source
+                        else None
+                    ),
+                }
+                if self.entity is not None
+                else None
+            ),
         }
+
+    @classmethod
+    def from_dict(cls, payload: dict) -> "PendingChange":
+        entity = payload.get("entity")
+        return cls(
+            entity_uid=payload["entity_uid"],
+            target_state=payload["target_state"],
+            count=int(payload["count"]),
+            first_seen_at=datetime.fromisoformat(payload["first_seen_at"]),
+            first_t_earliest=datetime.fromisoformat(payload["first_t_earliest"]),
+            first_observation_id=payload["first_observation_id"],
+            last_seen_at=datetime.fromisoformat(payload["last_seen_at"]),
+            first_prev_observation_id=payload.get("first_prev_observation_id"),
+            entity=(
+                ObservedEntity(
+                    source_native_id=entity["source_native_id"],
+                    entity_type=entity["entity_type"],
+                    station_id=entity.get("station_id"),
+                    station_name=entity.get("station_name"),
+                    line_id=entity.get("line_id"),
+                    status_text=entity.get("status_text"),
+                    t_source=(
+                        datetime.fromisoformat(entity["t_source"])
+                        if entity.get("t_source")
+                        else None
+                    ),
+                )
+                if entity
+                else None
+            ),
+        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -144,19 +197,32 @@ class DetectionResult:
     notes: tuple[str, ...] = ()
 
 
-def _is_stale(
+def _is_fresh(snapshot: SourceSnapshot, cursor: SourceCursor) -> bool:
+    """Is this a new rendering, or the same page served again?
+
+    A page whose own update timestamp has not advanced is the same statement
+    about the world as the one before it. Re-reading it cannot be evidence that
+    something changed since, so it may never resolve an outage.
+    """
+    if snapshot.source_updated_at is None:
+        return False
+    if cursor.last_source_updated_at is None:
+        return True
+    return snapshot.source_updated_at > cursor.last_source_updated_at
+
+
+def _is_stuck(
     snapshot: SourceSnapshot,
-    cursor: SourceCursor,
     tuning: TuningParameters,
 ) -> bool:
-    """Has the source stopped advancing its own clock?
+    """Has the source's own clock fallen too far behind to describe now?
 
-    A stuck feed looks exactly like "no disruptions" unless you check.
+    A stuck feed looks exactly like "no disruptions" unless you check. Beyond
+    this age the page no longer tells us what is true now, so the fetch stops
+    counting as coverage too.
     """
-    if snapshot.source_updated_at is None or cursor.last_source_updated_at is None:
-        return False
-    if snapshot.source_updated_at > cursor.last_source_updated_at:
-        return False
+    if snapshot.source_updated_at is None:
+        return True
     age = (snapshot.reference_at - snapshot.source_updated_at).total_seconds()
     return age > tuning.max_source_stale_s
 
@@ -228,23 +294,34 @@ def detect(
 
     reference_at = snapshot.reference_at
     gap_before_s = 0
-    if cursor.last_trusted_at is not None:
+    if cursor.last_current_at is not None:
         gap_before_s = max(
-            0, int((reference_at - cursor.last_trusted_at).total_seconds())
+            0, int((reference_at - cursor.last_current_at).total_seconds())
         )
 
     # Completeness is a property of one observation, never an assumption about
     # the provider: without the source's own update timestamp we cannot check it.
     complete = snapshot.complete and snapshot.source_updated_at is not None
-    stale = _is_stale(snapshot, cursor, tuning)
+    fresh = _is_fresh(snapshot, cursor)
+    stuck = _is_stuck(snapshot, tuning)
 
     outcome = snapshot.outcome
     if outcome == OUTCOME_OK and not complete:
         outcome = OUTCOME_INCOMPLETE
-    if outcome == OUTCOME_OK and stale:
+    if outcome == OUTCOME_OK and not fresh:
         outcome = OUTCOME_STALE
-        notes.append("source timestamp has not advanced; treating snapshot as stale")
-    trusted = outcome == OUTCOME_OK and complete
+        notes.append(
+            "source has not published a newer version; this snapshot repeats "
+            "the previous one and cannot resolve anything"
+        )
+    if outcome == OUTCOME_OK and stuck:
+        outcome = OUTCOME_STALE
+        notes.append("source clock is too far behind to describe the present")
+
+    # Three-way, because "we were watching" and "this could resolve something"
+    # are different questions with different answers.
+    source_current = complete and not stuck and snapshot.outcome == OUTCOME_OK
+    trusted = outcome == OUTCOME_OK and complete and fresh
 
     if (
         snapshot.payload_sha256 is not None
@@ -262,6 +339,7 @@ def detect(
         source_updated_at=snapshot.source_updated_at,
         outcome=outcome,
         complete=complete,
+        source_current=source_current,
         trusted_for_resolution=trusted,
         entity_count=len(snapshot.entities) if snapshot.observed_at else None,
         advertised_count=snapshot.advertised_count,
@@ -364,7 +442,7 @@ def detect(
         ``compute_coverage`` uses, so entity-level unknown time and source-level
         gap time always agree.
         """
-        lapsed = cursor.last_trusted_at or reference_at
+        lapsed = cursor.last_current_at or cursor.last_trusted_at or reference_at
         for uid, state in sorted(source_states.items()):
             if state.state != STATE_IMPAIRED:
                 continue
@@ -403,6 +481,12 @@ def detect(
             cursor=replace(
                 cursor,
                 last_attempt_at=snapshot.attempted_at,
+                last_current_at=(
+                    reference_at if source_current else cursor.last_current_at
+                ),
+                last_current_observation_id=(
+                    obs_id if source_current else cursor.last_current_observation_id
+                ),
                 last_payload_sha256=snapshot.payload_sha256
                 or cursor.last_payload_sha256,
             ),
@@ -584,6 +668,8 @@ def detect(
         cursor=replace(
             cursor,
             last_attempt_at=snapshot.attempted_at,
+            last_current_at=reference_at,
+            last_current_observation_id=obs_id,
             last_trusted_at=reference_at,
             last_trusted_observation_id=obs_id,
             last_source_updated_at=snapshot.source_updated_at

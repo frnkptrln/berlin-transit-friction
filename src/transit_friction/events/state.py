@@ -66,6 +66,10 @@ class SourceCursor:
     """Where a source stood at the end of the observations folded so far."""
 
     source_id: str
+    #: Last observation that proved we were watching, changed page or not.
+    last_current_at: datetime | None = None
+    last_current_observation_id: str | None = None
+    #: Last observation that could justify a resolution.
     last_trusted_at: datetime | None = None
     last_trusted_observation_id: str | None = None
     last_source_updated_at: datetime | None = None
@@ -158,6 +162,12 @@ def fold_cursors(observations: Iterable[Observation]) -> dict[str, SourceCursor]
             last_payload_sha256=row.payload_sha256 or cursor.last_payload_sha256,
             unchanged_since=unchanged_since,
         )
+        if row.source_current:
+            cursor = replace(
+                cursor,
+                last_current_at=row.observed_at or row.attempted_at,
+                last_current_observation_id=row.observation_id,
+            )
         if row.trusted_for_resolution:
             cursor = replace(
                 cursor,

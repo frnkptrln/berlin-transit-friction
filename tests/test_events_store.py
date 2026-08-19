@@ -251,3 +251,94 @@ def test_manifest_records_the_tuning_that_produced_the_partition(roots):
     )
     assert len(manifest["tuning_fingerprint"]) == 16
     assert manifest["schema_version"] == 1
+
+
+# --- staging-aware reading --------------------------------------------------
+
+
+def test_state_includes_rows_written_since_the_last_seal(roots):
+    """A collector starting at 00:05 must see what today already wrote."""
+    harness = _history()
+    rows = _rows(harness, store.TABLE_TRANSITIONS)
+    store.append_rows(
+        store.staging_path(roots["raw_root"], "transitions", DAY), rows
+    )
+    sealed_only = store.load_transitions(roots["events_root"])
+    assert sealed_only == []
+
+    including_staging = store.load_recent_transitions(
+        roots["events_root"], roots["raw_root"]
+    )
+    assert len(including_staging) == len(rows)
+
+
+def test_a_day_present_in_both_places_is_not_counted_twice(roots):
+    harness = _history()
+    rows = _rows(harness, store.TABLE_TRANSITIONS)
+    store.append_rows(
+        store.staging_path(roots["raw_root"], "transitions", DAY), rows
+    )
+    store.seal_day("transitions", DAY, rows=rows, **roots)
+
+    combined = store.load_recent_transitions(
+        roots["events_root"], roots["raw_root"]
+    )
+    assert len(combined) == len(rows)
+
+
+def test_staging_reads_can_be_bounded_by_time(roots):
+    harness = _history()
+    rows = _rows(harness, store.TABLE_TRANSITIONS)
+    store.append_rows(
+        store.staging_path(roots["raw_root"], "transitions", DAY), rows
+    )
+    bounded = store.load_recent_transitions(
+        roots["events_root"], roots["raw_root"], start=at(0), end=at(30)
+    )
+    assert [row.transition_type for row in bounded] == ["opened"]
+
+
+# --- debounce working state -------------------------------------------------
+
+
+def test_pending_survives_between_processes(roots):
+    """Without this, a per-poll process could never reach a confirmation."""
+    from transit_friction.events.detect import ObservedEntity, PendingChange
+
+    pending = {
+        "uid-1": PendingChange(
+            entity_uid="uid-1",
+            target_state="ok",
+            count=1,
+            first_seen_at=at(10),
+            first_t_earliest=at(5),
+            first_observation_id="obs-1",
+            last_seen_at=at(10),
+            first_prev_observation_id="obs-0",
+            entity=ObservedEntity(
+                source_native_id="L1", entity_type="elevator", station_id="S1"
+            ),
+        )
+    }
+    store.save_pending(roots["raw_root"], "brokenlifts", pending)
+    restored = store.load_pending(roots["raw_root"], "brokenlifts")
+    assert restored == pending
+
+
+def test_missing_pending_state_is_simply_empty(roots):
+    assert store.load_pending(roots["raw_root"], "brokenlifts") == {}
+
+
+def test_corrupt_pending_state_is_discarded_not_repaired(roots):
+    """Guessing at half-confirmed state is worse than confirming again."""
+    path = store.working_state_path(roots["raw_root"], "brokenlifts")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("{not json", encoding="utf-8")
+    assert store.load_pending(roots["raw_root"], "brokenlifts") == {}
+
+
+def test_pending_from_an_older_format_is_discarded(roots):
+    path = store.working_state_path(roots["raw_root"], "brokenlifts")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({"version": 0, "pending": {}}), encoding="utf-8")
+    assert store.load_pending(roots["raw_root"], "brokenlifts") == {}

@@ -74,7 +74,7 @@ TABLES: dict[str, TableSpec] = {
         sort_fields=("source_id", "attempted_at", "observation_id"),
         timestamp_fields=("attempted_at", "observed_at", "source_updated_at"),
         list_fields=("warnings",),
-        bool_fields=("complete", "trusted_for_resolution"),
+        bool_fields=("complete", "source_current", "trusted_for_resolution"),
         int_fields=(
             "schema_version",
             "entity_count",
@@ -254,6 +254,7 @@ def arrow_schema(table: str):
             ("source_updated_at", pa.timestamp("us", tz="UTC")),
             ("outcome", pa.string()),
             ("complete", pa.bool_()),
+            ("source_current", pa.bool_()),
             ("trusted_for_resolution", pa.bool_()),
             ("entity_count", pa.int32()),
             ("advertised_count", pa.int32()),
@@ -522,20 +523,107 @@ def read_table(
             rows.extend(read_parquet(parquet))
 
     if start or end:
-        def within(row: dict) -> bool:
-            value = row.get(spec.partition_field)
-            if not value:
-                return False
-            moment = datetime.fromisoformat(value)
-            if start and moment < start:
-                return False
-            if end and moment >= end:
-                return False
-            return True
-
-        rows = [row for row in rows if within(row)]
+        rows = [row for row in rows if _within(spec, row, start, end)]
 
     return sort_rows(spec, rows)
+
+
+def read_staging_rows(
+    raw_root: Path,
+    table: str,
+    *,
+    start: datetime | None = None,
+    end: datetime | None = None,
+) -> list[dict]:
+    """Read the not-yet-sealed buffer for a table.
+
+    State has to include rows written since the last seal, or a collector
+    starting at 00:05 would believe every outage opened today had not happened.
+    """
+    spec = TABLES[table]
+    directory = raw_root / "staging"
+    if not directory.exists():
+        return []
+
+    rows: list[dict] = []
+    for path in sorted(directory.glob(f"{table}-*.jsonl")):
+        stamp = path.stem.removeprefix(f"{table}-")
+        try:
+            day = date.fromisoformat(stamp)
+        except ValueError:
+            continue
+        if start and day < start.astimezone(timezone.utc).date():
+            continue
+        if end and day > end.astimezone(timezone.utc).date():
+            continue
+        rows.extend(read_jsonl(path))
+
+    if start or end:
+        rows = [
+            row
+            for row in rows
+            if _within(spec, row, start, end)
+        ]
+    return rows
+
+
+def _within(
+    spec: TableSpec,
+    row: dict,
+    start: datetime | None,
+    end: datetime | None,
+) -> bool:
+    value = row.get(spec.partition_field)
+    if not value:
+        return False
+    moment = datetime.fromisoformat(value) if isinstance(value, str) else value
+    if start and moment < start:
+        return False
+    if end and moment >= end:
+        return False
+    return True
+
+
+def load_recent(
+    table: str,
+    events_root: Path,
+    raw_root: Path | None = None,
+    *,
+    start: datetime | None = None,
+    end: datetime | None = None,
+) -> list[dict]:
+    """Sealed partitions plus the open staging buffer, deduplicated.
+
+    A day can appear in both while it is sealed but its buffer not yet cleaned
+    up, so rows are deduplicated on their uid.
+    """
+    spec = TABLES[table]
+    rows = read_table(table, events_root, start=start, end=end)
+    if raw_root is not None:
+        rows = rows + read_staging_rows(raw_root, table, start=start, end=end)
+    return sort_rows(spec, deduplicate(spec, rows))
+
+
+def load_recent_transitions(
+    events_root: Path,
+    raw_root: Path | None = None,
+    **kwargs,
+) -> list[Transition]:
+    return [
+        Transition.from_dict(row)
+        for row in load_recent(TABLE_TRANSITIONS, events_root, raw_root, **kwargs)
+    ]
+
+
+def load_recent_observations(
+    events_root: Path,
+    raw_root: Path | None = None,
+    **kwargs,
+) -> list[Observation]:
+    return [
+        Observation.from_dict(row)
+        for row in load_recent(TABLE_OBSERVATIONS, events_root, raw_root, **kwargs)
+    ]
 
 
 def load_transitions(events_root: Path, **kwargs) -> list[Transition]:
@@ -550,3 +638,52 @@ def load_observations(events_root: Path, **kwargs) -> list[Observation]:
         Observation.from_dict(row)
         for row in read_table(TABLE_OBSERVATIONS, events_root, **kwargs)
     ]
+
+
+# --- debounce working state -------------------------------------------------
+
+WORKING_STATE_VERSION = 1
+
+
+def working_state_path(raw_root: Path, source_id: str) -> Path:
+    return raw_root / "working-state" / f"{source_id}.json"
+
+
+def load_pending(raw_root: Path, source_id: str) -> dict:
+    """Read the debounce buffer for a source.
+
+    Kept in the ephemeral layer on purpose: it is not evidence, and a collector
+    that loses it simply waits one more confirmation. A corrupt or unreadable
+    buffer is treated the same way — discarded, not repaired, because guessing
+    at half-confirmed state is worse than starting the confirmation over.
+    """
+    from .detect import PendingChange
+
+    path = working_state_path(raw_root, source_id)
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if payload.get("version") != WORKING_STATE_VERSION:
+            return {}
+        return {
+            uid: PendingChange.from_dict(row)
+            for uid, row in payload.get("pending", {}).items()
+        }
+    except (json.JSONDecodeError, KeyError, ValueError):
+        return {}
+
+
+def save_pending(raw_root: Path, source_id: str, pending: dict) -> None:
+    path = working_state_path(raw_root, source_id)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "version": WORKING_STATE_VERSION,
+        "source_id": source_id,
+        "pending": {uid: change.to_dict() for uid, change in sorted(pending.items())},
+    }
+    temporary = path.with_suffix(".json.tmp")
+    temporary.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    temporary.replace(path)

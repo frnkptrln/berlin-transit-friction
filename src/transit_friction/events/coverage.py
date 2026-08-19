@@ -103,10 +103,11 @@ def compute_coverage(
     attempts = sum(
         1 for row in rows if window_start <= row.attempted_at < window_end
     )
+    # Coverage asks "were we watching", not "could this have resolved
+    # anything". Re-reading an unchanged page still proves the source was up
+    # and current; it simply carries no new evidence about the world.
     trusted_times = sorted(
-        row.observed_at or row.attempted_at
-        for row in rows
-        if row.trusted_for_resolution
+        row.observed_at or row.attempted_at for row in rows if row.source_current
     )
 
     inside = [t for t in trusted_times if window_start <= t <= window_end]

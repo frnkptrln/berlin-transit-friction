@@ -39,6 +39,9 @@ class OutageSnapshot:
     outages: tuple[ElevatorOutageObservation, ...]
     complete: bool
     warnings: tuple[str, ...] = ()
+    #: What the page itself claims is broken, used for the completeness check
+    #: and carried into the observation ledger.
+    advertised_count: int | None = None
 
     def __post_init__(self) -> None:
         require_aware(self.observed_at, "observed_at")

@@ -177,9 +177,26 @@ This is the schema-level expression of the invariant already implemented in
 
 A snapshot is **complete** when the source's own update timestamp is present,
 its advertised count is present, and the number of distinct parsed entities
-equals that count. It is **fresh** when `source_updated_at` is newer than the
-newest `source_updated_at` already folded into state. Completeness is a property
-of one observation, never an assumption about the provider.
+equals that count. It is **fresh** when `source_updated_at` is strictly newer
+than the newest `source_updated_at` already folded into state. Completeness is a
+property of one observation, never an assumption about the provider.
+
+Three states, not two, because *were we watching* and *can this resolve
+something* are different questions:
+
+| the fetch | `source_current` | `trusted_for_resolution` | meaning |
+|---|---|---|---|
+| complete, fresh | yes | yes | a new rendering; full evidence |
+| complete, unchanged | yes | no | the same statement served again; proves the source is up, carries no new evidence |
+| complete, clock older than `max_source_stale_s` | no | no | a stuck feed; cannot describe the present |
+| failed or incomplete | no | no | nothing was observed |
+
+The middle row is the one that is easy to get wrong. A page whose own update
+timestamp has not advanced is the *previous* statement about the world, repeated.
+Its outage list dropping an entity is not evidence that the entity recovered —
+it would let a source close an outage by serving a cached page. But the fetch
+still proves we were watching, so it counts toward coverage (§6.2). Conflating
+the two either invents resolutions or invents gaps.
 
 ---
 
@@ -275,7 +292,8 @@ the entire point.
 | `source_updated_at` | ts(µs, UTC) | yes | the source's own timestamp |
 | `outcome` | dict<string> | no | `ok` \| `incomplete` \| `stale` \| `parse_error` \| `http_error` \| `timeout` \| `skipped` |
 | `complete` | bool | no | completeness check result (§4) |
-| `trusted_for_resolution` | bool | no | `complete ∧ fresh ∧ ¬stale` — the only rows that may justify a `closed` |
+| `source_current` | bool | no | `complete ∧ ¬stuck` — the source was up and current, so this counts as coverage |
+| `trusted_for_resolution` | bool | no | `source_current ∧ fresh` — the only rows that may justify a `closed` |
 | `entity_count` | int32 | yes | distinct entities parsed |
 | `advertised_count` | int32 | yes | count the source claims |
 | `http_status` | int16 | yes | |
@@ -293,8 +311,11 @@ disruptions" unless you record it.
 
 ### 6.2 Gap semantics
 
-A **gap** is any interval between consecutive `trusted_for_resolution` rows for
-a source. Three regimes:
+A **gap** is any interval between consecutive `source_current` rows for a
+source — not between trusted ones. A source that publishes every 30 minutes but
+is polled every 5 is fully covered; only its *change* timestamps are coarse, and
+that coarseness lives in the transition bracket, not in the coverage number.
+Three regimes:
 
 | gap length | treatment |
 |---|---|

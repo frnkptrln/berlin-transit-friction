@@ -57,6 +57,12 @@ class Observation:
     attempted_at: datetime
     outcome: str
     complete: bool
+    #: The source's own clock was current at this observation, so the fetch
+    #: proves we were watching — even if the page had not changed since the
+    #: last one and therefore cannot resolve anything.
+    source_current: bool
+    #: Current *and* strictly newer than the last one folded into state. Only
+    #: these may justify a 'closed' transition.
     trusted_for_resolution: bool
     gap_before_s: int
     observed_at: datetime | None = None
@@ -81,12 +87,14 @@ class Observation:
             require_aware(self.source_updated_at, "source_updated_at")
         if self.gap_before_s < 0:
             raise ValueError("gap_before_s must be >= 0")
+        if self.source_current and not self.complete:
+            raise ValueError("an incomplete observation cannot be current")
         if self.trusted_for_resolution and not (
-            self.outcome == OUTCOME_OK and self.complete
+            self.outcome == OUTCOME_OK and self.complete and self.source_current
         ):
             raise ValueError(
                 "an observation may only be trusted for resolution when it "
-                "succeeded and was complete"
+                "succeeded, was complete, and was newer than the last one"
             )
         if self.complete and self.source_updated_at is None:
             raise ValueError("a complete observation needs source_updated_at")
@@ -102,6 +110,7 @@ class Observation:
             "source_updated_at": _iso(self.source_updated_at),
             "outcome": self.outcome,
             "complete": self.complete,
+            "source_current": self.source_current,
             "trusted_for_resolution": self.trusted_for_resolution,
             "entity_count": self.entity_count,
             "advertised_count": self.advertised_count,
@@ -126,6 +135,9 @@ class Observation:
             source_updated_at=_parse(payload.get("source_updated_at")),
             outcome=payload["outcome"],
             complete=bool(payload["complete"]),
+            source_current=bool(
+                payload.get("source_current", payload["trusted_for_resolution"])
+            ),
             trusted_for_resolution=bool(payload["trusted_for_resolution"]),
             entity_count=payload.get("entity_count"),
             advertised_count=payload.get("advertised_count"),

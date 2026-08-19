@@ -13,6 +13,7 @@ Neither is derivable from the other, which is why a missing poll reads as
 
 from __future__ import annotations
 
+from .aggregates import build_window_summary
 from .config import DEFAULT_TUNING, TuningParameters
 from .coverage import Coverage, Gap, compute_coverage, value_or_null
 from .detect import (
@@ -59,6 +60,7 @@ __all__ = [
     "Transition",
     "TuningParameters",
     "build_episodes",
+    "build_window_summary",
     "compute_coverage",
     "detect",
     "effective_state",

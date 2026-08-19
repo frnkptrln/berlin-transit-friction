@@ -118,16 +118,44 @@ def test_a_degraded_snapshot_can_never_close_an_outage(harness: Harness, kwargs)
     assert not any(row.to_state == STATE_OK for row in harness.transitions)
 
 
-def test_a_stale_source_cannot_close_an_outage(harness: Harness):
-    """A feed whose own clock stopped looks exactly like "nothing is wrong"."""
-    frozen = at(-90)
-    harness.poll(0, [L1], source_updated_at=frozen)
+def test_a_repeated_page_cannot_close_an_outage(harness: Harness):
+    """The same rendering served again is not a new observation of the world.
+
+    The counter can drop and the entity vanish from the list, but if the page's
+    own update timestamp has not advanced, it is the previous statement being
+    repeated — not evidence that anything changed since.
+    """
+    frozen = at(4)
+    harness.poll(5, [L1], source_updated_at=frozen)
     assert harness.types == ["opened"]
-    for step in range(1, 6):
+    for step in range(2, 8):
         harness.poll(5 * step, [], source_updated_at=frozen)
     assert harness.types == ["opened"]
     assert harness.observations[-1].outcome == "stale"
     assert harness.observations[-1].trusted_for_resolution is False
+
+
+def test_a_repeated_page_still_counts_as_watching(harness: Harness):
+    """Unchanged is not the same as absent: the source was up and current."""
+    frozen = at(4)
+    harness.poll(5, [L1], source_updated_at=frozen)
+    harness.poll(10, [L1], source_updated_at=frozen)
+    observation = harness.observations[-1]
+    assert observation.source_current is True
+    assert observation.trusted_for_resolution is False
+    assert harness.only_state().state == STATE_IMPAIRED, (
+        "an unchanged page must not push a known outage into unknown"
+    )
+
+
+def test_a_source_clock_far_behind_is_not_current(harness: Harness):
+    """A feed stuck an hour in the past cannot describe the present."""
+    harness.poll(0, [L1], source_updated_at=at(-90))
+    observation = harness.observations[-1]
+    assert observation.outcome == "stale"
+    assert observation.source_current is False
+    assert observation.trusted_for_resolution is False
+    assert harness.transitions == [], "a stuck page cannot open anything either"
 
 
 def test_closing_evidence_cannot_be_forged():
