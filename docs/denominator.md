@@ -245,6 +245,22 @@ measurement whenever the frame turns out to be wrong is how a frame stays wrong.
 An unattributable outage never lowers the rate — it cannot enter a denominator it
 is not in, and it is published as its own quantity.
 
+## Reaching the page
+
+`scripts/build_aggregates.py --gtfs-archive <zip>` (or a stored population under
+`data/reference/`) attaches the rate to every day it can, and the dashboard
+renders both readings as range bars over the whole frame: solid for what was
+positively observed, hatched for what the unobserved station-time could hide.
+
+Today that bar is a sliver of solid and a field of hatching. Nobody can
+screenshot it and claim Berlin's lifts are fine; nobody can claim the opposite
+either. When coverage improves the hatching recedes, and the gap between the two
+bars becomes the visible price of the assumption.
+
+A day with no population publishes its absolute figures and a
+`denominator_status` saying why there is no rate — "no release covers this
+window" must not render the same as "nothing to report".
+
 ## Storage
 
 ```

@@ -226,17 +226,28 @@ def write_daily_metrics(
     }
 
 
-def site_projection(summaries: list[tuple[str, dict]]) -> dict:
+def site_projection(
+    summaries: list[tuple[str, dict]],
+    accountings: dict[str, dict] | None = None,
+) -> dict:
     """The small JSON the dashboard reads.
 
     Keeps the null-versus-zero distinction intact: a day nobody watched is
     ``null`` with a coverage figure explaining why, never a flat zero.
+
+    ``accountings`` adds the rate — outage time against the population it
+    belongs to — per local date. Without a population for a window the day
+    still publishes its absolute figures and says why there is no rate, rather
+    than omitting the question.
     """
+    accountings = accountings or {}
     days = []
     for local_date, summary in summaries:
+        account = accountings.get(local_date)
         days.append(
             {
                 "date": local_date,
+                "rate": account,
                 "window_hours": summary["window_hours"],
                 "publishable": summary["publishable"],
                 "total_outage_hours": summary["total_outage_hours"],
@@ -283,9 +294,24 @@ def site_projection(summaries: list[tuple[str, dict]]) -> dict:
         reverse=True,
     )
 
+    # A rate object that only carries a status is not a denominator. Counting
+    # it as one would overstate exactly the quantity this layer exists to keep
+    # honest.
+    rated = [
+        day
+        for day in days
+        if (day.get("rate") or {}).get("denominator_hours")
+    ]
     return {
         "unit": UNIT,
         "generated_from": "data/events",
+        "rate_unit": "share_of_frame_elevator_station_service_hours",
+        "days_with_a_denominator": len(rated),
+        "rate_note": (
+            "the floor is what was positively observed and no amount of "
+            "blindness makes it false; the ceiling is what the unobserved "
+            "station-time could hide"
+        ),
         "note": (
             "null means the window was not watched well enough to support a "
             "number; it does not mean zero"

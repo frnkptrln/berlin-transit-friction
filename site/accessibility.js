@@ -226,6 +226,139 @@
     return svg;
   }
 
+  // --- the rate -------------------------------------------------------------
+  function rateBar(reading, label, note) {
+    const W = 960, H = 74, padL = 8, padR = 8, barY = 26, barH = 22;
+    const span = W - padL - padR;
+    const x = (share) => padL + span * Math.max(0, Math.min(1, share));
+    const svg = el("svg", {
+      viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img",
+      "aria-label": `${label}: between ${(reading.lo * 100).toFixed(2)} and ` +
+        `${(reading.hi * 100).toFixed(1)} percent`,
+    });
+
+    const defs = el("defs");
+    const pattern = el("pattern", {
+      id: `unknown-${label.replace(/\W/g, "")}`, width: 8, height: 8,
+      patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)",
+    });
+    pattern.appendChild(el("rect", { width: 8, height: 8, fill: "var(--surface-1)" }));
+    pattern.appendChild(el("line", {
+      x1: 0, y1: 0, x2: 0, y2: 8, stroke: "var(--hatch)", "stroke-width": 2,
+    }));
+    defs.appendChild(pattern);
+    svg.appendChild(defs);
+
+    svg.appendChild(el("text", {
+      x: padL, y: 14, fill: "var(--text-secondary)", "font-size": 12.5,
+    }, label));
+
+    // the track is the whole frame: 0 to 100 % of its service hours
+    svg.appendChild(el("rect", {
+      x: padL, y: barY, width: span, height: barH, rx: 4,
+      fill: "var(--grid)",
+    }));
+    // everything the unobserved station-time could hide
+    svg.appendChild(el("rect", {
+      x: x(reading.lo), y: barY, width: Math.max(0, x(reading.hi) - x(reading.lo)),
+      height: barH, rx: 4, fill: `url(#unknown-${label.replace(/\W/g, "")})`,
+    }));
+    // what was positively observed — a floor, always true
+    const floorWidth = Math.max(2, x(reading.lo) - padL);
+    svg.appendChild(el("path", {
+      d: `M${padL},${barY} H${padL + Math.max(0, floorWidth - 4)} a4,4 0 0 1 4,4 ` +
+         `v${barH - 8} a4,4 0 0 1 -4,4 H${padL} Z`,
+      fill: "var(--series-1)",
+    }));
+
+    svg.appendChild(el("text", {
+      x: padL, y: barY + barH + 16, fill: "var(--text-primary)",
+      "font-size": 12.5, "font-weight": 600,
+    }, `at least ${(reading.lo * 100).toFixed(2)} %`));
+    svg.appendChild(el("text", {
+      x: W - padR, y: barY + barH + 16, "text-anchor": "end",
+      fill: "var(--text-secondary)", "font-size": 12.5,
+    }, reading.point === null || reading.point === undefined
+        ? `at most ${(reading.hi * 100).toFixed(1)} %`
+        : `at most ${(reading.hi * 100).toFixed(1)} % · best estimate ${(reading.point * 100).toFixed(2)} %`));
+
+    const hit = el("rect", {
+      x: padL, y: barY, width: span, height: barH, fill: "transparent",
+      style: "cursor: default",
+    });
+    hit.addEventListener("mousemove", (e) => showTip(e, `
+      <div class="t-date">${label}</div>
+      <div class="t-row">floor ${(reading.lo * 100).toFixed(2)} % — positively observed</div>
+      <div class="t-row">ceiling ${(reading.hi * 100).toFixed(1)} % — what the unobserved time could hide</div>
+      <div class="t-flag">${note}</div>`));
+    hit.addEventListener("mouseleave", hideTip);
+    svg.appendChild(hit);
+    return svg;
+  }
+
+  function rateSection(days) {
+    const rated = days.filter((d) => d.rate && d.rate.denominator_hours);
+    if (!rated.length) return null;
+
+    const outHours = rated.reduce((s, d) => s + (d.rate.out_station_hours || 0), 0);
+    const denominator = rated.reduce((s, d) => s + d.rate.denominator_hours, 0);
+    const last = rated[rated.length - 1].rate;
+
+    // A period rate is total over total, never a mean of daily rates: days
+    // differ in length and in how much of them was watched.
+    const lo = outHours / denominator;
+
+    const unknownOf = (band) =>
+      Object.values(band.unknown_hours_by_cause || {}).reduce((s, v) => s + v, 0);
+    const reading = (key) => {
+      const unknown = rated.reduce(
+        (s, d) => s + unknownOf((d.rate.bands || {})[key] || {}), 0);
+      const hi = Math.min(1, (outHours + unknown) / denominator);
+      const knownOk = Math.max(0, denominator - outHours - unknown);
+      const point =
+        unknown / denominator <= 0.1 && outHours + knownOk > 0
+          ? outHours / (outHours + knownOk)
+          : null;
+      return { lo, hi, point };
+    };
+
+    const section = html("section");
+    const card = html("div", "card");
+    card.appendChild(html("h2", null, "Share of the network's elevator-station time"));
+    card.appendChild(html("p", "sub",
+      `Outage time against the population it belongs to: ${last.equipped_station_count} ` +
+      `elevator-equipped stations of ${last.frame_station_count} in scope, counted over the ` +
+      `hours they are actually in service. The solid part is what was positively observed and ` +
+      `no amount of blindness makes it false. The hatched part is what the unobserved ` +
+      `station-time could hide.`));
+
+    const scroller = html("div", "scroller");
+    const strict = reading("strict");
+    const assumed = reading("assumption_conditional");
+    scroller.appendChild(rateBar(
+      strict,
+      "Strict — only observed state counts as working",
+      "refuses to treat a lift as working on the strength of somebody else's fault feed"));
+    scroller.appendChild(rateBar(
+      assumed,
+      "Assuming every fault is reported",
+      "counts an enumerated lift with no fault record as working"));
+    card.appendChild(scroller);
+
+    card.appendChild(html("p", "sub",
+      `<strong>${last.monitored_station_count} of ${last.equipped_station_count}</strong> ` +
+      `elevator-equipped stations are covered by a status source at all. That is why the two ` +
+      `readings ${strict.hi === assumed.hi ? "are identical" : "differ"} and the ceiling sits ` +
+      `where it does. Denominator: ${Math.round(denominator).toLocaleString("en-GB")} ` +
+      `station-hours of scheduled service. ` +
+      (strict.hi === assumed.hi
+        ? `No source enumerates the rest, so the assumption buys nothing yet.`
+        : `The gap between the two bars is the price of the assumption.`)));
+
+    section.appendChild(card);
+    return section;
+  }
+
   // --- station breakdown ----------------------------------------------------
   function stationBars(stations) {
     const rows = stations.slice(0, 8);
@@ -334,6 +467,10 @@
     card.appendChild(legend);
     chart.appendChild(card);
     app.appendChild(chart);
+
+    // the rate
+    const rate = rateSection(days);
+    if (rate) app.appendChild(rate);
 
     // stations
     if (data.stations && data.stations.length) {

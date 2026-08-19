@@ -21,6 +21,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from transit_friction.config import (  # noqa: E402
     AGGREGATES_DIR,
+    DATA_DIR,
     EVENTS_DIR,
     RAW_LAYER_DIR,
     SITE_DATA_DIR,
@@ -40,6 +41,17 @@ from transit_friction.events.store import (  # noqa: E402
     load_recent_observations,
     load_recent_transitions,
 )
+from transit_friction.population.accounting import account  # noqa: E402
+from transit_friction.population.crosswalk import build_crosswalk  # noqa: E402
+from transit_friction.population.frame import derive_population  # noqa: E402
+from transit_friction.population.monitoring import (  # noqa: E402
+    Monitoring,
+    from_fault_listings,
+)
+from transit_friction.population.store import (  # noqa: E402
+    load_manifest,
+    population_for_window,
+)
 
 
 def _days(args) -> list[date]:
@@ -57,6 +69,19 @@ def main() -> int:
     parser.add_argument("--raw-root", type=Path, default=RAW_LAYER_DIR)
     parser.add_argument("--aggregates-root", type=Path, default=AGGREGATES_DIR)
     parser.add_argument("--site-root", type=Path, default=SITE_DATA_DIR)
+    parser.add_argument(
+        "--reference-root",
+        type=Path,
+        default=DATA_DIR / "reference",
+        help="where derived populations live; without one the days publish "
+        "absolute figures and say there is no denominator",
+    )
+    parser.add_argument(
+        "--gtfs-archive",
+        type=Path,
+        help="derive the population from this archive instead of reading a "
+        "stored one (useful before the first population has been written)",
+    )
     parser.add_argument("--date", help="a single Berlin-local day, YYYY-MM-DD")
     parser.add_argument("--until", help="last Berlin-local day, YYYY-MM-DD")
     parser.add_argument("--days", type=int, default=30)
@@ -104,8 +129,26 @@ def main() -> int:
     sources = observed_sources
     episodes = build_episodes(transitions, as_of=span_end)
 
+    # The denominator, if one covers this span. Selected by the feed's own
+    # service window, so a stalled adoption cannot serve last year's population.
+    population = denominator_status = population_id = None
+    if args.gtfs_archive:
+        population = derive_population(args.gtfs_archive)
+        denominator_status, population_id = "derived", "adhoc"
+    else:
+        population_id, denominator_status = population_for_window(
+            args.reference_root, min(days), max(days)
+        )
+        if population_id:
+            manifest = load_manifest(args.reference_root, population_id)
+            archive = manifest.get("archive_name")
+            denominator_status = (
+                "adopted" if archive else "adopted_without_archive"
+            )
+
     written: list[dict] = []
     summaries: list[tuple[str, dict]] = []
+    accountings: dict[str, dict] = {}
     for day in days:
         window_start, window_end = local_day_window(day)
         coverages = {
@@ -121,6 +164,41 @@ def main() -> int:
             depends_on=depends_on,
         )
         summaries.append((day.isoformat(), summary))
+
+        if population is not None:
+            seen = sorted({e.station_id for e in episodes if e.station_id})
+            crosswalk = build_crosswalk(population, seen)
+            # Today the only evidence a source covers a station is that it once
+            # named it in a fault list. That is a lower bound on coverage, so
+            # the ceiling stays at 1 and no point estimate is expressible.
+            covered = {
+                crosswalk.resolutions[i].station_key
+                for i in seen
+                if crosswalk.resolutions[i].matched
+            }
+            accounting = account(
+                population=population,
+                crosswalk=crosswalk,
+                episodes=episodes,
+                days=[day],
+                window_start=window_start,
+                window_end=window_end,
+                as_of=min(span_end, window_end),
+                monitoring=Monitoring(
+                    sources={
+                        "brokenlifts": from_fault_listings(
+                            "brokenlifts", covered, window_end
+                        )
+                    }
+                ),
+                population_id=population_id or "",
+            )
+            payload = accounting.to_dict()
+            payload["denominator_status"] = denominator_status
+            accountings[day.isoformat()] = payload
+        elif denominator_status:
+            accountings[day.isoformat()] = {"denominator_status": denominator_status}
+
         if args.dry_run:
             continue
         written.append(
@@ -134,7 +212,7 @@ def main() -> int:
             )
         )
 
-    projection = site_projection(summaries)
+    projection = site_projection(summaries, accountings)
     if not args.dry_run:
         args.site_root.mkdir(parents=True, exist_ok=True)
         (args.site_root / "accessibility-daily.json").write_text(
@@ -156,6 +234,9 @@ def main() -> int:
                     1 for item in written if not item.get("changed")
                 ),
                 "days_published": projection["days_published"],
+                "denominator_status": denominator_status,
+                "population_id": population_id,
+                "days_with_a_denominator": projection["days_with_a_denominator"],
                 "days_withheld": projection["days_withheld"],
                 "dry_run": args.dry_run,
             },

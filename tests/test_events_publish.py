@@ -167,3 +167,58 @@ def test_the_projection_carries_the_bounds():
     day = projection["days"][0]
     assert day["total_outage_hours_min"] <= day["total_outage_hours"]
     assert day["total_outage_hours"] <= day["total_outage_hours_max"]
+
+
+# --- the rate reaches the page ----------------------------------------------
+
+
+def test_the_projection_carries_the_rate_when_a_denominator_exists():
+    """A denominator that never reaches the page is a denominator nobody has."""
+    summary = _summary()
+    accountings = {
+        "2026-08-19": {
+            "denominator_hours": 5554.7,
+            "out_station_hours": 27.0,
+            "equipped_station_count": 263,
+            "frame_station_count": 311,
+            "monitored_station_count": 2,
+            "denominator_status": "adopted",
+            "bands": {
+                "strict": {
+                    "share_low": 0.00486,
+                    "share_high": 1.0,
+                    "unknown_hours_by_cause": {"not_monitored": 5511.4},
+                },
+                "assumption_conditional": {
+                    "share_low": 0.00486,
+                    "share_high": 1.0,
+                    "unknown_hours_by_cause": {"not_monitored": 5511.4},
+                },
+            },
+        }
+    }
+    projection = site_projection([("2026-08-19", summary)], accountings)
+    day = projection["days"][0]
+    assert day["rate"]["denominator_hours"] == 5554.7
+    assert day["rate"]["bands"]["strict"]["share_high"] == 1.0
+    assert projection["days_with_a_denominator"] == 1
+    assert "no amount of blindness" in projection["rate_note"]
+
+
+def test_a_day_without_a_denominator_still_publishes_and_says_why():
+    projection = site_projection(
+        [("2026-08-19", _summary())],
+        {"2026-08-19": {"denominator_status": "no_release_covers_window"}},
+    )
+    day = projection["days"][0]
+    assert day["rate"]["denominator_status"] == "no_release_covers_window"
+    assert projection["days_with_a_denominator"] == 0
+    assert day["total_outage_hours"] is not None, (
+        "the absolute figure survives; only the rate is missing"
+    )
+
+
+def test_the_projection_works_without_any_rate_at_all():
+    projection = site_projection([("2026-08-19", _summary())])
+    assert projection["days"][0]["rate"] is None
+    assert projection["days_with_a_denominator"] == 0
