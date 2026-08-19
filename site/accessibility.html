@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accessible topology — Berlin elevator availability</title>
+<meta name="description" content="How elevator outages change the accessible topology of Berlin public transport, with the coverage behind every number.">
+<style>
+  :root {
+    color-scheme: light;
+    --page:           #f9f9f7;
+    --surface-1:      #fcfcfb;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --grid:           #e1e0d9;
+    --axis:           #c3c2b7;
+    --hatch:          #898781;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;
+    --status-good:    #0ca30c;
+    --status-warning: #fab219;
+    --status-critical:#d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --page:           #0d0d0d;
+      --surface-1:      #1a1a19;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --grid:           #2c2c2a;
+      --axis:           #383835;
+      --hatch:          #898781;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page:           #0d0d0d;
+    --surface-1:      #1a1a19;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --grid:           #2c2c2a;
+    --axis:           #383835;
+    --hatch:          #898781;
+    --border:         rgba(255,255,255,0.10);
+    --series-1:       #3987e5;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text-primary);
+    font: 15px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  main { width: min(1040px, calc(100% - 32px)); margin: 0 auto; padding: 40px 0 72px; }
+
+  .banner {
+    border: 1px solid var(--status-warning);
+    border-left-width: 4px;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 28px;
+    background: color-mix(in srgb, var(--status-warning) 8%, var(--surface-1));
+    font-size: .92rem;
+  }
+  .banner strong { display: block; margin-bottom: 2px; }
+
+  h1 { margin: 0 0 6px; font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: -.03em; line-height: 1.1; }
+  .question { margin: 0 0 4px; color: var(--text-secondary); max-width: 62ch; }
+  .scope { margin: 10px 0 0; color: var(--text-muted); font-size: .88rem; max-width: 68ch; }
+
+  section { margin-top: 34px; }
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  h2 { margin: 0 0 2px; font-size: 1.02rem; letter-spacing: -.01em; }
+  .sub { margin: 0 0 18px; color: var(--text-secondary); font-size: .88rem; max-width: 70ch; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+  .tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+  .tile .label { color: var(--text-secondary); font-size: .82rem; }
+  .tile .value { font-size: 2rem; line-height: 1.15; margin-top: 4px; letter-spacing: -.02em; }
+  .tile .note { color: var(--text-muted); font-size: .78rem; margin-top: 4px; }
+  .tile.hero .value { font-size: 3rem; }
+
+  figure { margin: 0; }
+  .scroller { overflow-x: auto; }
+  svg { display: block; max-width: 100%; height: auto; }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 14px 0 0; padding: 0; list-style: none; font-size: .82rem; color: var(--text-secondary); }
+  .legend li { display: flex; align-items: center; gap: 7px; }
+  .key { width: 14px; height: 14px; border-radius: 3px; flex: none; }
+  .key.line { height: 3px; border-radius: 2px; }
+
+  table { border-collapse: collapse; width: 100%; font-size: .86rem; }
+  th, td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
+  th:first-child, td:first-child { text-align: left; font-variant-numeric: normal; }
+  thead th { color: var(--text-secondary); font-weight: 600; border-bottom-color: var(--axis); }
+  td.withheld { color: var(--text-muted); font-style: italic; }
+  details { margin-top: 18px; }
+  summary { cursor: pointer; color: var(--text-secondary); font-size: .88rem; }
+
+  .tooltip {
+    position: fixed; pointer-events: none; opacity: 0; transition: opacity .12s;
+    background: var(--surface-1); color: var(--text-primary);
+    border: 1px solid var(--border); border-radius: 9px;
+    padding: 9px 11px; font-size: .82rem; line-height: 1.45;
+    box-shadow: 0 6px 22px rgba(0,0,0,.16); z-index: 20; max-width: 260px;
+  }
+  .tooltip .t-date { font-weight: 600; margin-bottom: 3px; }
+  .tooltip .t-row { color: var(--text-secondary); }
+  .tooltip .t-flag { color: var(--text-muted); margin-top: 4px; }
+
+  footer { margin-top: 44px; color: var(--text-muted); font-size: .84rem; }
+  a { color: var(--series-1); }
+  .empty { color: var(--text-secondary); padding: 28px 0; }
+</style>
+</head>
+<body>
+<main>
+  <div class="banner" id="demo-banner" hidden>
+    <strong>Demonstration — synthetic data</strong>
+    Every figure on this page was produced by running the real pipeline over
+    invented observations. Nothing here is a measurement of Berlin public
+    transport. No collection has run.
+  </div>
+
+  <h1>Accessible topology</h1>
+  <p class="question">How does elevator availability change the accessible topology of Berlin public transport over time?</p>
+  <p class="scope">
+    This page measures one thing: hours during which a station lift was reported
+    out of service, and how much of each day we were actually watching. It is not
+    a measure of punctuality, frequency, crowding, or service quality, and it
+    cannot support a claim about those.
+  </p>
+
+  <div id="app"></div>
+
+  <footer>
+    <p>Unit: outage-hours. Days are Europe/Berlin local days, which are 23 or 25 hours long twice a year. Storage is UTC.</p>
+    <p>Source: BrokenLifts (community accessibility data). Method: <a href="https://github.com/frnkptrln/berlin-transit-friction/blob/main/docs/event-schema.md">event schema</a> · <a href="https://github.com/frnkptrln/berlin-transit-friction/blob/main/RETENTION.md">retention</a></p>
+  </footer>
+</main>
+
+<div class="tooltip" id="tip" role="status" aria-live="polite"></div>
+<script src="accessibility.js"></script>
+</body>
+</html>

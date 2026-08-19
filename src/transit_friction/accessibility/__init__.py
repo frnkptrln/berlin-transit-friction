@@ -1,18 +1,19 @@
 """Accessibility-focused reboot of Transit Friction.
 
-The package is intentionally independent from the legacy friction-event model.
-It models observed elevator outages as intervals with explicit source coverage.
+Source-specific: parsing the BrokenLifts outage page and adapting it into the
+generic event vocabulary. Lifecycle decisions — what counts as a change, what
+may close an outage, how flapping is damped — live in
+``transit_friction.events`` and are shared with every other source.
 """
 
-from .lifecycle import ActiveOutage, ReconcileResult, reconcile
+from .adapter import SOURCE_ID, to_source_snapshot
 from .models import ElevatorOutageObservation, OutageSnapshot
 from .parser import parse_brokenlifts_snapshot
 
 __all__ = [
-    "ActiveOutage",
     "ElevatorOutageObservation",
     "OutageSnapshot",
-    "ReconcileResult",
+    "SOURCE_ID",
     "parse_brokenlifts_snapshot",
-    "reconcile",
+    "to_source_snapshot",
 ]

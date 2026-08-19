@@ -20,3 +20,8 @@ jobs:
           cache: pip
       - run: python -m pip install -r requirements.txt
       - run: python -m pytest -q
+
+      # RETENTION.md promises these as CI checks. A policy that is only written
+      # down is the policy the legacy pipeline had.
+      - name: Retention contract
+        run: python scripts/check_retention.py

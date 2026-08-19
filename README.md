@@ -40,6 +40,23 @@ The first valid version will focus on structured elevator-outage lifecycles:
 - compact daily publication instead of committing every raw poll;
 - no map or network claim without observed coordinates and topology.
 
+## Data architecture
+
+Written before collection resumes, so that the reboot collects the right thing:
+
+- [docs/data-architecture.md](docs/data-architecture.md) — three layers; why we
+  archive state transitions instead of GTFS-RT frames.
+- [docs/event-schema.md](docs/event-schema.md) — what a transition is, how
+  flapping is damped, and why a missing poll is `unknown` rather than `0`.
+- [docs/partitioning.md](docs/partitioning.md) — append-only Parquet by day,
+  sealed with content hashes, rolled up to monthly files after 30 days.
+- [docs/denominator.md](docs/denominator.md) — the population a rate is divided
+  by, why unobserved time is bounded rather than deleted, and what this data
+  cannot support.
+- [RETENTION.md](RETENTION.md) — per layer: what stays, how long, and why.
+- [docs/decisions/0001-timeseries-hosting.md](docs/decisions/0001-timeseries-hosting.md)
+  — Hugging Face dataset or git; decision and revisit triggers.
+
 ## Publication gates
 
 Scheduled collection stays disabled until all of the following are true:
@@ -49,7 +66,18 @@ Scheduled collection stays disabled until all of the following are true:
 3. state persists across independent runs;
 4. a failed source cannot resolve active outages;
 5. aggregates have explicit definitions and coverage;
-6. a shadow run has been reviewed before public publication.
+6. a shadow run has been reviewed before public publication;
+7. writes conform to the accepted storage contract — transitions and
+   observations as specified in [docs/event-schema.md](docs/event-schema.md),
+   partitioned and sealed per [docs/partitioning.md](docs/partitioning.md), with
+   no path outside [RETENTION.md](RETENTION.md). Enforced on every pull request
+   by `scripts/check_retention.py`.
+
+The reboot runs unscheduled in the meantime: `scripts/accessibility_shadow.py`
+observes once, `scripts/seal_events.py` freezes closed days, and
+`scripts/build_aggregates.py` rebuilds metrics from the ledger. The
+`accessibility shadow observation` workflow chains the three on manual dispatch
+and publishes nothing.
 
 ## Boundaries
 

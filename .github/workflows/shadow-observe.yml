@@ -1,0 +1,95 @@
+name: accessibility shadow observation
+
+# Manual only, on purpose. README.md keeps scheduled collection disabled until
+# every publication gate is met, and gate 6 needs a reviewed shadow period
+# first. This workflow is the rehearsal for that period: it runs the same code
+# the published pipeline will run, and publishes nothing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      seal:
+        description: "also seal closed days and rebuild aggregates"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  # Sealing must never overlap a collection run that could still be appending
+  # to the day being sealed.
+  group: accessibility-shadow
+  cancel-in-progress: false
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: python -m pip install -r requirements.txt
+
+      # The shadow tree is the ephemeral layer: evictable by design, and never
+      # committed. Losing it costs the run history of the rehearsal, not any
+      # published record — there is none yet.
+      - name: Restore shadow tree
+        uses: actions/cache/restore@v4
+        with:
+          path: .shadow
+          key: shadow-tree-${{ github.run_id }}
+          restore-keys: shadow-tree-
+
+      - name: Observe once
+        run: python scripts/accessibility_shadow.py --root .shadow
+
+      - name: Seal closed days
+        if: ${{ inputs.seal }}
+        run: |
+          python scripts/seal_events.py \
+            --events-root .shadow/events \
+            --manifest-root .shadow/_manifests \
+            --raw-root .shadow/raw
+
+      - name: Rebuild aggregates
+        if: ${{ inputs.seal }}
+        run: |
+          python scripts/build_aggregates.py \
+            --events-root .shadow/events \
+            --raw-root .shadow/raw \
+            --aggregates-root .shadow/aggregates \
+            --site-root .shadow/site
+
+      - name: Verify the retention contract
+        run: |
+          python scripts/check_retention.py \
+            --events-root .shadow/events \
+            --manifest-root .shadow/_manifests \
+            --raw-root .shadow/raw \
+            --aggregates-root .shadow/aggregates
+
+      - name: Save shadow tree
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .shadow
+          key: shadow-tree-${{ github.run_id }}
+
+      - name: Upload the run for review
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: shadow-${{ github.run_id }}
+          path: |
+            .shadow/runs.jsonl
+            .shadow/events
+            .shadow/aggregates
+            .shadow/site
+          retention-days: 7
+          if-no-files-found: warn

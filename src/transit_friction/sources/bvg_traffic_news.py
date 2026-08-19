@@ -9,7 +9,7 @@ except ImportError:
     requests = None
     BeautifulSoup = None
 
-from transit_friction.config import DEFAULT_TIMEOUT, BASE_DIR
+from transit_friction.config import DEFAULT_TIMEOUT
 from transit_friction.storage import write_json_gz, sha256_bytes
 from transit_friction.sources.base import SourceResult
 from transit_friction.normalize.events import stable_event_id

@@ -117,6 +117,7 @@ def parse_brokenlifts_snapshot(
     )
 
     return OutageSnapshot(
+        advertised_count=expected_count,
         source_url=source_url,
         observed_at=observed_at,
         source_updated_at=source_updated_at,
