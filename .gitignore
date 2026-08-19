@@ -3,6 +3,7 @@ __pycache__/
 .pytest_cache/
 *.pyc
 .shadow/
+.raw/
 
 # Local secrets and credentials
 .env

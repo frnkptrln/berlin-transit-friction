@@ -88,6 +88,7 @@ per-poll diff stream, i.e. back to archiving frames.
 | **`t_earliest`** | ts(µs, UTC) | no | earliest instant the change can have happened |
 | **`t_latest`** | ts(µs, UTC) | no | latest instant it can have happened = the observation that revealed it |
 | `t_source` | ts(µs, UTC) | yes | the source's own timestamp for the change, if it publishes one |
+| `recorded_at` | ts(µs, UTC) | no | the observation at which this row was written; equals `t_latest` except for rows dated earlier than the run that detected them |
 | `certainty` | dict<string> | no | `observed` \| `bounded` \| `inferred` |
 | `evidence` | dict<string> | no | see §4 |
 | `observation_id` | string(20) | no | FK → `observations`; the row that justified this transition |
@@ -135,6 +136,22 @@ how the legacy dashboard claimed precision it never had.
 `certainty = inferred` is reserved for rows written by policy rather than
 observation (`retired`, and nothing else at present). Inferred rows are excluded
 from duration metrics by default.
+
+### Dating and ordering are different questions
+
+`t_latest` says *when the change happened*. `recorded_at` says *when we wrote it
+down*. They differ whenever a row is dated earlier than the run that produced
+it, which is exactly what `unknown_entered` does (§6.2): it is dated at the last
+trustworthy look, because that is the moment we stopped knowing.
+
+That makes `t_latest` ambiguous as a sort key — an `opened` observed at 10:05
+and an `unknown_entered` dated back to 10:05 carry the same timestamp, and
+folding them in the wrong order leaves an entity impaired when it should be
+unknown. State folds and episode folds therefore order by
+`(recorded_at, t_latest, transition_uid)`, which reproduces the order the
+detector emitted rows in. Storage sorts differently — by `entity_uid` first, for
+compression and row-group pruning — so readers must apply the causal order
+themselves rather than trusting file order.
 
 ---
 
@@ -345,7 +362,9 @@ pipeline that can rewrite its own history cannot be audited, and this project's
 whole problem was that nobody could audit it.
 
 **Evolution.** Additive columns bump `schema_version`; readers must tolerate
-older rows lacking them. A change in the meaning of an existing column is a
+older rows lacking them. Version 1 is the initial schema — `recorded_at` was
+added to it during implementation, before any partition had been written, so no
+bump applied. A change in the meaning of an existing column is a
 breaking change and forks the directory (`transitions_v2/`) — old partitions stay
 readable under their original semantics. Threshold changes (§5.5) are not schema
 changes but *are* measurement changes and are recorded in aggregate metadata.

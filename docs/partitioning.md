@@ -140,7 +140,10 @@ this scale.
 | page checksums | enabled | corruption is detected on read, not discovered years later |
 
 `ingested_at` is deliberately excluded from partitioning and from every metric.
-It is provenance, not time.
+It is provenance, not time. `recorded_at` is not provenance — it carries the
+causal order the folds depend on (see
+[event-schema.md](event-schema.md) §3) — but it is not a partition key either:
+rows are partitioned by when the change happened, not by when we noticed.
 
 ---
 
