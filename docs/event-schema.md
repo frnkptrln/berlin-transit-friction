@@ -1,6 +1,7 @@
 # Event schema
 
-Status: **proposed**. Companion to [data-architecture.md](data-architecture.md).
+Status: **accepted** 2026-08-19. Companion to
+[data-architecture.md](data-architecture.md).
 
 Two append-only tables form the permanent record:
 

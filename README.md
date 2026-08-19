@@ -63,7 +63,11 @@ Scheduled collection stays disabled until all of the following are true:
 3. state persists across independent runs;
 4. a failed source cannot resolve active outages;
 5. aggregates have explicit definitions and coverage;
-6. a shadow run has been reviewed before public publication.
+6. a shadow run has been reviewed before public publication;
+7. writes conform to the accepted storage contract — transitions and
+   observations as specified in [docs/event-schema.md](docs/event-schema.md),
+   partitioned and sealed per [docs/partitioning.md](docs/partitioning.md), with
+   no path outside [RETENTION.md](RETENTION.md).
 
 ## Boundaries
 

@@ -1,6 +1,7 @@
 # Retention
 
-Status: **proposed**, binding once collection resumes.
+Status: **accepted** 2026-08-19. Binding for every write once collection
+resumes; nothing may be written to a path this document does not cover.
 
 What is kept, for how long, and why. If a layer is not listed here, it must not
 exist. If a retention period is not stated here, nothing may be written to that

@@ -1,7 +1,7 @@
 # Data architecture
 
-Status: **proposed**, written before collection resumes. No collector may be
-re-enabled until the contracts below are implemented and tested.
+Status: **accepted** 2026-08-19, written before collection resumes. No collector
+may be re-enabled until the contracts below are implemented and tested.
 
 This document is the umbrella. The details live in:
 

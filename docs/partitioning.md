@@ -1,6 +1,7 @@
 # Partitioning and file layout
 
-Status: **proposed**. Companion to [event-schema.md](event-schema.md).
+Status: **accepted** 2026-08-19. Companion to
+[event-schema.md](event-schema.md).
 
 Rules, in order of precedence:
 

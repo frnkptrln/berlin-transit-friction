@@ -1,7 +1,7 @@
 # ADR 0001 — Where the time series lives
 
-- **Status:** proposed
-- **Date:** 2026-08-18
+- **Status:** accepted
+- **Date:** 2026-08-19
 - **Question:** should `data/events/` be published as a Hugging Face dataset
   instead of living in this git repository?
 - **Decision:** **no, not now.** Keep events and aggregates in git. Adopt the
