@@ -67,7 +67,14 @@ Scheduled collection stays disabled until all of the following are true:
 7. writes conform to the accepted storage contract — transitions and
    observations as specified in [docs/event-schema.md](docs/event-schema.md),
    partitioned and sealed per [docs/partitioning.md](docs/partitioning.md), with
-   no path outside [RETENTION.md](RETENTION.md).
+   no path outside [RETENTION.md](RETENTION.md). Enforced on every pull request
+   by `scripts/check_retention.py`.
+
+The reboot runs unscheduled in the meantime: `scripts/accessibility_shadow.py`
+observes once, `scripts/seal_events.py` freezes closed days, and
+`scripts/build_aggregates.py` rebuilds metrics from the ledger. The
+`accessibility shadow observation` workflow chains the three on manual dispatch
+and publishes nothing.
 
 ## Boundaries
 

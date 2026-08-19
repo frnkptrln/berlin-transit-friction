@@ -162,7 +162,9 @@ not be used for any claim about Berlin transport.
 
 ## Enforcement
 
-These are CI checks, not conventions:
+These are CI checks, not conventions. They are implemented in
+`src/transit_friction/events/retention.py`, run by `scripts/check_retention.py`,
+and executed on every pull request:
 
 1. no path under `.raw/` may be staged, ever;
 2. raw files older than 7 days must be absent after a collection run;

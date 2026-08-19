@@ -27,13 +27,14 @@ from pathlib import Path
 from typing import Iterable, Sequence
 
 from .config import DEFAULT_TUNING, TuningParameters
-from .records import Observation, Transition
+from .records import DailyMetric, Observation, Transition
 from .schema import SCHEMA_VERSION
 
 STORE_VERSION = "1.0.0"
 
 TABLE_TRANSITIONS = "transitions"
 TABLE_OBSERVATIONS = "observations"
+TABLE_DAILY_METRICS = "daily_metrics"
 
 
 @dataclass(frozen=True, slots=True)
@@ -84,6 +85,17 @@ TABLES: dict[str, TableSpec] = {
             "gap_before_s",
         ),
         record_cls=Observation,
+    ),
+    TABLE_DAILY_METRICS: TableSpec(
+        name=TABLE_DAILY_METRICS,
+        uid_field="metric_uid",
+        partition_field="window_start",
+        sort_fields=("local_date", "metric", "dimension", "dimension_id"),
+        timestamp_fields=("window_start", "window_end", "built_at"),
+        list_fields=(),
+        bool_fields=("publishable",),
+        int_fields=("schema_version", "aggregate_revision"),
+        record_cls=DailyMetric,
     ),
 }
 
@@ -242,6 +254,25 @@ def arrow_schema(table: str):
             ("run_id", pa.string()),
             ("parser_version", pa.string()),
             ("ingested_at", pa.timestamp("us", tz="UTC")),
+        ]
+    elif table == TABLE_DAILY_METRICS:
+        names = [
+            ("metric_uid", pa.string()),
+            ("schema_version", pa.int16()),
+            ("local_date", pa.string()),
+            ("window_start", pa.timestamp("us", tz="UTC")),
+            ("window_end", pa.timestamp("us", tz="UTC")),
+            ("window_hours", pa.float64()),
+            ("metric", pa.string()),
+            ("dimension", pa.string()),
+            ("dimension_id", pa.string()),
+            ("value", pa.float64()),
+            ("unit", pa.string()),
+            ("publishable", pa.bool_()),
+            ("coverage_ratio", pa.float64()),
+            ("aggregate_revision", pa.int32()),
+            ("tuning_fingerprint", pa.string()),
+            ("built_at", pa.timestamp("us", tz="UTC")),
         ]
     else:
         names = [

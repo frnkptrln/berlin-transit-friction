@@ -70,6 +70,9 @@ the sealer.
 
 ### Sealing (day D, run at 03:00 UTC on D+1)
 
+Run by `scripts/seal_events.py`; the eligibility rules live in
+`events/maintenance.py` so they can be tested without a runner.
+
 1. Read `.raw/staging/transitions-D.jsonl`.
 2. Validate every row against the schema; reject the seal on any violation
    rather than dropping rows.
@@ -184,7 +187,7 @@ The motive is real: 365 tiny Parquet files per table per year is 365 footers,
 
 ## 6. Aggregates
 
-Same discipline, different tenancy:
+Built by `scripts/build_aggregates.py`. Same discipline, different tenancy:
 
 | table | partition | rebuildable? |
 |---|---|---|
@@ -198,9 +201,17 @@ number is a visible event in its own right: the new file carries a bumped
 `aggregate_revision` and a `recomputed_because` string, and the old values remain
 in git history. Silent restatement is not available.
 
-Daily aggregates carry, per metric: the value, `coverage_ratio`, `gap_seconds`,
-`window_hours`, `sources_used`, `tuning_parameters_hash`, and the `null`
-convention from [event-schema.md](event-schema.md) §6.3.
+Daily aggregates are stored in long format — one row per
+`(local_date, metric, dimension, dimension_id)` — because the dimensions differ
+per metric (some per station, some per source, some for the window as a whole)
+and because `null` is a first-class outcome that a wide table with typed columns
+expresses badly. Each row carries the value, `coverage_ratio`, `window_hours`,
+`publishable`, `aggregate_revision` and `tuning_fingerprint`, following the
+`null` convention from [event-schema.md](event-schema.md) §6.3.
+
+Coverage metrics are always published, even when everything else in the window
+is `null`: they describe our own observation rather than Berlin, and they are
+exactly what a reader needs in order to interpret the nulls beside them.
 
 The dashboard reads a small JSON projection of the aggregates (`site/data/`),
 generated, never hand-edited.

@@ -332,3 +332,88 @@ class Transition:
             parser_version=payload.get("parser_version", "0.0.0"),
             ingested_at=_parse(payload.get("ingested_at")),
         )
+
+
+@dataclass(frozen=True, slots=True)
+class DailyMetric:
+    """One published number, in long format.
+
+    Long rather than wide because the dimensions differ per metric — some are
+    per station, some per source, some for the window as a whole — and because a
+    ``None`` value is a first-class outcome here: it means the window was not
+    watched well enough to support the number, which a wide table with typed
+    columns expresses badly.
+    """
+
+    metric_uid: str
+    local_date: str
+    window_start: datetime
+    window_end: datetime
+    window_hours: float
+    metric: str
+    dimension: str
+    dimension_id: str
+    unit: str
+    publishable: bool
+    coverage_ratio: float
+    aggregate_revision: int
+    tuning_fingerprint: str
+    value: float | None = None
+    built_at: datetime | None = None
+    schema_version: int = SCHEMA_VERSION
+
+    def __post_init__(self) -> None:
+        require_aware(self.window_start, "window_start")
+        require_aware(self.window_end, "window_end")
+        if self.window_end <= self.window_start:
+            raise ValueError("window_end must be after window_start")
+        if self.built_at is not None:
+            require_aware(self.built_at, "built_at")
+        if self.value is not None and self.publishable is False:
+            raise ValueError(
+                "a value may not be published for a window below the coverage "
+                "threshold; emit None instead of coercing it to a number"
+            )
+        if not 0 <= self.coverage_ratio <= 1:
+            raise ValueError("coverage_ratio must be within [0, 1]")
+
+    def to_dict(self) -> dict:
+        return {
+            "metric_uid": self.metric_uid,
+            "schema_version": self.schema_version,
+            "local_date": self.local_date,
+            "window_start": _iso(self.window_start),
+            "window_end": _iso(self.window_end),
+            "window_hours": self.window_hours,
+            "metric": self.metric,
+            "dimension": self.dimension,
+            "dimension_id": self.dimension_id,
+            "value": self.value,
+            "unit": self.unit,
+            "publishable": self.publishable,
+            "coverage_ratio": self.coverage_ratio,
+            "aggregate_revision": self.aggregate_revision,
+            "tuning_fingerprint": self.tuning_fingerprint,
+            "built_at": _iso(self.built_at),
+        }
+
+    @classmethod
+    def from_dict(cls, payload: dict) -> "DailyMetric":
+        return cls(
+            metric_uid=payload["metric_uid"],
+            schema_version=payload.get("schema_version", SCHEMA_VERSION),
+            local_date=payload["local_date"],
+            window_start=_parse(payload["window_start"]),
+            window_end=_parse(payload["window_end"]),
+            window_hours=float(payload["window_hours"]),
+            metric=payload["metric"],
+            dimension=payload["dimension"],
+            dimension_id=payload.get("dimension_id", ""),
+            value=payload.get("value"),
+            unit=payload["unit"],
+            publishable=bool(payload["publishable"]),
+            coverage_ratio=float(payload["coverage_ratio"]),
+            aggregate_revision=int(payload["aggregate_revision"]),
+            tuning_fingerprint=payload["tuning_fingerprint"],
+            built_at=_parse(payload.get("built_at")),
+        )

@@ -12,7 +12,8 @@ of our cron schedule.
 from __future__ import annotations
 
 from collections import defaultdict
-from datetime import datetime
+from datetime import date, datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 from .config import DEFAULT_TUNING, TuningParameters
 from .coverage import Coverage
@@ -21,6 +22,39 @@ from .records import require_aware
 from .schema import FLAG_FLAPPING
 
 UNIT = "outage-hours"
+
+#: Storage is partitioned in UTC; meaning is reported in Berlin local time.
+REPORTING_TZ = ZoneInfo("Europe/Berlin")
+
+
+def local_day_window(
+    day: date,
+    tz: ZoneInfo = REPORTING_TZ,
+) -> tuple[datetime, datetime]:
+    """Midnight to midnight in the reporting timezone, as UTC instants.
+
+    Berlin has a 23-hour day and a 25-hour day every year. A daily rate computed
+    over a fixed 24-hour window is wrong on both, and comparing them to each
+    other is wrong twice, which is why every summary carries ``window_hours``
+    rather than assuming it.
+    """
+    start = datetime(day.year, day.month, day.day, tzinfo=tz)
+    end = start + timedelta(days=1)
+    # Adding a day in local time then normalising is what makes the DST jump
+    # appear as a 23- or 25-hour window instead of being silently discarded.
+    end = datetime(end.year, end.month, end.day, tzinfo=tz)
+    return start.astimezone(timezone.utc), end.astimezone(timezone.utc)
+
+
+def local_month_window(
+    year: int,
+    month: int,
+    tz: ZoneInfo = REPORTING_TZ,
+) -> tuple[datetime, datetime]:
+    """First to first, in the reporting timezone."""
+    start = datetime(year, month, 1, tzinfo=tz)
+    end = datetime(year + (month == 12), month % 12 + 1, 1, tzinfo=tz)
+    return start.astimezone(timezone.utc), end.astimezone(timezone.utc)
 
 
 def _publishable(
@@ -64,19 +98,36 @@ def build_window_summary(
         for episode in episodes
         if FLAG_FLAPPING not in episode.quality_flags
     ]
-    quarantined = [episode for episode in episodes if episode not in headline]
+    quarantined = [
+        episode
+        for episode in episodes
+        if FLAG_FLAPPING in episode.quality_flags
+        and (
+            episode.overlap_seconds(window_start, window_end, as_of=as_of) > 0
+            or episode.unknown_seconds_in(window_start, window_end) > 0
+        )
+    ]
 
     hours_by_station: dict[str, float] = defaultdict(float)
     total_seconds = 0.0
+    unobserved_seconds = 0.0
     uncertain = 0
     active_at_end = 0
+    touching = 0
     for episode in headline:
         seconds = episode.overlap_seconds(window_start, window_end, as_of=as_of)
-        if seconds <= 0:
+        blind = episode.unknown_seconds_in(window_start, window_end)
+        if seconds <= 0 and blind <= 0:
+            # An episode that neither ran nor blinded us during this window is
+            # not part of it. Counting every episode ever seen would report the
+            # same figure on a day when nothing happened.
             continue
-        hours_by_station[episode.station_id or "unknown"] += seconds / 3600
-        total_seconds += seconds
-        if not episode.certain:
+        touching += 1
+        if seconds > 0:
+            hours_by_station[episode.station_id or "unknown"] += seconds / 3600
+            total_seconds += seconds
+        if blind > 0:
+            unobserved_seconds += blind
             uncertain += 1
         if episode.ongoing or (
             episode.closed_t_latest and episode.closed_t_latest >= window_end
@@ -94,7 +145,7 @@ def build_window_summary(
         "window_hours": round(window_hours, 4),
         "unit": UNIT,
         "publishable": publishable,
-        "episode_count": _value(len(headline)),
+        "episode_count": _value(touching),
         "active_at_window_end": _value(active_at_end),
         "total_outage_hours": _value(round(total_seconds / 3600, 3)),
         "outage_hours_by_station": _value(
@@ -104,6 +155,7 @@ def build_window_summary(
             }
         ),
         "episodes_with_unobserved_time": _value(uncertain),
+        "unobserved_outage_hours": _value(round(unobserved_seconds / 3600, 3)),
         "coverage": {
             source: coverage.to_dict(tuning)
             for source, coverage in sorted(coverages.items())

@@ -40,7 +40,7 @@ class Episode:
     closed_t_latest: datetime | None
     duration_min_s: float
     duration_max_s: float | None
-    unknown_seconds: float
+    unknown_intervals: tuple[tuple[datetime, datetime], ...]
     internal_ok_seconds: float
     reopen_count: int
     station_id: str | None = None
@@ -51,6 +51,30 @@ class Episode:
     @property
     def ongoing(self) -> bool:
         return self.closed_t_latest is None
+
+    @property
+    def unknown_seconds(self) -> float:
+        return sum(
+            (end - start).total_seconds() for start, end in self.unknown_intervals
+        )
+
+    def unknown_seconds_in(
+        self,
+        window_start: datetime,
+        window_end: datetime,
+    ) -> float:
+        """Blind time inside one window.
+
+        An episode spanning a week must not report a Tuesday outage as having
+        made Thursday uncertain, so the intervals are clipped rather than
+        summed whole.
+        """
+        total = 0.0
+        for start, end in self.unknown_intervals:
+            lo, hi = max(start, window_start), min(end, window_end)
+            if hi > lo:
+                total += (hi - lo).total_seconds()
+        return total
 
     @property
     def duration_point_s(self) -> float | None:
@@ -121,7 +145,7 @@ def build_episodes(
         # a gap and finding it gone ('unknown_exited').
         closer = group[-1] if group[-1].to_state == STATE_OK else None
 
-        unknown_seconds = 0.0
+        unknown_intervals: list[tuple[datetime, datetime]] = []
         unknown_since: datetime | None = None
         internal_ok_seconds = 0.0
         ok_since: datetime | None = None
@@ -134,7 +158,7 @@ def build_episodes(
                 unknown_since = row.t_latest
             elif row.transition_type == TRANSITION_UNKNOWN_EXITED:
                 if unknown_since is not None:
-                    unknown_seconds += (row.t_latest - unknown_since).total_seconds()
+                    unknown_intervals.append((unknown_since, row.t_latest))
                     unknown_since = None
                 if row.to_state == STATE_UNKNOWN:
                     unknown_since = row.t_latest
@@ -147,8 +171,8 @@ def build_episodes(
                     ok_since = None
 
         reference = as_of or group[-1].t_latest
-        if unknown_since is not None and closer is None:
-            unknown_seconds += max(0.0, (reference - unknown_since).total_seconds())
+        if unknown_since is not None and closer is None and reference > unknown_since:
+            unknown_intervals.append((unknown_since, reference))
 
         if closer is None:
             duration_min = max(0.0, (reference - opener.t_latest).total_seconds())
@@ -176,7 +200,7 @@ def build_episodes(
                 closed_t_latest=closed_latest,
                 duration_min_s=duration_min,
                 duration_max_s=duration_max,
-                unknown_seconds=unknown_seconds,
+                unknown_intervals=tuple(unknown_intervals),
                 internal_ok_seconds=internal_ok_seconds,
                 reopen_count=reopen_count,
                 station_id=opener.station_id,
