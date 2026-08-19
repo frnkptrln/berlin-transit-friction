@@ -50,6 +50,9 @@ Written before collection resumes, so that the reboot collects the right thing:
   flapping is damped, and why a missing poll is `unknown` rather than `0`.
 - [docs/partitioning.md](docs/partitioning.md) — append-only Parquet by day,
   sealed with content hashes, rolled up to monthly files after 30 days.
+- [docs/denominator.md](docs/denominator.md) — the population a rate is divided
+  by, why unobserved time is bounded rather than deleted, and what this data
+  cannot support.
 - [RETENTION.md](RETENTION.md) — per layer: what stays, how long, and why.
 - [docs/decisions/0001-timeseries-hosting.md](docs/decisions/0001-timeseries-hosting.md)
   — Hugging Face dataset or git; decision and revisit triggers.

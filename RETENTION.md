@@ -21,6 +21,7 @@ Companion documents: [docs/data-architecture.md](docs/data-architecture.md),
 | events | `data/events/` | Parquet, append-only | **forever** | yes | no — this is the source of truth |
 | aggregates | `data/aggregates/` | Parquet, derived | **forever** | yes | yes, from events alone |
 | site data | `site/data/` | JSON projection | current only | yes | yes, from aggregates |
+| reference | `data/reference/` | Parquet, immutable per version | **forever** | yes | only while the source archive is obtainable |
 | manifests | `data/_manifests/` | JSON | **forever** | yes | no — they are the integrity chain |
 
 ---
@@ -127,6 +128,32 @@ remain in git history.
 It is regenerated, never hand-edited, and carries no history of its own — the
 history is in `data/aggregates/`. It is committed so that GitHub Pages has
 something to serve, not because it is a record.
+
+---
+
+## reference — forever, versioned, immutable per version
+
+**Contents.** The denominator population derived from a static GTFS release:
+which stations are in scope, which have an elevator, and how long each is in
+service. See [docs/denominator.md](docs/denominator.md).
+
+**Retention: forever.** A published rate names the population it was computed
+against, so deleting a population would strand every metric row that cites it
+and make historical figures uncheckable. It is also tiny — 311 stations is
+8 KB of Parquet.
+
+**Why the derived rows and not just a hash.** Keeping only a fingerprint of an
+archive nobody can re-fetch is not reproducibility. The rows that formed the
+denominator are kept; the archive itself is not committed.
+
+**Versioning.** The partition key is derived from the content — the station rows
+plus the frame predicate plus the derivation version. Two archives yielding the
+same stations share a population; a change to the predicate writes a new one
+rather than overwriting an immutable partition.
+
+**Not in the event-table registry.** Reference data is neither an event stream
+nor an aggregate, and the events sealer must not be able to see it: it would
+otherwise be sealable into a partition claiming to be an event log.
 
 ---
 

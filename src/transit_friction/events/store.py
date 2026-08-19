@@ -338,6 +338,39 @@ def write_parquet(table: str, rows: Sequence[dict], path: Path) -> None:
     temporary.replace(path)
 
 
+def write_parquet_with_schema(schema, rows: Sequence[dict], path: Path) -> None:
+    """Write rows under an explicit schema.
+
+    Used by the reference layer, which has its own tables and must not be
+    registered in the event-table registry: an events sealer that could see a
+    reference table could seal it into a partition claiming to be an event log.
+    """
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    columns = {}
+    for field in schema:
+        values = []
+        for row in rows:
+            value = row.get(field.name)
+            if isinstance(value, str) and pa.types.is_timestamp(field.type):
+                value = datetime.fromisoformat(value)
+            values.append(value)
+        columns[field.name] = pa.array(values, type=field.type)
+    temporary = path.with_suffix(".parquet.tmp")
+    pq.write_table(
+        pa.table(columns, schema=schema),
+        temporary,
+        compression="zstd",
+        compression_level=3,
+        use_dictionary=True,
+        write_statistics=True,
+        write_page_checksum=True,
+    )
+    temporary.replace(path)
+
+
 def read_parquet(path: Path) -> list[dict]:
     import pyarrow.parquet as pq
 
