@@ -130,6 +130,26 @@ class Episode:
         lo, hi = max(start, window_start), min(end, window_end)
         return max(0.0, (hi - lo).total_seconds())
 
+    def clipped_interval(
+        self,
+        window_start: datetime,
+        window_end: datetime,
+        as_of: datetime | None = None,
+        bound: str = "mid",
+    ) -> tuple[datetime, datetime] | None:
+        """This episode's extent clipped to a window, or None if it misses it.
+
+        Needed because station-level time is a *union* of its lifts' intervals,
+        not a sum: four lifts out together for four hours is four hours of a
+        station being affected, not sixteen. A sum answers a different question
+        (lift-hours) and must not wear the station's name.
+        """
+        start, end = self._extent(bound, as_of)
+        if end is None:
+            end = as_of or window_end
+        lo, hi = max(start, window_start), min(end, window_end)
+        return (lo, hi) if hi > lo else None
+
     def overlap_bounds(
         self,
         window_start: datetime,
@@ -241,3 +261,26 @@ def build_episodes(
         )
 
     return sorted(episodes, key=lambda item: (item.opened_t_latest, item.episode_id))
+
+
+def union_seconds(intervals: list[tuple[datetime, datetime]]) -> float:
+    """Total length of a set of intervals, counting overlap once.
+
+    The whole point of station-level accounting: a station with four lifts out
+    simultaneously is not four times as inaccessible as one with a single lift
+    out. Summing episodes answers "how much lift-time was lost"; this answers
+    "how long was the station affected", and only the second may be divided by
+    station-time.
+    """
+    if not intervals:
+        return 0.0
+    ordered = sorted(intervals)
+    total = 0.0
+    current_start, current_end = ordered[0]
+    for start, end in ordered[1:]:
+        if start > current_end:
+            total += (current_end - current_start).total_seconds()
+            current_start, current_end = start, end
+        elif end > current_end:
+            current_end = end
+    return total + (current_end - current_start).total_seconds()

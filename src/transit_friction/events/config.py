@@ -28,6 +28,11 @@ class TuningParameters:
 
     flap_quarantine_n: int = 6
     flap_quarantine_window_s: int = 86400
+    #: An episode is only excluded from headline figures when its own shape is
+    #: intermittent. Carrying a flapping flag is not enough — flags are unioned
+    #: across an episode's transitions, so one bad reading would otherwise
+    #: delete an outage of any length.
+    quarantine_min_reopens: int = 2
 
     # Beyond this gap we stop claiming to know an entity's state.
     max_trust_gap_s: int = 1800

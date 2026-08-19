@@ -49,8 +49,17 @@ def to_metric_rows(
     window_start = datetime.fromisoformat(summary["window_start"])
     window_end = datetime.fromisoformat(summary["window_end"])
     coverages = summary.get("coverage", {})
+    # The coverage stamped on a row is the worst among the sources the metric
+    # depends on. Taking the worst across every source in the ledger let an
+    # unrelated slow ingest brand every row with its own coverage.
+    depends_on = set(summary.get("data_quality", {}).get("sources_used", coverages))
     worst_coverage = min(
-        (item["coverage_ratio"] for item in coverages.values()), default=0.0
+        (
+            item["coverage_ratio"]
+            for source, item in coverages.items()
+            if source in depends_on
+        ),
+        default=0.0,
     )
 
     def _row(

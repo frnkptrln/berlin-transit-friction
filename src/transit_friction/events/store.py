@@ -274,6 +274,11 @@ def arrow_schema(table: str):
             ("tuning_fingerprint", pa.string()),
             ("built_at", pa.timestamp("us", tz="UTC")),
         ]
+    elif table != TABLE_OBSERVATIONS:
+        # Silently returning the observations schema for an unknown table is a
+        # corruption waiting to happen: the rows would be written under whatever
+        # columns happened to match and the rest dropped.
+        raise KeyError(f"no parquet schema for table {table!r}")
     else:
         names = [
             ("observation_id", pa.string()),

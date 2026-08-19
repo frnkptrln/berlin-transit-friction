@@ -61,6 +61,12 @@ def main() -> int:
     parser.add_argument("--until", help="last Berlin-local day, YYYY-MM-DD")
     parser.add_argument("--days", type=int, default=30)
     parser.add_argument(
+        "--depends-on",
+        default="brokenlifts",
+        help="comma-separated observation sources this metric is computed from; "
+        "coverage of any other source in the ledger must not gate it",
+    )
+    parser.add_argument(
         "--reason", help="why this rebuild happened, recorded when values change"
     )
     parser.add_argument("--dry-run", action="store_true")
@@ -77,7 +83,25 @@ def main() -> int:
     observations = load_recent_observations(
         args.events_root, args.raw_root, end=span_end
     )
-    sources = sorted({row.source_id for row in observations})
+    observed_sources = sorted({row.source_id for row in observations})
+    depends_on = [s for s in args.depends_on.split(",") if s.strip()]
+    missing = [s for s in depends_on if s not in observed_sources]
+    if missing:
+        print(
+            json.dumps(
+                {
+                    "error": "no observations for a declared dependency",
+                    "missing": missing,
+                    "observed": observed_sources,
+                },
+                indent=2,
+            ),
+            file=sys.stderr,
+        )
+        return 1
+    # Coverage is computed for every source so the ledger stays legible, but
+    # only the declared dependencies decide whether a value may be published.
+    sources = observed_sources
     episodes = build_episodes(transitions, as_of=span_end)
 
     written: list[dict] = []
@@ -94,6 +118,7 @@ def main() -> int:
             window_start=window_start,
             window_end=window_end,
             as_of=min(span_end, window_end),
+            depends_on=depends_on,
         )
         summaries.append((day.isoformat(), summary))
         if args.dry_run:
@@ -122,6 +147,7 @@ def main() -> int:
             {
                 "days": [day.isoformat() for day in days],
                 "sources": sources,
+                "depends_on": depends_on,
                 "episodes_considered": len(episodes),
                 "partitions_written": [
                     item for item in written if item.get("changed")
