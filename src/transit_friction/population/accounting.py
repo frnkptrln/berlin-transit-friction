@@ -35,7 +35,12 @@ from datetime import date, datetime
 from ..events.episodes import Episode, union_seconds
 from .crosswalk import CrosswalkReport
 from .frame import Population
-from .monitoring import Monitoring, SourceMonitoring, from_fault_listings
+from .monitoring import (
+    FAULT_FEED_ASSUMPTION,
+    Monitoring,
+    SourceMonitoring,
+    from_fault_listings,
+)
 
 #: Causes of not knowing, kept apart. "We were not polling" and "the source does
 #: not cover this station" are different blindnesses with different remedies,
@@ -45,6 +50,7 @@ CAUSE_ROSTER_INCOMPLETE = "roster_incomplete"
 CAUSE_MONITORING_STALE = "monitoring_stale"
 CAUSE_SOURCE_NOT_CURRENT = "source_not_current"
 CAUSE_UNMATCHED_JOIN = "unmatched_join"
+CAUSE_STATE_DERIVED_ONLY = "state_derived_only"
 
 #: Below this unknown share a point estimate is offered beside the interval.
 DEFAULT_MAX_UNKNOWN_SHARE_FOR_POINT = 0.10
@@ -62,6 +68,10 @@ class Accounting:
     out_seconds_max: float
     known_ok_seconds: float
     unknown_by_cause: dict[str, float]
+    #: The same window under the assumption that a fault feed reports every
+    #: fault. Published beside the strict figures, never instead of them.
+    known_ok_seconds_assumed: float
+    unknown_by_cause_assumed: dict[str, float]
     frame_station_count: int
     equipped_station_count: int
     monitored_station_count: int
@@ -97,6 +107,36 @@ class Accounting:
             return 1.0
         return min(1.0, (self.out_seconds + self.unknown_seconds) / self.denominator_seconds)
 
+    @property
+    def unknown_seconds_assumed(self) -> float:
+        return sum(self.unknown_by_cause_assumed.values())
+
+    @property
+    def unknown_share_assumed(self) -> float:
+        if self.denominator_seconds <= 0:
+            return 1.0
+        return min(1.0, self.unknown_seconds_assumed / self.denominator_seconds)
+
+    @property
+    def share_high_assumed(self) -> float:
+        if self.denominator_seconds <= 0:
+            return 1.0
+        return min(
+            1.0,
+            (self.out_seconds + self.unknown_seconds_assumed) / self.denominator_seconds,
+        )
+
+    def point_estimate_assumed(
+        self,
+        max_unknown_share: float = DEFAULT_MAX_UNKNOWN_SHARE_FOR_POINT,
+    ) -> float | None:
+        if self.unknown_share_assumed > max_unknown_share:
+            return None
+        known = self.out_seconds + self.known_ok_seconds_assumed
+        if known <= 0:
+            return None
+        return self.out_seconds / known
+
     def point_estimate(
         self,
         max_unknown_share: float = DEFAULT_MAX_UNKNOWN_SHARE_FOR_POINT,
@@ -113,9 +153,52 @@ class Accounting:
             return None
         return self.out_seconds / known
 
+    def bands(
+        self,
+        max_unknown_share: float = DEFAULT_MAX_UNKNOWN_SHARE_FOR_POINT,
+    ) -> dict:
+        """Both readings, each labelled with what it does and does not assume.
+
+        Publishing one interval that quietly picks a side is the error this
+        exists to prevent: the strict reading refuses state nobody observed, the
+        assumption-conditional one accepts it and says so. A reader can see the
+        cost of the assumption by the distance between them.
+        """
+        strict_point = self.point_estimate(max_unknown_share)
+        assumed_point = self.point_estimate_assumed(max_unknown_share)
+        return {
+            "strict": {
+                "assumes": None,
+                "share_low": round(self.share_low, 6),
+                "share_high": round(self.share_high, 6),
+                "point_estimate": None if strict_point is None else round(strict_point, 6),
+                "unknown_share": round(self.unknown_share, 4),
+                "unknown_hours_by_cause": {
+                    cause: round(seconds / 3600, 3)
+                    for cause, seconds in sorted(self.unknown_by_cause.items())
+                    if seconds > 0
+                },
+            },
+            "assumption_conditional": {
+                "assumes": FAULT_FEED_ASSUMPTION,
+                "share_low": round(self.share_low, 6),
+                "share_high": round(self.share_high_assumed, 6),
+                "point_estimate": (
+                    None if assumed_point is None else round(assumed_point, 6)
+                ),
+                "unknown_share": round(self.unknown_share_assumed, 4),
+                "unknown_hours_by_cause": {
+                    cause: round(seconds / 3600, 3)
+                    for cause, seconds in sorted(self.unknown_by_cause_assumed.items())
+                    if seconds > 0
+                },
+            },
+        }
+
     def to_dict(self, max_unknown_share: float = DEFAULT_MAX_UNKNOWN_SHARE_FOR_POINT) -> dict:
         point = self.point_estimate(max_unknown_share)
         return {
+            "bands": self.bands(max_unknown_share),
             "window_start": self.window_start.isoformat(),
             "window_end": self.window_end.isoformat(),
             "population_id": self.population_id,
@@ -216,6 +299,10 @@ def account(
         if key in equipped_set
     }
     eligible = monitoring.known_ok_eligible(reference) & equipped_set
+    eligible_assumed = (
+        monitoring.known_ok_eligible(reference, assume_fault_feed_complete=True)
+        & equipped_set
+    )
     stale = monitoring.stale(reference) & equipped_set
     monitored_in_frame = sorted(covered)
 
@@ -243,8 +330,9 @@ def account(
     # Aggregating first double-counted outage seconds as unknown, which put the
     # ceiling at 1.0 for a reason that was arithmetic rather than ignorance.
     unknown: dict[str, float] = {}
+    unknown_assumed: dict[str, float] = {}
     out_seconds = out_min = out_max = 0.0
-    known_ok = 0.0
+    known_ok = known_ok_assumed = 0.0
     for station in equipped:
         station_denominator = denominator_seconds(population, days, [station])
         if station_denominator <= 0:
@@ -261,24 +349,59 @@ def account(
         rest = station_denominator - station_out
         if rest <= 0:
             continue
-        if station in stale:
-            cause = CAUSE_MONITORING_STALE
-        elif station not in covered:
-            cause = CAUSE_NOT_MONITORED
-        elif station not in eligible:
-            cause = CAUSE_ROSTER_INCOMPLETE
-        else:
-            known_ok += rest
-            continue
-        unknown[cause] = unknown.get(cause, 0.0) + rest
 
-    if source_current_seconds is not None and known_ok > 0:
-        watched = max(0.0, min(known_ok, source_current_seconds - out_seconds))
-        if known_ok - watched > 0:
-            unknown[CAUSE_SOURCE_NOT_CURRENT] = (
-                unknown.get(CAUSE_SOURCE_NOT_CURRENT, 0.0) + (known_ok - watched)
+        if station in stale:
+            shared_cause = CAUSE_MONITORING_STALE
+        elif station not in covered:
+            shared_cause = CAUSE_NOT_MONITORED
+        else:
+            shared_cause = None
+
+        if shared_cause is not None:
+            unknown[shared_cause] = unknown.get(shared_cause, 0.0) + rest
+            unknown_assumed[shared_cause] = (
+                unknown_assumed.get(shared_cause, 0.0) + rest
             )
-        known_ok = watched
+            continue
+
+        # Strict: only observed state counts.
+        if station in eligible:
+            known_ok += rest
+        else:
+            # Naming the cause precisely matters. "We could call this fine if we
+            # trusted somebody else's fault feed" is a different problem from
+            # "nobody enumerates this station", and they have different fixes.
+            cause = (
+                CAUSE_STATE_DERIVED_ONLY
+                if station in eligible_assumed
+                else CAUSE_ROSTER_INCOMPLETE
+            )
+            unknown[cause] = unknown.get(cause, 0.0) + rest
+
+        # Assumption-conditional: derived state counts too.
+        if station in eligible_assumed:
+            known_ok_assumed += rest
+        else:
+            unknown_assumed[CAUSE_ROSTER_INCOMPLETE] = (
+                unknown_assumed.get(CAUSE_ROSTER_INCOMPLETE, 0.0) + rest
+            )
+
+    if source_current_seconds is not None:
+        for label, value, bucket in (
+            ("strict", known_ok, unknown),
+            ("assumed", known_ok_assumed, unknown_assumed),
+        ):
+            if value <= 0:
+                continue
+            watched = max(0.0, min(value, source_current_seconds - out_seconds))
+            if value - watched > 0:
+                bucket[CAUSE_SOURCE_NOT_CURRENT] = (
+                    bucket.get(CAUSE_SOURCE_NOT_CURRENT, 0.0) + (value - watched)
+                )
+            if label == "strict":
+                known_ok = watched
+            else:
+                known_ok_assumed = watched
 
     unmatched_ids = tuple(
         crosswalk.ids_with_verdict("unmatched_malformed")
@@ -299,6 +422,8 @@ def account(
         out_seconds_max=out_max,
         known_ok_seconds=known_ok,
         unknown_by_cause=unknown,
+        known_ok_seconds_assumed=known_ok_assumed,
+        unknown_by_cause_assumed=unknown_assumed,
         frame_station_count=len(population.stations),
         equipped_station_count=len(equipped),
         monitored_station_count=len(monitored_in_frame),

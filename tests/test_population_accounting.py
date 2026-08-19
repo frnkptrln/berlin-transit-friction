@@ -394,3 +394,144 @@ def test_coverage_is_exactly_what_narrows_the_interval(archive):  # noqa: F811
     assert all_hi < some_hi
     assert none_pt is None and some_pt is None
     assert all_pt is not None, "full coverage is what makes a point estimate expressible"
+
+
+# --- the two readings -------------------------------------------------------
+
+
+def test_an_enumeration_with_derived_state_gives_two_different_answers(archive):  # noqa: F811
+    """The case the third evidence kind exists for.
+
+    A source that lists every lift but sets "working" from the *absence* of a
+    fault record is real evidence of coverage and borrowed evidence of state.
+    Publishing one interval would mean silently picking a side.
+    """
+    from transit_friction.population.monitoring import Monitoring, from_enumeration
+
+    population = derive_population(archive)
+    monitoring = Monitoring(
+        sources={
+            "acloud": from_enumeration(
+                "acloud",
+                {
+                    "de:11000:900100003", "de:11000:900007102", "de:12054:900230999",
+                },
+                WE,
+            )
+        }
+    )
+    result = account(
+        population=population, crosswalk=build_crosswalk(population, [ALEX]),
+        episodes=_episodes({ALEX: (8 * 60, 17 * 60)}), days=[DAY],
+        window_start=WS, window_end=WE, as_of=WE, monitoring=monitoring,
+        population_id="test",
+    )
+
+    bands = result.bands()
+    assert bands["strict"]["assumes"] is None
+    assert "fault feed" in bands["assumption_conditional"]["assumes"]
+
+    # The floor is the same in both — it is what we observed.
+    assert bands["strict"]["share_low"] == bands["assumption_conditional"]["share_low"]
+    # The ceiling is not.
+    assert bands["strict"]["share_high"] == 1.0
+    assert bands["assumption_conditional"]["share_high"] < 1.0
+    assert bands["strict"]["point_estimate"] is None
+    assert bands["assumption_conditional"]["point_estimate"] is not None
+
+
+def test_the_strict_reading_names_the_assumption_it_refused(archive):  # noqa: F811
+    """"We could call this fine if we trusted a fault feed" is its own cause."""
+    from transit_friction.population.monitoring import Monitoring, from_enumeration
+
+    population = derive_population(archive)
+    monitoring = Monitoring(
+        sources={"acloud": from_enumeration("acloud", {"de:11000:900100003"}, WE)}
+    )
+    result = account(
+        population=population, crosswalk=build_crosswalk(population, [ALEX]),
+        episodes=_episodes({ALEX: (8 * 60, 17 * 60)}), days=[DAY],
+        window_start=WS, window_end=WE, as_of=WE, monitoring=monitoring,
+        population_id="test",
+    )
+    assert "state_derived_only" in result.unknown_by_cause
+    assert "state_derived_only" not in result.unknown_by_cause_assumed
+
+
+def test_an_observed_inventory_makes_the_two_readings_agree(archive):  # noqa: F811
+    """When nothing is assumed, there is nothing for the assumption to buy."""
+    from transit_friction.population.monitoring import Monitoring, from_roster
+
+    population = derive_population(archive)
+    monitoring = Monitoring(
+        sources={
+            "db": from_roster(
+                "db",
+                {"de:11000:900100003", "de:11000:900007102", "de:12054:900230999"},
+                WE,
+            )
+        }
+    )
+    result = account(
+        population=population, crosswalk=build_crosswalk(population, [ALEX]),
+        episodes=_episodes({ALEX: (8 * 60, 17 * 60)}), days=[DAY],
+        window_start=WS, window_end=WE, as_of=WE, monitoring=monitoring,
+        population_id="test",
+    )
+    bands = result.bands()
+    assert bands["strict"] == {
+        **bands["assumption_conditional"], "assumes": None
+    }
+
+
+def test_a_fault_list_gains_nothing_from_the_assumption(archive):  # noqa: F811
+    """The assumption is about completeness of enumeration, not of a fault list.
+
+    A source that never says which lifts exist cannot be rescued by trusting
+    its fault reporting.
+    """
+    from transit_friction.population.monitoring import Monitoring, from_fault_listings
+
+    population = derive_population(archive)
+    monitoring = Monitoring(
+        sources={
+            "bl": from_fault_listings(
+                "bl", {"de:11000:900100003", "de:11000:900007102"}, WE
+            )
+        }
+    )
+    result = account(
+        population=population, crosswalk=build_crosswalk(population, [ALEX]),
+        episodes=_episodes({ALEX: (8 * 60, 17 * 60)}), days=[DAY],
+        window_start=WS, window_end=WE, as_of=WE, monitoring=monitoring,
+        population_id="test",
+    )
+    bands = result.bands()
+    assert bands["strict"]["share_high"] == 1.0
+    assert bands["assumption_conditional"]["share_high"] == 1.0
+
+
+def test_both_readings_partition_the_denominator(archive):  # noqa: F811
+    from transit_friction.population.monitoring import Monitoring, from_enumeration
+
+    population = derive_population(archive)
+    monitoring = Monitoring(
+        sources={
+            "acloud": from_enumeration(
+                "acloud", {"de:11000:900100003", "de:11000:900007102"}, WE
+            )
+        }
+    )
+    result = account(
+        population=population, crosswalk=build_crosswalk(population, [ALEX]),
+        episodes=_episodes({ALEX: (8 * 60, 17 * 60)}), days=[DAY],
+        window_start=WS, window_end=WE, as_of=WE, monitoring=monitoring,
+        population_id="test",
+    )
+    for known, unknown in (
+        (result.known_ok_seconds, result.unknown_seconds),
+        (result.known_ok_seconds_assumed, result.unknown_seconds_assumed),
+    ):
+        assert result.out_seconds + known + unknown == pytest.approx(
+            result.denominator_seconds
+        )

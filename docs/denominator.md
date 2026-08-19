@@ -101,15 +101,50 @@ lower nothing.
 
 ## Source kinds, and why the difference decides everything
 
+Three kinds, not two — and the middle one is where most Berlin sources actually
+sit:
+
 | kind | can open an outage | can make a station known-good |
 |---|---|---|
-| inventory with per-facility state | yes | **yes**, while it is current and complete |
+| inventory with observed per-facility state | yes | **yes**, while current and complete |
+| enumeration with **fault-derived** state | yes | **only under a stated assumption** |
 | fault list ("what is broken now") | yes | **never** |
 
 Absence from a fault list is a default, not an observation. The 2011 Sozialhelden
 codebase makes this concrete: its parser writes a "working" event for every lift
-*absent* from the fetched page. We may take coverage and outages from such a
-source; we may never take its silence as health.
+*absent* from the fetched page, and accessibility.cloud's importer sets a lift to
+working when no disruption references it. Such a source genuinely enumerates
+lifts — that is real coverage evidence — but its *state* is only as good as
+somebody else's fault feed.
+
+### Two intervals, because one would pick a side
+
+A number that leans on fault-derived state is publishable, but not as if it were
+observed. So every window publishes **both** readings:
+
+- **strict** — only observed state counts as known-good;
+- **assumption-conditional** — enumerated stations count too, under the stated
+  assumption *"the operator's fault feed reports every fault, so a lift with no
+  fault record is working"*.
+
+The floor is identical in both; it is what we positively observed. The distance
+between the two ceilings is the price of the assumption, and a reader can see it.
+
+Modelled on the recommended source combination:
+
+| monitoring | strict | assumption-conditional |
+|---|---|---|
+| fault list only | [0.41 %, 100 %] | [0.41 %, 100 %] |
+| + S-Bahn inventory, observed state | [0.41 %, 44.1 %] | [0.41 %, 44.1 %] |
+| + BVG enumeration, derived state | [0.41 %, 44.1 %] | [0.41 %, 0.41 %] |
+
+The middle row is the useful one: where a source attests directly, the
+assumption buys nothing. It only ever buys the half of the network for which no
+operator attestation exists.
+
+When the strict reading refuses a station the assumption would have accepted,
+the cause is named `state_derived_only` — a different problem from
+"nobody enumerates this station", with a different fix.
 
 Monitoring evidence is therefore typed per source per station, and it **expires**
 (90 days by default). A station whose evidence goes stale moves to `UNKNOWN`, not
@@ -263,6 +298,28 @@ So the two figures are not in conflict; they measure different things — which 
 exactly why nothing here is worded "step-free". A denominator audit against the
 VBB station-access dataset would settle it directly, and is cheaper than any
 status source.
+
+## What is available, and what is not
+
+From a source survey (2026-08-19), verified against published documentation
+where reachable:
+
+| for | source | kind |
+|---|---|---|
+| S-Bahn / DB stations | DB InfraGO **OpenStation** (SIRI-FM + NeTEx, CC0), **FaSta v2** as a cross-check | inventory with observed state |
+| BVG U-Bahn stations | accessibility.cloud `/equipment-infos` | enumeration, fault-derived state |
+| BVG U-Bahn stations | bvg.de disruption page, BrokenLifts | fault list |
+
+**There is no source that positively attests a BVG U-Bahn lift is running.**
+Every apparent alternative — BrokenLifts, accessibility.cloud, the VBB
+Aufzugsstörungen feed, Wheelmap — is the same upstream wearing a different face.
+So the ceiling on *observed* known-good is 119 of 263 stations, and it cannot be
+raised by more searching: only by BVG or VBB publishing a facility feed. VBB's
+journey planner has routed around elevator outages since 2020, so per-facility
+status demonstrably exists inside their systems.
+
+That is why the assumption-conditional interval exists at all. Refusing to
+publish anything for half the network would be its own distortion.
 
 ## Verified, and not
 
