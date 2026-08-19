@@ -67,6 +67,55 @@ a network's name.
 **`KNOWN_OK` is structurally unreachable until the source publishes a station
 roster.** That is not a defect in the code; it is the state of our knowledge.
 
+## Why one source is not enough
+
+Neither operator's stations are a majority of the frame:
+
+| scope | elevator-equipped |
+|---|---|
+| U-Bahn only | 118 |
+| S-Bahn only | 119 |
+| both (interchange) | 26 |
+| **total** | **263** |
+
+A source covering only S-Bahn stations reaches 145 of 263 (55 %); only U-Bahn,
+144 of 263 (55 %). **Measuring every elevator needs both.** At the 26 interchange
+stations either operator's source might name the station while the lifts belong
+to the other, so coverage there has to be established per station, not assumed
+from the station's lines.
+
+### What coverage actually buys
+
+Measured on the real population, one day, two stations reporting outages:
+
+| monitoring | interval | point estimate |
+|---|---|---|
+| fault list naming 2 stations | [0.41 %, 100 %] | withheld |
+| + an S-Bahn inventory (145) | [0.41 %, 44.1 %] | withheld |
+| + both inventories (263) | [0.41 %, 0.4 %] | 0.41 % |
+
+The floor never moves — it is what we positively observed, and no amount of
+blindness makes it false. What coverage buys is the **ceiling**. This is also
+why the kind of source matters more than the number of them: a fault list can
+lower nothing.
+
+## Source kinds, and why the difference decides everything
+
+| kind | can open an outage | can make a station known-good |
+|---|---|---|
+| inventory with per-facility state | yes | **yes**, while it is current and complete |
+| fault list ("what is broken now") | yes | **never** |
+
+Absence from a fault list is a default, not an observation. The 2011 Sozialhelden
+codebase makes this concrete: its parser writes a "working" event for every lift
+*absent* from the fetched page. We may take coverage and outages from such a
+source; we may never take its silence as health.
+
+Monitoring evidence is therefore typed per source per station, and it **expires**
+(90 days by default). A station whose evidence goes stale moves to `UNKNOWN`, not
+to a structural zero in the numerator — otherwise a source quietly dropping an
+operator's feed would read as the network improving.
+
 ## The frame — which stations count
 
 A station is in the frame when both hold:

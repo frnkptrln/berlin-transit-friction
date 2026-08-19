@@ -202,3 +202,195 @@ def test_the_published_shape_states_its_unit_and_its_population(archive):  # noq
 def test_out_hours_carry_their_bounds(archive):  # noqa: F811
     result = _account(archive, {ALEX: (8 * 60, 17 * 60)})
     assert result.out_seconds_min <= result.out_seconds <= result.out_seconds_max
+
+
+# --- the partition ----------------------------------------------------------
+
+
+def test_the_three_states_partition_the_denominator_exactly(archive):  # noqa: F811
+    """The structural claim everything else rests on.
+
+    If OUT, KNOWN_OK and UNKNOWN do not add up to the denominator, the interval
+    is not an interval — it is two unrelated numbers.
+    """
+    for outages, kwargs in [
+        ({}, {}),
+        ({ALEX: (8 * 60, 17 * 60)}, {}),
+        ({ALEX: (0, 1440), GESUND: (0, 1440)}, {}),
+        (
+            {ALEX: (8 * 60, 17 * 60)},
+            {
+                "monitored_stations": {
+                    "de:11000:900100003", "de:11000:900007102", "de:12054:900230999"
+                },
+                "roster_complete": True,
+            },
+        ),
+    ]:
+        result = _account(archive, outages, **kwargs)
+        total = result.out_seconds + result.known_ok_seconds + result.unknown_seconds
+        assert total == pytest.approx(result.denominator_seconds), (
+            f"states do not partition for {outages} / {kwargs}"
+        )
+
+
+def test_an_outage_outside_service_hours_cannot_exceed_its_own_station(archive):  # noqa: F811
+    """The numerator sits inside its own denominator, station by station."""
+    result = _account(archive, {ALEX: (0, 1440)})
+    alex_hours = result.out_seconds / 3600
+    assert alex_hours <= 18.0 + 0.01, "Alexanderplatz runs 05:00 to 23:00"
+
+
+# --- multi-source monitoring ------------------------------------------------
+
+
+def test_a_fault_list_can_never_make_a_station_known_good(archive):  # noqa: F811
+    """Absence from a broken-lifts page is a default, not an observation."""
+    from transit_friction.population.monitoring import Monitoring, from_fault_listings
+
+    population = derive_population(archive)
+    monitoring = Monitoring(
+        sources={
+            "brokenlifts": from_fault_listings(
+                "brokenlifts",
+                {"de:11000:900100003", "de:11000:900007102", "de:12054:900230999"},
+                WE,
+            )
+        }
+    )
+    result = account(
+        population=population, crosswalk=build_crosswalk(population, [ALEX]),
+        episodes=_episodes({ALEX: (8 * 60, 17 * 60)}), days=[DAY],
+        window_start=WS, window_end=WE, as_of=WE, monitoring=monitoring,
+        population_id="test",
+    )
+    assert result.monitored_station_count == 3, "it does cover them"
+    assert result.known_ok_seconds == 0, "and still cannot vouch for any of them"
+    assert result.share_high == 1.0
+    assert CAUSE_ROSTER_INCOMPLETE in result.unknown_by_cause
+
+
+def test_an_inventory_source_can(archive):  # noqa: F811
+    from transit_friction.population.monitoring import Monitoring, from_roster
+
+    population = derive_population(archive)
+    monitoring = Monitoring(
+        sources={
+            "inventory": from_roster(
+                "inventory",
+                {"de:11000:900100003", "de:11000:900007102", "de:12054:900230999"},
+                WE,
+            )
+        }
+    )
+    result = account(
+        population=population, crosswalk=build_crosswalk(population, [ALEX]),
+        episodes=_episodes({ALEX: (8 * 60, 17 * 60)}), days=[DAY],
+        window_start=WS, window_end=WE, as_of=WE, monitoring=monitoring,
+        population_id="test",
+    )
+    assert result.known_ok_seconds > 0
+    assert result.share_high < 1.0
+    assert result.point_estimate() is not None
+
+
+def test_two_sources_combine_without_being_blended(archive):  # noqa: F811
+    """One inventory, one fault list. Only the inventory's stations are vouched for."""
+    from transit_friction.population.monitoring import (
+        Monitoring, from_fault_listings, from_roster,
+    )
+
+    population = derive_population(archive)
+    monitoring = Monitoring(
+        sources={
+            "db": from_roster("db", {"de:11000:900007102"}, WE),
+            "brokenlifts": from_fault_listings(
+                "brokenlifts", {"de:11000:900100003", "de:12054:900230999"}, WE
+            ),
+        }
+    )
+    result = account(
+        population=population, crosswalk=build_crosswalk(population, [ALEX]),
+        episodes=_episodes({ALEX: (8 * 60, 17 * 60)}), days=[DAY],
+        window_start=WS, window_end=WE, as_of=WE, monitoring=monitoring,
+        population_id="test",
+    )
+    assert result.monitored_station_count == 3
+    assert 0 < result.known_ok_seconds
+    assert CAUSE_ROSTER_INCOMPLETE in result.unknown_by_cause, (
+        "the two fault-list stations are covered but not known-good"
+    )
+    detail = result.to_dict()["monitoring"]
+    assert detail["stations_by_source"] == {"brokenlifts": 2, "db": 1}
+    assert detail["sources_with_complete_roster"] == ["db"]
+
+
+def test_expired_evidence_becomes_unknown_not_a_silent_zero(archive):  # noqa: F811
+    """A source quietly dropping an operator must not read as improvement."""
+    from datetime import timedelta as _td
+
+    from transit_friction.population.monitoring import Monitoring, from_roster
+
+    population = derive_population(archive)
+    monitoring = Monitoring(
+        sources={
+            "db": from_roster(
+                "db", {"de:11000:900007102"}, WE - _td(days=200)
+            )
+        }
+    )
+    result = account(
+        population=population, crosswalk=build_crosswalk(population, []),
+        episodes=[], days=[DAY], window_start=WS, window_end=WE, as_of=WE,
+        monitoring=monitoring, population_id="test",
+    )
+    assert result.monitored_station_count == 0
+    assert result.known_ok_seconds == 0
+    assert "monitoring_stale" in result.unknown_by_cause
+    assert result.share_high == 1.0
+
+
+def test_coverage_is_exactly_what_narrows_the_interval(archive):  # noqa: F811
+    """The case for measuring every elevator, as an assertion.
+
+    The floor never moves — it is what we positively observed. What coverage
+    buys is the ceiling: each station an inventory source vouches for removes
+    its service hours from UNKNOWN. With none, the interval spans everything;
+    with all of them, it closes and a point estimate becomes expressible.
+    """
+    from transit_friction.population.monitoring import (
+        Monitoring, from_fault_listings, from_roster,
+    )
+
+    population = derive_population(archive)
+    equipped = sorted(population.equipped_keys)
+    episodes = _episodes({ALEX: (8 * 60, 17 * 60)})
+    crosswalk = build_crosswalk(population, [ALEX])
+
+    def band(monitoring):
+        result = account(
+            population=population, crosswalk=crosswalk, episodes=episodes,
+            days=[DAY], window_start=WS, window_end=WE, as_of=WE,
+            monitoring=monitoring, population_id="test",
+        )
+        return result.share_low, result.share_high, result.point_estimate()
+
+    none_lo, none_hi, none_pt = band(
+        Monitoring(sources={"bl": from_fault_listings("bl", {"de:11000:900100003"}, WE)})
+    )
+    some_lo, some_hi, some_pt = band(
+        Monitoring(sources={
+            "bl": from_fault_listings("bl", {"de:11000:900100003"}, WE),
+            "inv": from_roster("inv", {equipped[0]}, WE),
+        })
+    )
+    all_lo, all_hi, all_pt = band(
+        Monitoring(sources={"inv": from_roster("inv", set(equipped), WE)})
+    )
+
+    assert none_lo == some_lo == all_lo, "the floor is what we saw; coverage cannot move it"
+    assert none_hi == 1.0
+    assert some_hi < none_hi, "each vouched-for station lowers the ceiling"
+    assert all_hi < some_hi
+    assert none_pt is None and some_pt is None
+    assert all_pt is not None, "full coverage is what makes a point estimate expressible"

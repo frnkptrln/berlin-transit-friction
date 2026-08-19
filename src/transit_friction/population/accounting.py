@@ -35,12 +35,14 @@ from datetime import date, datetime
 from ..events.episodes import Episode, union_seconds
 from .crosswalk import CrosswalkReport
 from .frame import Population
+from .monitoring import Monitoring, SourceMonitoring, from_fault_listings
 
 #: Causes of not knowing, kept apart. "We were not polling" and "the source does
 #: not cover this station" are different blindnesses with different remedies,
 #: and summing them into one coverage number hides both.
 CAUSE_NOT_MONITORED = "not_monitored"
 CAUSE_ROSTER_INCOMPLETE = "roster_incomplete"
+CAUSE_MONITORING_STALE = "monitoring_stale"
 CAUSE_SOURCE_NOT_CURRENT = "source_not_current"
 CAUSE_UNMATCHED_JOIN = "unmatched_join"
 
@@ -139,9 +141,9 @@ class Accounting:
             "stations_with_an_outage": len(self.stations_out),
             "stations_without_elevator_edge": self.stations_without_elevator_edge,
             "match_rate": round(self.match_rate, 4),
+            "monitoring": self.diagnostics.get("monitoring", {}),
             "unmatched_source_ids": list(self.unmatched_source_ids)[:50],
             "out_of_scope_source_ids": list(self.out_of_scope_source_ids)[:50],
-            **self.diagnostics,
         }
 
 
@@ -170,6 +172,7 @@ def account(
     days: list[date],
     window_start: datetime,
     window_end: datetime,
+    monitoring: Monitoring | None = None,
     monitored_stations: set[str] | None = None,
     roster_complete: bool = False,
     source_current_seconds: float | None = None,
@@ -178,19 +181,43 @@ def account(
 ) -> Accounting:
     """Account for every frame station-second in a window.
 
-    ``monitored_stations`` is the set of station keys we hold positive evidence
-    the source reports on. Without it, every station is presumed unmonitored —
-    which is the honest default, not a pessimistic one.
+    ``monitoring`` carries per-source, typed evidence of which stations each
+    status source can speak about. Without it, every station is presumed
+    unmonitored — the honest default, not a pessimistic one.
 
-    ``roster_complete`` says the source published a complete station roster for
-    this window. It is the gate on KNOWN_OK: a station where we watch three of
-    sixteen lifts and see all three working is not a station we know is fine.
+    ``monitored_stations`` and ``roster_complete`` are a convenience for the
+    single-source case; they build a ``Monitoring`` internally. Passing
+    ``roster_complete=False`` with a set of stations means exactly what a
+    broken-lifts page gives us: proof the source covers those stations, and no
+    evidence whatsoever that any of them is working.
     """
     equipped = sorted(population.equipped_keys)
     denominator = denominator_seconds(population, days, equipped)
+    reference = as_of or window_end
 
-    monitored = set(monitored_stations or ())
-    monitored_in_frame = sorted(monitored & set(equipped))
+    if monitoring is None:
+        stations = set(monitored_stations or ())
+        if roster_complete:
+            source = SourceMonitoring(
+                source_id="default",
+                evidence={
+                    key: ("roster_entry", reference) for key in stations
+                },
+                roster_complete=True,
+            )
+        else:
+            source = from_fault_listings("default", stations, reference)
+        monitoring = Monitoring(sources={"default": source})
+
+    equipped_set = set(equipped)
+    covered = {
+        key: kind
+        for key, kind in monitoring.covered(reference).items()
+        if key in equipped_set
+    }
+    eligible = monitoring.known_ok_eligible(reference) & equipped_set
+    stale = monitoring.stale(reference) & equipped_set
+    monitored_in_frame = sorted(covered)
 
     # OUT — per station, the union of its lifts' intervals inside the window.
     intervals: dict[str, list[tuple[datetime, datetime]]] = {}
@@ -212,35 +239,46 @@ def account(
             if clipped:
                 bucket.setdefault(key, []).append(clipped)
 
-    out_seconds = sum(union_seconds(v) for v in intervals.values())
-    out_min = sum(union_seconds(v) for v in intervals_min.values())
-    out_max = sum(union_seconds(v) for v in intervals_max.values())
-    # Outage time can only be attributed inside the denominator it belongs to.
-    out_seconds = min(out_seconds, denominator)
-    out_min = min(out_min, denominator)
-    out_max = min(out_max, denominator)
-
-    # KNOWN_OK — only where evidence supports it, which today is nowhere.
+    # Account per station, so the three states partition the denominator exactly.
+    # Aggregating first double-counted outage seconds as unknown, which put the
+    # ceiling at 1.0 for a reason that was arithmetic rather than ignorance.
     unknown: dict[str, float] = {}
-    monitored_seconds = denominator_seconds(population, days, monitored_in_frame)
-    unmonitored_seconds = max(0.0, denominator - monitored_seconds)
-    if unmonitored_seconds > 0:
-        unknown[CAUSE_NOT_MONITORED] = unmonitored_seconds
-
-    remaining = max(0.0, monitored_seconds - out_seconds)
-    if not roster_complete:
-        known_ok = 0.0
-        if remaining > 0:
-            unknown[CAUSE_ROSTER_INCOMPLETE] = remaining
-    else:
-        covered = (
-            remaining
-            if source_current_seconds is None
-            else max(0.0, min(remaining, source_current_seconds - out_seconds))
+    out_seconds = out_min = out_max = 0.0
+    known_ok = 0.0
+    for station in equipped:
+        station_denominator = denominator_seconds(population, days, [station])
+        if station_denominator <= 0:
+            continue
+        # An outage outside a station's service hours is clamped here, not
+        # globally: the numerator has to sit inside its own denominator.
+        station_out = min(
+            union_seconds(intervals.get(station, [])), station_denominator
         )
-        known_ok = covered
-        if remaining - covered > 0:
-            unknown[CAUSE_SOURCE_NOT_CURRENT] = remaining - covered
+        out_seconds += station_out
+        out_min += min(union_seconds(intervals_min.get(station, [])), station_denominator)
+        out_max += min(union_seconds(intervals_max.get(station, [])), station_denominator)
+
+        rest = station_denominator - station_out
+        if rest <= 0:
+            continue
+        if station in stale:
+            cause = CAUSE_MONITORING_STALE
+        elif station not in covered:
+            cause = CAUSE_NOT_MONITORED
+        elif station not in eligible:
+            cause = CAUSE_ROSTER_INCOMPLETE
+        else:
+            known_ok += rest
+            continue
+        unknown[cause] = unknown.get(cause, 0.0) + rest
+
+    if source_current_seconds is not None and known_ok > 0:
+        watched = max(0.0, min(known_ok, source_current_seconds - out_seconds))
+        if known_ok - watched > 0:
+            unknown[CAUSE_SOURCE_NOT_CURRENT] = (
+                unknown.get(CAUSE_SOURCE_NOT_CURRENT, 0.0) + (known_ok - watched)
+            )
+        known_ok = watched
 
     unmatched_ids = tuple(
         crosswalk.ids_with_verdict("unmatched_malformed")
@@ -272,5 +310,5 @@ def account(
         out_of_scope_source_ids=tuple(crosswalk.ids_with_verdict("out_of_scope")),
         match_rate=crosswalk.match_rate,
         population_id=population_id,
-        diagnostics={"roster_complete": roster_complete},
+        diagnostics={"monitoring": monitoring.to_dict(reference)},
     )
