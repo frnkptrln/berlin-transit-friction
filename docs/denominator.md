@@ -233,7 +233,7 @@ log.
 | forbidden | why |
 |---|---|
 | anything worded "step-free" | `signposted_as` is empty on all 1,544 elevator pathway rows, so the feed cannot say whether two lifts are redundant or serial |
-| a rate per *elevator* counted from `pathways.txt` | edge counts are an artefact of graph construction; a single deep lift modelled street↔mezzanine↔platform yields four directed rows, exactly like two independent lifts |
+| a rate per *elevator* counted from `pathways.txt` | measured: 1,328 directed edges over the 263 stations, 664 distinct links, 401 links on the U-Bahn alone — against BVG's published 204 lifts across 143 U-Bahn stations. Even the tighter count overshoots by a factor of two, because a lift serving three levels yields more than one link |
 | journey, OD-pair or network-reachability metrics | needs a step-free path model that does not exist; this is the legacy "map position without an observed location" defect in a new form |
 | a denominator from `wheelchair_boarding` | all 497 Berlin `location_type=1` rows carry `'0'` — "no information" |
 | ridership-weighted variants | no station-level ridership source exists for Berlin; stated as a limitation, never approximated |
@@ -242,6 +242,27 @@ An availability percentage is also deliberately not the headline. At 97.5 % per
 lift a four-lift journey is step-free about 90 % of the time — availability
 averages over machines while harm is a maximum over a chain, so its complement
 reads reassuringly by construction.
+
+## Corroboration of the frame
+
+The U-Bahn side is independently confirmed. BVG publishes **204 working lifts
+across 143 U-Bahn stations** (2025); this derivation finds **144 of 170** frame
+U-Bahn stations elevator-equipped — a match within one station, against a
+different frame (BVG counts 175 U-Bahnhöfe in total, we count only those served
+by a BVG U-Bahn route in the feed).
+
+The S-Bahn side cannot be checked the same way. S-Bahn Berlin reports roughly
+161 of 168 stations as step-free, against our 145 of 168 elevator-equipped — but
+BVG's own wording explains the gap: *"fast 90 Prozent durch eine **Rampe oder**
+einen Aufzug stufenlos erreichbar"*. Step-free includes ramps and level boarding.
+Of the 23 S-Bahn frame stations with no elevator edge, most are surface-level
+suburban and Brandenburg stops (Borgsdorf, Schönfließ, Strausberg ×3,
+Mühlenbeck-Mönchmühle) where a platform at grade needs no lift at all.
+
+So the two figures are not in conflict; they measure different things — which is
+exactly why nothing here is worded "step-free". A denominator audit against the
+VBB station-access dataset would settle it directly, and is cheaper than any
+status source.
 
 ## Verified, and not
 

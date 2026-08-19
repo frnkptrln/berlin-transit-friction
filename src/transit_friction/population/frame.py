@@ -53,7 +53,13 @@ class Station:
     name: str
     agency_scopes: tuple[str, ...]
     elevator_equipped: bool
+    #: Directed pathway rows. A graph property, not an inventory: every row in
+    #: the current feed is one-directional, so a single connection appears twice.
     elevator_edge_count: int
+    #: Distinct unordered node pairs joined by an elevator. Closer to a lift
+    #: count and still an upper bound — a lift serving three levels yields more
+    #: than one pair. Never published as "number of elevators".
+    elevator_link_count: int
     has_pathway_data: bool
 
 
@@ -218,6 +224,7 @@ def derive_population(
         )
 
     elevator_edges: dict[str, int] = defaultdict(int)
+    elevator_links: dict[str, set[tuple[str, str]]] = defaultdict(set)
     stations_with_pathways: set[str] = set()
     pathway_rows = 0
     if "pathways.txt" in names:
@@ -226,8 +233,10 @@ def derive_population(
             endpoints = {key_for_stop(row["from_stop_id"]), key_for_stop(row["to_stop_id"])}
             stations_with_pathways |= endpoints
             if row.get("pathway_mode") == ELEVATOR_PATHWAY_MODE:
+                link = tuple(sorted((row["from_stop_id"], row["to_stop_id"])))
                 for endpoint in endpoints:
                     elevator_edges[endpoint] += 1
+                    elevator_links[endpoint].add(link)
 
     names_by_key: dict[str, str] = {}
     for stop_id, row in stops.items():
@@ -247,6 +256,7 @@ def derive_population(
             agency_scopes=tuple(sorted(scopes)),
             elevator_equipped=elevator_edges.get(key, 0) > 0,
             elevator_edge_count=elevator_edges.get(key, 0),
+            elevator_link_count=len(elevator_links.get(key, ())),
             has_pathway_data=key in stations_with_pathways,
         )
 
@@ -257,6 +267,8 @@ def derive_population(
     diagnostics = {
         "stop_times_rows": rows_scanned,
         "pathway_rows": pathway_rows,
+        "elevator_edges_in_frame": sum(s.elevator_edge_count for s in stations.values()),
+        "elevator_links_in_frame": sum(s.elevator_link_count for s in stations.values()),
         "frame_stations": len(stations),
         "elevator_equipped": len(equipped),
         "in_frame_without_elevator_edge": sum(

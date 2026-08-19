@@ -255,3 +255,20 @@ def test_a_feed_missing_a_required_member_is_refused(tmp_path):
         z.writestr("stops.txt", "stop_id\n")
     with pytest.raises(IdentityError, match="missing"):
         derive_population(path)
+
+
+def test_edges_and_links_are_counted_apart(archive):  # noqa: F811
+    """Neither is an elevator count, and the gap between them says why.
+
+    Every pathway_mode=5 row in the real feed is one-directional, so a single
+    connection appears twice. Collapsing to distinct node pairs halves the
+    figure and it is still an upper bound: across the 144 U-Bahn stations the
+    real feed yields 401 links against BVG's published 204 lifts.
+    """
+    population = derive_population(archive, with_service_spans=False)
+    alexanderplatz = population.stations["de:11000:900100003"]
+    assert alexanderplatz.elevator_edge_count == 2, "two directed rows"
+    assert alexanderplatz.elevator_link_count == 1, "one connection"
+    assert population.diagnostics["elevator_edges_in_frame"] > (
+        population.diagnostics["elevator_links_in_frame"]
+    )

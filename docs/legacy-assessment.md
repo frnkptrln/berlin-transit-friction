@@ -158,3 +158,25 @@ Scheduled collection remains disabled until:
 Git is for code, schemas, small fixtures, compact aggregates, and documentation.
 
 Raw polling snapshots must not be committed every few minutes. During shadow operation they should use short-lived workflow artifacts or external object storage. At most one compact, reviewed publication update should reach the repository per day.
+
+
+## Addendum — the accessibility captures contain no outage data
+
+Established 2026-08-19 by reading all 1,554 stored snapshots under
+`data/bronze/brokenlifts/`.
+
+`scripts/collect_snapshot.py` fetches the page, truncates to
+`r.text[:20000]`, and stores `snippet = txt[:1000]`. One thousand characters of
+that page is its `<head>`. **Not one stored snapshot contains `/station/` or
+`#broken_list`** — that is, none contains an outage list. The collector also
+never calls `parse_brokenlifts_snapshot`, which is tested and works; it records
+only a URL, a status code, the head of the page, and a boolean for whether the
+word "lift" or "Aufzug" appears anywhere in the first 20,000 characters.
+
+Three months of collection therefore produced zero elevator-status evidence.
+This is not a defect that can be repaired retroactively: there is nothing to
+backfill from, and any measurement of Berlin elevator availability starts from
+the day collection resumes.
+
+It also removes a temptation. The legacy bronze tree is not a shortcut to a
+historical series, and nothing in it should be presented as one.

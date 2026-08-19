@@ -35,6 +35,7 @@ STATION_COLUMNS = (
     "agency_scopes",
     "elevator_equipped",
     "elevator_edge_count",
+    "elevator_link_count",
     "has_pathway_data",
 )
 
@@ -50,6 +51,7 @@ def _arrow_schema():
             pa.field("agency_scopes", pa.string()),
             pa.field("elevator_equipped", pa.bool_()),
             pa.field("elevator_edge_count", pa.int32()),
+            pa.field("elevator_link_count", pa.int32()),
             pa.field("has_pathway_data", pa.bool_()),
         ]
     )
@@ -64,6 +66,7 @@ def station_rows(population: Population) -> list[dict]:
             "agency_scopes": ",".join(s.agency_scopes),
             "elevator_equipped": s.elevator_equipped,
             "elevator_edge_count": s.elevator_edge_count,
+            "elevator_link_count": s.elevator_link_count,
             "has_pathway_data": s.has_pathway_data,
         }
         for s in sorted(population.stations.values(), key=lambda s: s.station_key)
