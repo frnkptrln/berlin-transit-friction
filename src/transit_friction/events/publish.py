@@ -87,6 +87,20 @@ def to_metric_rows(
 
     rows = [
         _row("total_outage_hours", DIMENSION_ALL, "", summary["total_outage_hours"], UNIT),
+        _row(
+            "total_outage_hours_min",
+            DIMENSION_ALL,
+            "",
+            summary["total_outage_hours_min"],
+            UNIT,
+        ),
+        _row(
+            "total_outage_hours_max",
+            DIMENSION_ALL,
+            "",
+            summary["total_outage_hours_max"],
+            UNIT,
+        ),
         _row("episode_count", DIMENSION_ALL, "", summary["episode_count"], "episodes"),
         _row(
             "active_at_window_end",
@@ -217,6 +231,8 @@ def site_projection(summaries: list[tuple[str, dict]]) -> dict:
                 "window_hours": summary["window_hours"],
                 "publishable": summary["publishable"],
                 "total_outage_hours": summary["total_outage_hours"],
+                "total_outage_hours_min": summary["total_outage_hours_min"],
+                "total_outage_hours_max": summary["total_outage_hours_max"],
                 "episode_count": summary["episode_count"],
                 "episodes_with_unobserved_time": summary[
                     "episodes_with_unobserved_time"
@@ -233,6 +249,31 @@ def site_projection(summaries: list[tuple[str, dict]]) -> dict:
         )
 
     published = [day for day in days if day["publishable"]]
+
+    # Station totals across the whole span, from the published days only: a day
+    # we could not measure must not quietly lower a station's total.
+    station_hours: dict[str, float] = {}
+    station_names: dict[str, str] = {}
+    for _, summary in summaries:
+        if not summary["publishable"]:
+            continue
+        for station, hours in (summary["outage_hours_by_station"] or {}).items():
+            station_hours[station] = station_hours.get(station, 0.0) + hours
+        station_names.update(summary.get("station_names") or {})
+
+    stations = sorted(
+        (
+            {
+                "station_id": station,
+                "station_name": station_names.get(station, station),
+                "outage_hours": round(hours, 2),
+            }
+            for station, hours in station_hours.items()
+        ),
+        key=lambda item: item["outage_hours"],
+        reverse=True,
+    )
+
     return {
         "unit": UNIT,
         "generated_from": "data/events",
@@ -243,4 +284,9 @@ def site_projection(summaries: list[tuple[str, dict]]) -> dict:
         "days": days,
         "days_published": len(published),
         "days_withheld": len(days) - len(published),
+        "stations": stations,
+        "stations_note": (
+            "totals cover the published days only; days below the coverage "
+            "threshold are excluded rather than counted as zero"
+        ),
     }

@@ -116,3 +116,63 @@ def test_a_dst_day_states_its_real_length():
 def test_window_must_be_ordered():
     with pytest.raises(ValueError):
         build_window_summary([], {}, window_start=at(100), window_end=at(0))
+
+
+def test_the_headline_sits_between_its_bounds():
+    """Polling cannot date a change to the second; the range says so."""
+    harness = _watched_day(lambda step: [L1] if 60 <= step < 300 else [])
+    summary = _summary(harness)
+    assert (
+        summary["total_outage_hours_min"]
+        <= summary["total_outage_hours"]
+        <= summary["total_outage_hours_max"]
+    )
+    assert summary["total_outage_hours_max"] > summary["total_outage_hours_min"]
+
+
+def test_bounds_widen_when_the_source_was_unreachable():
+    """A coarser observation must produce a wider range, not a confident number."""
+    dense = _summary(_watched_day(lambda step: [L1] if 60 <= step < 300 else []))
+
+    sparse = Harness()
+    for step in range(0, 1440, 20):
+        sparse.poll(step, [L1] if 60 <= step < 300 else [])
+    coarse = _summary(sparse)
+
+    def width(summary):
+        return summary["total_outage_hours_max"] - summary["total_outage_hours_min"]
+
+    assert width(coarse) > width(dense)
+
+
+def test_stations_are_named_only_when_observed():
+    harness = _watched_day(lambda step: [L1] if 60 <= step < 300 else [])
+    summary = _summary(harness)
+    assert summary["station_names"] == {"S1": "Alexanderplatz"}
+
+
+def test_an_unwatched_window_suppresses_the_bounds_too():
+    harness = Harness()
+    for step in range(0, 1440, 5):
+        if 9 * 60 <= step < 20 * 60:
+            continue
+        harness.poll(step, [L1] if 60 <= step < 300 else [])
+    summary = _summary(harness)
+    assert summary["total_outage_hours_min"] is None
+    assert summary["total_outage_hours_max"] is None
+
+
+def test_polling_slower_than_the_trust_gap_yields_no_coverage():
+    """The two parameters are coupled, and the coupling is unforgiving.
+
+    A look is only trusted for ``max_trust_gap_s``. Polling less often than that
+    leaves every interval uncovered, so the day carries no figure at all rather
+    than a figure computed from sparse glimpses.
+    """
+    hourly = Harness()
+    for step in range(0, 1440, 60):
+        hourly.poll(step, [L1] if 60 <= step < 300 else [])
+    summary = _summary(hourly)
+    assert summary["publishable"] is False
+    assert summary["total_outage_hours"] is None
+    assert summary["coverage"]["brokenlifts"]["coverage_ratio"] == 0.0

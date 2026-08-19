@@ -88,30 +88,60 @@ class Episode:
         """False if any part of the episode was unobserved."""
         return self.unknown_seconds == 0 and not self.ongoing
 
+    def _extent(self, bound: str, as_of: datetime | None) -> tuple[datetime, datetime]:
+        """The shortest, midpoint, or longest reading of this episode's extent."""
+        if bound == "min":
+            start = self.opened_t_latest
+            end = self.closed_t_earliest
+        elif bound == "max":
+            start = self.opened_t_earliest
+            end = self.closed_t_latest
+        else:
+            start = self.opened_t_earliest + (
+                self.opened_t_latest - self.opened_t_earliest
+            ) / 2
+            end = (
+                None
+                if self.closed_t_earliest is None
+                else self.closed_t_earliest
+                + (self.closed_t_latest - self.closed_t_earliest) / 2
+            )
+        return start, end
+
     def overlap_seconds(
         self,
         window_start: datetime,
         window_end: datetime,
         as_of: datetime | None = None,
+        bound: str = "mid",
     ) -> float:
         """Seconds of this episode falling inside a window.
 
-        Uses the midpoints of the open and close brackets, which is the only
-        choice that does not systematically bias durations up or down.
+        ``bound`` picks which reading of the brackets to use. The default
+        midpoint is the only choice that does not systematically bias durations
+        up or down; ``min`` and ``max`` give the range the observations actually
+        support, which is what an honest chart plots around the line.
         """
         if window_end <= window_start:
             raise ValueError("window_end must be after window_start")
-        start = self.opened_t_earliest + (
-            self.opened_t_latest - self.opened_t_earliest
-        ) / 2
-        if self.closed_t_latest is None:
+        start, end = self._extent(bound, as_of)
+        if end is None:
             end = as_of or window_end
-        else:
-            end = self.closed_t_earliest + (
-                self.closed_t_latest - self.closed_t_earliest
-            ) / 2
         lo, hi = max(start, window_start), min(end, window_end)
         return max(0.0, (hi - lo).total_seconds())
+
+    def overlap_bounds(
+        self,
+        window_start: datetime,
+        window_end: datetime,
+        as_of: datetime | None = None,
+    ) -> tuple[float, float, float]:
+        """(shortest, midpoint, longest) seconds inside a window."""
+        return (
+            self.overlap_seconds(window_start, window_end, as_of, "min"),
+            self.overlap_seconds(window_start, window_end, as_of, "mid"),
+            self.overlap_seconds(window_start, window_end, as_of, "max"),
+        )
 
 
 def build_episodes(

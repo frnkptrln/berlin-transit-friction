@@ -272,6 +272,13 @@ Every aggregate file records the parameter set that produced it. Recomputing a
 historical window with different thresholds produces a *different, separately
 labelled* aggregate — it never overwrites the old one.
 
+**`max_trust_gap_s` and the poll interval are coupled.** A look is trusted for
+that long and no longer, so polling less often than `max_trust_gap_s` leaves
+every interval between polls uncovered — coverage is then 0 and *every* window
+is withheld, no matter how many polls succeeded. Raising the poll interval past
+the trust gap does not degrade the measurement gracefully; it stops it. Change
+one and you have to change the other deliberately.
+
 ---
 
 ## 6. Missing polls

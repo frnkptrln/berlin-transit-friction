@@ -109,13 +109,18 @@ def build_window_summary(
     ]
 
     hours_by_station: dict[str, float] = defaultdict(float)
+    names_by_station: dict[str, str] = {}
     total_seconds = 0.0
+    total_seconds_min = 0.0
+    total_seconds_max = 0.0
     unobserved_seconds = 0.0
     uncertain = 0
     active_at_end = 0
     touching = 0
     for episode in headline:
-        seconds = episode.overlap_seconds(window_start, window_end, as_of=as_of)
+        shortest, seconds, longest = episode.overlap_bounds(
+            window_start, window_end, as_of=as_of
+        )
         blind = episode.unknown_seconds_in(window_start, window_end)
         if seconds <= 0 and blind <= 0:
             # An episode that neither ran nor blinded us during this window is
@@ -124,8 +129,13 @@ def build_window_summary(
             continue
         touching += 1
         if seconds > 0:
-            hours_by_station[episode.station_id or "unknown"] += seconds / 3600
+            station = episode.station_id or "unknown"
+            hours_by_station[station] += seconds / 3600
+            if episode.station_name:
+                names_by_station.setdefault(station, episode.station_name)
             total_seconds += seconds
+            total_seconds_min += shortest
+            total_seconds_max += longest
         if blind > 0:
             unobserved_seconds += blind
             uncertain += 1
@@ -148,12 +158,18 @@ def build_window_summary(
         "episode_count": _value(touching),
         "active_at_window_end": _value(active_at_end),
         "total_outage_hours": _value(round(total_seconds / 3600, 3)),
+        # The bounds are not decoration. Polling cannot date a change to the
+        # second, so the honest figure is a range and the point estimate is the
+        # midpoint of it.
+        "total_outage_hours_min": _value(round(total_seconds_min / 3600, 3)),
+        "total_outage_hours_max": _value(round(total_seconds_max / 3600, 3)),
         "outage_hours_by_station": _value(
             {
                 station: round(hours, 3)
                 for station, hours in sorted(hours_by_station.items())
             }
         ),
+        "station_names": dict(sorted(names_by_station.items())),
         "episodes_with_unobserved_time": _value(uncertain),
         "unobserved_outage_hours": _value(round(unobserved_seconds / 3600, 3)),
         "coverage": {

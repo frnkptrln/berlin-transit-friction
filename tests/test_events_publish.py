@@ -138,3 +138,32 @@ def test_the_site_projection_explains_its_nulls():
     withheld = projection["days"][1]
     assert withheld["total_outage_hours"] is None
     assert withheld["coverage"]["brokenlifts"] < 0.9
+
+
+def test_station_totals_exclude_days_that_were_not_measured():
+    """A day we could not measure must not quietly lower a station's total."""
+    watched = _summary()
+    blind = _summary(watched=False)
+    projection = site_projection([("2026-08-18", watched), ("2026-08-19", blind)])
+
+    assert len(projection["stations"]) == 1
+    station = projection["stations"][0]
+    assert station["station_id"] == "S1"
+    assert station["station_name"] == "Alexanderplatz"
+    only_watched = site_projection([("2026-08-18", watched)])["stations"][0]
+    assert station["outage_hours"] == only_watched["outage_hours"]
+    assert "published days only" in projection["stations_note"]
+
+
+def test_stations_are_ordered_by_hours():
+    watched = _summary()
+    projection = site_projection([("2026-08-18", watched)])
+    hours = [item["outage_hours"] for item in projection["stations"]]
+    assert hours == sorted(hours, reverse=True)
+
+
+def test_the_projection_carries_the_bounds():
+    projection = site_projection([("2026-08-18", _summary())])
+    day = projection["days"][0]
+    assert day["total_outage_hours_min"] <= day["total_outage_hours"]
+    assert day["total_outage_hours"] <= day["total_outage_hours_max"]
