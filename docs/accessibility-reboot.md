@@ -4,12 +4,19 @@
 
 > How does elevator availability change the accessible topology of Berlin public transport over time?
 
-The first implementation does not claim to model network reachability. It
+The usable explanatory site is documented in [experience.md](experience.md). Its
+fictional network is separate from real source observations. The measurement
+implementation does not claim to model real network reachability. It
 establishes the prerequisite: trustworthy elevator-asset outage intervals.
 
 ## Source contract
 
-The initial parser reads the public BrokenLifts outage page. The page currently
+The parser reads the public German BrokenLifts outage page. As of the
+[10 September 2026 review](snapshot-review-2026-09-10.md), the modern DOM uses
+`.broken-count`, `.last-updated`, `.station-list > ul`, `.station-name a` and
+`a.elevator-link.elevator-broken`. Station IDs are DHIDs and source scope is
+Berlin-Brandenburg. Modern asset IDs must not be joined to legacy IDs without an
+explicit crosswalk. The legacy DOM remains supported by fixtures. The page
 provides:
 
 - a source update timestamp;
@@ -52,10 +59,12 @@ unit, and observation coverage.
 - no public live metric;
 - no severity score;
 - no synthetic coordinate;
-- no route or topology impact claim;
+- no real route or topology impact claim;
 - no raw snapshot commits.
 
-Those layers require separate evidence and review.
+Those layers require separate evidence and review. A separately reviewed, dated
+source snapshot and a clearly fictional explanatory model can be published
+without enabling historical collection; see [the review decision](snapshot-review-2026-09-10.md).
 
 ## One-shot shadow operation
 
@@ -78,7 +87,7 @@ the shadow runner and a scheduled collector cannot drift apart. See
 [event-schema.md](event-schema.md).
 
 There is no state file. Current state is rebuilt each run by folding the
-transition ledger, so an interrupted run, a re-run, or a fresh clone all
+full transition ledger (not a rolling 30-day slice), so an interrupted run, a re-run, or a fresh clone all
 converge on the same answer. The one thing carried between runs is the debounce
 buffer under `.raw/working-state/`, which is not evidence: losing it costs one
 extra confirmation cycle and nothing else.

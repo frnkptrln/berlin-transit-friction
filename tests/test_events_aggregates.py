@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from dataclasses import replace
+
 import pytest
 from conftest import Harness, at, lift
 
@@ -98,6 +100,11 @@ def test_episodes_with_blind_spots_are_counted_separately():
     assert summary["publishable"] is True
     assert summary["episodes_with_unobserved_time"] == 1
     assert summary["episode_count"] == 1
+    assert summary["total_outage_hours_max"] - summary["total_outage_hours_min"] >= 65 / 60
+    assert summary["total_outage_hours"] == pytest.approx(
+        (summary["total_outage_hours_min"] + summary["total_outage_hours_max"]) / 2,
+        abs=0.001,
+    )
 
 
 def test_a_dst_day_states_its_real_length():
@@ -176,3 +183,42 @@ def test_polling_slower_than_the_trust_gap_yields_no_coverage():
     assert summary["publishable"] is False
     assert summary["total_outage_hours"] is None
     assert summary["coverage"]["brokenlifts"]["coverage_ratio"] == 0.0
+
+
+def _midnight_bracket_summary(*, second_lift: bool = False) -> dict:
+    harness = _watched_day(lambda step: [])
+    # The transition bracket spans 23:50–00:10. Only its upper duration bound
+    # touches the preceding day; clipping midpoint timestamps alone loses it.
+    example = Harness()
+    example.poll(1430, [])
+    example.poll(1450, [L1])
+    episode = build_episodes(example.transitions, as_of=at(1500))[0]
+    episodes = [episode]
+    if second_lift:
+        episodes.append(replace(
+            episode, episode_id="second", entity_uid="second", source_native_id="L2",
+            opened_t_earliest=at(1420), opened_t_latest=at(1460),
+        ))
+    coverage = compute_coverage(harness.observations, "brokenlifts", at(0), at(1440))
+    return build_window_summary(
+        episodes, {"brokenlifts": coverage}, window_start=at(0), window_end=at(1440),
+        as_of=at(1440),
+    )
+
+
+def test_station_midpoint_keeps_an_opening_bracket_across_midnight():
+    summary = _midnight_bracket_summary()
+    assert summary["outage_hours_by_station"] == {"S1": pytest.approx(5 / 60, abs=0.001)}
+    assert summary["total_outage_hours"] == pytest.approx(5 / 60, abs=0.001)
+    assert summary["total_outage_hours_min"] == 0
+    assert summary["total_outage_hours_max"] == pytest.approx(10 / 60, abs=0.001)
+    assert summary["total_outage_hours"] == summary["total_lift_outage_hours"]
+
+
+def test_shared_station_unions_midnight_bounds_before_taking_the_midpoint():
+    summary = _midnight_bracket_summary(second_lift=True)
+    assert summary["total_outage_hours_min"] == 0
+    assert summary["total_outage_hours_max"] == pytest.approx(20 / 60, abs=0.001)
+    assert summary["total_outage_hours"] == pytest.approx(10 / 60, abs=0.001)
+    assert summary["outage_hours_by_station"] == {"S1": pytest.approx(10 / 60, abs=0.001)}
+    assert summary["total_lift_outage_hours"] == pytest.approx(15 / 60, abs=0.001)

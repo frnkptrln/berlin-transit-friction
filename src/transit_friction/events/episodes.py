@@ -117,18 +117,52 @@ class Episode:
     ) -> float:
         """Seconds of this episode falling inside a window.
 
-        ``bound`` picks which reading of the brackets to use. The default
-        midpoint is the only choice that does not systematically bias durations
-        up or down; ``min`` and ``max`` give the range the observations actually
-        support, which is what an honest chart plots around the line.
+        ``min`` and ``max`` give the range the observations support after
+        clipping to this window and excluding blind time from the lower bound.
+        The default ``mid`` is the midpoint of those two durations; it does not
+        assume a probability distribution for when a transition happened.
         """
         if window_end <= window_start:
             raise ValueError("window_end must be after window_start")
+        if bound == "min":
+            return union_seconds(self.known_intervals(window_start, window_end, as_of))
+        if bound == "mid":
+            return (
+                self.overlap_seconds(window_start, window_end, as_of, "min")
+                + self.overlap_seconds(window_start, window_end, as_of, "max")
+            ) / 2
         start, end = self._extent(bound, as_of)
         if end is None:
             end = as_of or window_end
         lo, hi = max(start, window_start), min(end, window_end)
         return max(0.0, (hi - lo).total_seconds())
+
+    def known_intervals(
+        self,
+        window_start: datetime,
+        window_end: datetime,
+        as_of: datetime | None = None,
+    ) -> list[tuple[datetime, datetime]]:
+        """Lower-bound outage intervals, excluding every recorded blind spot.
+
+        Unknown time may contribute to the upper bound, but cannot be counted
+        as certainly impaired. Keep the pieces so overlapping lifts at a
+        station can still be unioned correctly.
+        """
+        clipped = self.clipped_interval(window_start, window_end, as_of, "min")
+        pieces = [clipped] if clipped else []
+        for blind_start, blind_end in self.unknown_intervals:
+            remaining = []
+            for start, end in pieces:
+                if blind_end <= start or blind_start >= end:
+                    remaining.append((start, end))
+                    continue
+                if start < blind_start:
+                    remaining.append((start, blind_start))
+                if blind_end < end:
+                    remaining.append((blind_end, end))
+            pieces = remaining
+        return pieces
 
     def clipped_interval(
         self,
@@ -139,10 +173,10 @@ class Episode:
     ) -> tuple[datetime, datetime] | None:
         """This episode's extent clipped to a window, or None if it misses it.
 
-        Needed because station-level time is a *union* of its lifts' intervals,
-        not a sum: four lifts out together for four hours is four hours of a
-        station being affected, not sixteen. A sum answers a different question
-        (lift-hours) and must not wear the station's name.
+        This is a geometrical extent. For duration metrics use
+        ``overlap_bounds``: clipping midpoint timestamps is not equivalent to
+        taking the midpoint of clipped durations. For lower-bound station
+        unions use ``known_intervals``, which removes recorded blind spots.
         """
         start, end = self._extent(bound, as_of)
         if end is None:
@@ -236,6 +270,14 @@ def build_episodes(
             duration_max = max(
                 0.0, (closed_latest - opener.t_earliest).total_seconds()
             )
+
+        lower_end = closed_earliest if closer is not None else reference
+        blind_inside_lower = [
+            (max(start, opener.t_latest), min(end, lower_end))
+            for start, end in unknown_intervals
+            if min(end, lower_end) > max(start, opener.t_latest)
+        ]
+        duration_min = max(0.0, duration_min - union_seconds(blind_inside_lower))
 
         episodes.append(
             Episode(

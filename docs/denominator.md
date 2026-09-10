@@ -1,7 +1,14 @@
 # The denominator
 
-Status: **implemented for the population and the join; the roster is not yet
-available**, which is why no point estimate is published today.
+Status, updated 2026-09-10: **population and join code exists; no validated source
+roster has been ingested**, so no network point estimate is published.
+BrokenLifts now exposes a paginated [station directory](https://brokenlifts.org/stations).
+This changes the earlier source-availability assumption below: a roster candidate
+exists, but completeness, versioning, identity continuity and the GTFS join remain
+unverified. See [the source review](snapshot-review-2026-09-10.md).
+
+The examples below describe the earlier denominator experiment; they are not a
+current snapshot or a claim about September 2026 network conditions.
 
 Companion to [event-schema.md](event-schema.md) and [partitioning.md](partitioning.md).
 
@@ -64,8 +71,9 @@ correct output. It says we can see two of 263 stations. The alternative,
 `27.0 / (2 × 21.1) = 64 %`, is a precise-looking number about two lifts wearing
 a network's name.
 
-**`KNOWN_OK` is structurally unreachable until the source publishes a station
-roster.** That is not a defect in the code; it is the state of our knowledge.
+**`KNOWN_OK` requires a validated, ingested source roster and current positive
+coverage evidence.** The new directory is a candidate for that work; a page
+existing does not establish that this pipeline has covered every station.
 
 ## Why one source is not enough
 

@@ -6,14 +6,23 @@ import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import pytest
+import requests
+
+from transit_friction.accessibility import shadow
 from transit_friction.accessibility.shadow import (
     FetchResult,
     ShadowPaths,
     apply_snapshot,
+    fetch_snapshot,
 )
 from transit_friction.accessibility.parser import parse_brokenlifts_snapshot
 from transit_friction.events.state import fold_transitions
-from transit_friction.events.store import load_pending, load_recent_transitions
+from transit_friction.events.store import (
+    load_pending,
+    load_recent_observations,
+    load_recent_transitions,
+)
 
 FIXTURE = Path(__file__).parent / "fixtures" / "brokenlifts_homepage.html"
 T0 = datetime(2026, 7, 10, 9, 31, tzinfo=timezone.utc)
@@ -214,3 +223,75 @@ def test_every_run_is_recorded_even_when_it_failed(tmp_path):
     ]
     assert len(logged) == 2
     assert [row["trusted_for_resolution"] for row in logged] == [True, False]
+
+
+def test_month_old_outages_keep_their_original_episode(tmp_path):
+    shadow_paths = paths(tmp_path)
+    html = FIXTURE.read_text(encoding="utf-8")
+    run(html, T0, shadow_paths)
+    original = {uid: state.episode_id for uid, state in states(shadow_paths).items()}
+
+    after_gap = T0 + timedelta(days=41)
+    summary = run(html.replace("10.07.2026", "20.08.2026"), after_gap, shadow_paths)
+
+    assert summary["transitions"] == {"unknown_entered": 3, "unknown_exited": 3}
+    assert {uid: state.episode_id for uid, state in states(shadow_paths).items()} == original
+
+
+def test_an_interrupted_transition_write_can_be_replayed(tmp_path, monkeypatch):
+    shadow_paths = paths(tmp_path)
+    html = FIXTURE.read_text(encoding="utf-8")
+    append = shadow.append_rows
+
+    def fail_transition(path, rows):
+        if path.name.startswith("transitions-"):
+            raise OSError("simulated interrupted write")
+        append(path, rows)
+
+    with monkeypatch.context() as patch:
+        patch.setattr(shadow, "append_rows", fail_transition)
+        with pytest.raises(OSError):
+            run(html, T0, shadow_paths)
+
+    assert load_recent_observations(shadow_paths.events_root, shadow_paths.raw_root) == []
+    summary = run(html, T0, shadow_paths)
+    assert summary["transitions"] == {"opened": 3}
+    assert native_ids(shadow_paths, "impaired") == {"200", "280", "281"}
+
+
+def test_a_timeout_is_recorded_as_a_failed_attempt(tmp_path):
+    def timeout(*args, **kwargs):
+        raise requests.Timeout("source timed out")
+
+    fetched = fetch_snapshot(get=timeout, observed_at=T0)
+    summary = apply_snapshot(fetched, paths=paths(tmp_path))
+    assert summary["outcome"] == "timeout"
+    assert summary["observed_at"] is None
+    assert summary["attempted_at"] == T0.isoformat()
+    assert summary["source_current"] is False
+
+
+def test_a_parser_exception_still_writes_an_observation(tmp_path, monkeypatch):
+    class Response:
+        status_code = 200
+        text = "unexpected provider content"
+
+        def raise_for_status(self):
+            pass
+
+    def broken_parser(*args, **kwargs):
+        raise ValueError("unexpected provider structure")
+
+    monkeypatch.setattr(shadow, "parse_brokenlifts_snapshot", broken_parser)
+    fetched = fetch_snapshot(get=lambda *args, **kwargs: Response(), observed_at=T0)
+    shadow_paths = paths(tmp_path)
+    summary = apply_snapshot(fetched, paths=shadow_paths)
+
+    assert summary["outcome"] == "parse_error"
+    assert summary["observed_at"] is not None
+    assert summary["attempted_at"] == T0.isoformat()
+    assert summary["transitions"] == {}
+    rows = load_recent_observations(shadow_paths.events_root, shadow_paths.raw_root)
+    assert len(rows) == 1
+    assert rows[0].payload_sha256 is not None
+    assert rows[0].http_status == 200

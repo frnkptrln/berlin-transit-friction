@@ -26,6 +26,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate the public experience
+        run: |
+          python scripts/check_site.py
+          node --test tests/test_journey_model.cjs
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:

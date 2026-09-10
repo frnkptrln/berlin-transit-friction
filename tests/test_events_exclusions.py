@@ -107,6 +107,29 @@ def test_no_dependencies_publishes_nothing():
     assert summary["publishable"] is False
 
 
+def test_unrelated_source_episodes_cannot_inflate_the_elevator_metric():
+    elevators = _day(lambda step: [L1] if 60 <= step < 300 else [])
+    other = Harness(source_id="bvg_traffic_news")
+    other.poll(0, [lift("notice-1", station_id="S2")])
+    observations = elevators.observations + other.observations
+    coverages = {
+        source: compute_coverage(observations, source, *WINDOW)
+        for source in ("brokenlifts", "bvg_traffic_news")
+    }
+    summary = build_window_summary(
+        build_episodes(elevators.transitions + other.transitions, as_of=WINDOW[1]),
+        coverages,
+        window_start=WINDOW[0],
+        window_end=WINDOW[1],
+        as_of=WINDOW[1],
+        depends_on=["brokenlifts"],
+    )
+    assert summary["publishable"] is True
+    assert summary["total_outage_hours"] == pytest.approx(4.0, abs=0.2)
+    assert summary["episode_count"] == 1
+    assert summary["data_quality"]["sources_with_episodes"] == ["brokenlifts"]
+
+
 # --- station-hours are unions ----------------------------------------------
 
 

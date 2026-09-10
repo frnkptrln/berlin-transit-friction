@@ -57,6 +57,41 @@ def test_time_spent_unobserved_is_reported():
     assert episode.unknown_seconds == 175 * 60
     assert episode.certain is False
     assert episode.ongoing is True
+    assert episode.duration_min_s == 5 * 60
+    assert episode.overlap_seconds(at(0), at(185), bound="min") == 5 * 60
+
+
+def test_an_unknown_interval_contributes_no_certain_outage_time():
+    harness = Harness()
+    harness.poll(0, [L1])
+    harness.poll(10, [L1])
+    harness.poll(60, [], outcome="http_error")
+    harness.poll(70, [L1])
+    harness.poll(80, [L1])
+    episode = build_episodes(harness.transitions, as_of=at(80))[0]
+
+    assert episode.known_intervals(at(0), at(80)) == [(at(0), at(10)), (at(70), at(80))]
+    low, point, high = episode.overlap_bounds(at(0), at(80))
+    assert low == 20 * 60
+    assert high == 80 * 60
+    assert point == (low + high) / 2
+
+
+def test_closed_episode_point_matches_its_full_window_bounds_with_unknown_time():
+    harness = Harness()
+    harness.poll(0, [])
+    harness.poll(5, [L1])
+    harness.poll(10, [L1])
+    harness.poll(60, [], outcome="http_error")
+    harness.poll(70, [L1])
+    harness.poll(75, [L1])
+    harness.poll(80, [])
+    harness.poll(90, [])
+    episode = build_episodes(harness.transitions, as_of=at(95))[0]
+    low, point, high = episode.overlap_bounds(at(0), at(95))
+    assert low == episode.duration_min_s
+    assert high == episode.duration_max_s
+    assert point == episode.duration_point_s
 
 
 def test_a_gap_before_a_good_snapshot_still_counts_as_blind():

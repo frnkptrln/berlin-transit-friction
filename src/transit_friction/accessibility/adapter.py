@@ -27,7 +27,7 @@ from .models import OutageSnapshot
 
 SOURCE_ID = "brokenlifts"
 ENTITY_TYPE = "elevator"
-PARSER_VERSION = "brokenlifts-html/1"
+PARSER_VERSION = "brokenlifts-html/2"
 
 #: Outcomes where no response body was read, so there is nothing to have
 #: observed. The events layer distinguishes "we looked and saw nothing wrong"

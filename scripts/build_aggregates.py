@@ -26,6 +26,7 @@ from transit_friction.config import (  # noqa: E402
     SITE_DATA_DIR,
 )
 from transit_friction.events.aggregates import (  # noqa: E402
+    REPORTING_TZ,
     build_window_summary,
     local_day_window,
 )
@@ -46,7 +47,7 @@ def _days(args) -> list[date]:
     if args.date:
         return [date.fromisoformat(args.date)]
     end = date.fromisoformat(args.until) if args.until else (
-        datetime.now(timezone.utc).date() - timedelta(days=1)
+        datetime.now(REPORTING_TZ).date() - timedelta(days=1)
     )
     return [end - timedelta(days=offset) for offset in range(args.days - 1, -1, -1)]
 
@@ -71,6 +72,11 @@ def main() -> int:
     )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
+    if args.days < 1:
+        parser.error("--days must be at least 1")
+    depends_on = sorted({s.strip() for s in args.depends_on.split(",") if s.strip()})
+    if not depends_on:
+        parser.error("--depends-on must name at least one source")
 
     built_at = datetime.now(timezone.utc)
     days = _days(args)
@@ -84,24 +90,12 @@ def main() -> int:
         args.events_root, args.raw_root, end=span_end
     )
     observed_sources = sorted({row.source_id for row in observations})
-    depends_on = [s for s in args.depends_on.split(",") if s.strip()]
     missing = [s for s in depends_on if s not in observed_sources]
-    if missing:
-        print(
-            json.dumps(
-                {
-                    "error": "no observations for a declared dependency",
-                    "missing": missing,
-                    "observed": observed_sources,
-                },
-                indent=2,
-            ),
-            file=sys.stderr,
-        )
-        return 1
     # Coverage is computed for every source so the ledger stays legible, but
     # only the declared dependencies decide whether a value may be published.
-    sources = observed_sources
+    # No attempts is a meaningful coverage result: publish null metrics with
+    # zero coverage instead of leaving an older dashboard file in place.
+    sources = sorted(set(observed_sources) | set(depends_on))
     episodes = build_episodes(transitions, as_of=span_end)
 
     written: list[dict] = []
@@ -148,6 +142,7 @@ def main() -> int:
                 "days": [day.isoformat() for day in days],
                 "sources": sources,
                 "depends_on": depends_on,
+                "sources_without_observations": missing,
                 "episodes_considered": len(episodes),
                 "partitions_written": [
                     item for item in written if item.get("changed")

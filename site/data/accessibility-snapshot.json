@@ -1,0 +1,339 @@
+{
+  "schema_version": 1,
+  "kind": "reviewed_source_snapshot",
+  "source_name": "BrokenLifts",
+  "source_url": "https://brokenlifts.org/",
+  "source_scope": "Berlin-Brandenburg",
+  "source_updated_at": "2026-09-10T19:57:00+02:00",
+  "observed_at": "2026-09-10T18:05:56.605304+00:00",
+  "reviewed_at": "2026-09-10T18:11:03.562280+00:00",
+  "review_note": "Compared all 35 explicit broken elevator DOM links with 35 parsed unique asset IDs and the advertised count; all 25 station groups match. Berlin DHIDs yield 28 assets at 20 stations. A second independent capture repeats the same source version without opening or resolving events. No duration, roster denominator or route inference is published.",
+  "parser_version": "brokenlifts-html/2",
+  "payload_sha256": "2c366454ca93a05855cd38ea4e4309dd9f027bfc1f3d2ac66b24b53e61a1f227",
+  "complete": true,
+  "advertised_outage_count": 35,
+  "parsed_outage_count": 35,
+  "stations": [
+    {
+      "station_id": "de:12072:900245836",
+      "station_name": "Ludwigsfelde, Struveshof Bhf",
+      "region": "other_or_unknown",
+      "assets": [
+        {
+          "asset_id": "6668",
+          "source_url": "https://brokenlifts.org/station/de:12072:900245836/6668"
+        }
+      ]
+    },
+    {
+      "station_id": "de:12066:900435602",
+      "station_name": "Lübbenau, Bahnhof",
+      "region": "other_or_unknown",
+      "assets": [
+        {
+          "asset_id": "4398",
+          "source_url": "https://brokenlifts.org/station/de:12066:900435602/4398"
+        },
+        {
+          "asset_id": "4496",
+          "source_url": "https://brokenlifts.org/station/de:12066:900435602/4496"
+        }
+      ]
+    },
+    {
+      "station_id": "de:12064:900320026",
+      "station_name": "S Birkenstein",
+      "region": "other_or_unknown",
+      "assets": [
+        {
+          "asset_id": "4810",
+          "source_url": "https://brokenlifts.org/station/de:12064:900320026/4810"
+        }
+      ]
+    },
+    {
+      "station_id": "de:12072:900245027",
+      "station_name": "S Blankenfelde (TF) Bhf",
+      "region": "other_or_unknown",
+      "assets": [
+        {
+          "asset_id": "6463",
+          "source_url": "https://brokenlifts.org/station/de:12072:900245027/6463"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900110011",
+      "station_name": "S Bornholmer Str.",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "5099",
+          "source_url": "https://brokenlifts.org/station/de:11000:900110011/5099"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900072101",
+      "station_name": "S Buckower Chaussee",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "6489",
+          "source_url": "https://brokenlifts.org/station/de:11000:900072101/6489"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900160001",
+      "station_name": "S Rummelsburg",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "4713",
+          "source_url": "https://brokenlifts.org/station/de:11000:900160001/4713"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900089303",
+      "station_name": "S Tegel",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "6136",
+          "source_url": "https://brokenlifts.org/station/de:11000:900089303/6136"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900100003",
+      "station_name": "S+U Alexanderplatz Bhf",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "5373",
+          "source_url": "https://brokenlifts.org/station/de:11000:900100003/5373"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900003201",
+      "station_name": "S+U Berlin Hauptbahnhof",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "4722",
+          "source_url": "https://brokenlifts.org/station/de:11000:900003201/4722"
+        },
+        {
+          "asset_id": "4723",
+          "source_url": "https://brokenlifts.org/station/de:11000:900003201/4723"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900120001",
+      "station_name": "S+U Frankfurter Allee",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "6689",
+          "source_url": "https://brokenlifts.org/station/de:11000:900120001/6689"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900100001",
+      "station_name": "S+U Friedrichstr. Bhf",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "5299",
+          "source_url": "https://brokenlifts.org/station/de:11000:900100001/5299"
+        },
+        {
+          "asset_id": "5817",
+          "source_url": "https://brokenlifts.org/station/de:11000:900100001/5817"
+        },
+        {
+          "asset_id": "6780",
+          "source_url": "https://brokenlifts.org/station/de:11000:900100001/6780"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900007102",
+      "station_name": "S+U Gesundbrunnen Bhf",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "5649",
+          "source_url": "https://brokenlifts.org/station/de:11000:900007102/5649"
+        },
+        {
+          "asset_id": "6461",
+          "source_url": "https://brokenlifts.org/station/de:11000:900007102/6461"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900062202",
+      "station_name": "S+U Rathaus Steglitz",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "3952",
+          "source_url": "https://brokenlifts.org/station/de:11000:900062202/3952"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900009104",
+      "station_name": "S+U Wedding",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "6878",
+          "source_url": "https://brokenlifts.org/station/de:11000:900009104/6878"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900023201",
+      "station_name": "S+U Zoologischer Garten Bhf",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "5122",
+          "source_url": "https://brokenlifts.org/station/de:11000:900023201/5122"
+        },
+        {
+          "asset_id": "6313",
+          "source_url": "https://brokenlifts.org/station/de:11000:900023201/6313"
+        },
+        {
+          "asset_id": "6391",
+          "source_url": "https://brokenlifts.org/station/de:11000:900023201/6391"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900009101",
+      "station_name": "U Amrumer Str.",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "7264",
+          "source_url": "https://brokenlifts.org/station/de:11000:900009101/7264"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900054103",
+      "station_name": "U Eisenacher Str.",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "6749",
+          "source_url": "https://brokenlifts.org/station/de:11000:900054103/6749"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900018101",
+      "station_name": "U Jakob-Kaiser-Platz",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "6761",
+          "source_url": "https://brokenlifts.org/station/de:11000:900018101/6761"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900054102",
+      "station_name": "U Kleistpark",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "6691",
+          "source_url": "https://brokenlifts.org/station/de:11000:900054102/6691"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900082201",
+      "station_name": "U Lipschitzallee",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "6797",
+          "source_url": "https://brokenlifts.org/station/de:11000:900082201/6797"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900100019",
+      "station_name": "U Oranienburger Tor",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "6732",
+          "source_url": "https://brokenlifts.org/station/de:11000:900100019/6732"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900085203",
+      "station_name": "U Residenzstr.",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "7275",
+          "source_url": "https://brokenlifts.org/station/de:11000:900085203/7275"
+        },
+        {
+          "asset_id": "7276",
+          "source_url": "https://brokenlifts.org/station/de:11000:900085203/7276"
+        }
+      ]
+    },
+    {
+      "station_id": "de:11000:900061101",
+      "station_name": "U Walther-Schreiber-Platz",
+      "region": "berlin",
+      "assets": [
+        {
+          "asset_id": "6881",
+          "source_url": "https://brokenlifts.org/station/de:11000:900061101/6881"
+        },
+        {
+          "asset_id": "6884",
+          "source_url": "https://brokenlifts.org/station/de:11000:900061101/6884"
+        }
+      ]
+    },
+    {
+      "station_id": "de:12070:900216026",
+      "station_name": "Wittenberge, Bahnhof",
+      "region": "other_or_unknown",
+      "assets": [
+        {
+          "asset_id": "4696",
+          "source_url": "https://brokenlifts.org/station/de:12070:900216026/4696"
+        },
+        {
+          "asset_id": "4699",
+          "source_url": "https://brokenlifts.org/station/de:12070:900216026/4699"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "One dated source statement, not live information.",
+    "Reported lift outages are not a count of inaccessible stations.",
+    "No inference about working unlisted lifts, duration, routes or total coverage.",
+    "Berlin filter uses the source station DHID prefix de:11000:; other IDs remain unclassified."
+  ]
+}

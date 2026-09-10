@@ -63,7 +63,7 @@ def main() -> int:
         dry_run=args.dry_run,
     )
     print(json.dumps(summary, ensure_ascii=False, indent=2))
-    return 0 if summary["trusted_for_resolution"] else 2
+    return 0 if summary["source_current"] else 2
 
 
 if __name__ == "__main__":

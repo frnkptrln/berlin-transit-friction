@@ -471,6 +471,11 @@ def detect(
     if not trusted:
         # A degraded look tells us nothing about the world. Within tolerance we
         # simply wait; beyond it we stop claiming to know.
+        # It also breaks a run of consecutive confirmations. A cached but
+        # current page may preserve a pending candidate, while a failed,
+        # incomplete or stuck source must earn a new confirmation sequence.
+        if not source_current:
+            pending.clear()
         if gap_before_s > tuning.max_trust_gap_s:
             _enter_unknown(_degradation_evidence(outcome))
         return DetectionResult(
