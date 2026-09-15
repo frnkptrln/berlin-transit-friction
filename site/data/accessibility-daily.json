@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "aggregation": "union_per_station",
+  "unit": "outage-hours",
+  "status": "awaiting_reviewed_observation_period",
+  "note": "A dated source snapshot is available; it cannot establish a duration or a time series.",
+  "days": [],
+  "days_published": 0,
+  "days_withheld": 0,
+  "stations": []
+}

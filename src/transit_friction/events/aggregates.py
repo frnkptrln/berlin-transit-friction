@@ -105,6 +105,10 @@ def build_window_summary(
         raise ValueError("window_end must be after window_start")
 
     window_hours = (window_end - window_start).total_seconds() / 3600
+    dependencies = frozenset(depends_on if depends_on is not None else coverages)
+    # Numerator and coverage must refer to the same sources. An unrelated
+    # disruption source must not add hours to the elevator metric.
+    episodes = [episode for episode in episodes if episode.source_id in dependencies]
 
     # Flapping entities stay in the record but out of the headline: six state
     # changes in a day is a source problem, not an elevator.
@@ -150,7 +154,6 @@ def build_window_summary(
     # can be unioned. Summing them would answer "lift-hours lost" while wearing
     # the label "station-hours", which is eight times too large at a station
     # with eight lifts out together.
-    intervals_by_station: dict[str, list[tuple[datetime, datetime]]] = defaultdict(list)
     intervals_min: dict[str, list[tuple[datetime, datetime]]] = defaultdict(list)
     intervals_max: dict[str, list[tuple[datetime, datetime]]] = defaultdict(list)
     names_by_station: dict[str, str] = {}
@@ -174,10 +177,14 @@ def build_window_summary(
                 names_by_station.setdefault(station, episode.station_name)
             lift_seconds += seconds
             for bound, bucket in (
-                ("mid", intervals_by_station),
                 ("min", intervals_min),
                 ("max", intervals_max),
             ):
+                if bound == "min":
+                    bucket[station].extend(
+                        episode.known_intervals(window_start, window_end, as_of)
+                    )
+                    continue
                 clipped = episode.clipped_interval(
                     window_start, window_end, as_of=as_of, bound=bound
                 )
@@ -192,8 +199,14 @@ def build_window_summary(
             active_at_end += 1
 
     hours_by_station = {
-        station: union_seconds(intervals) / 3600
-        for station, intervals in intervals_by_station.items()
+        station: (
+            union_seconds(intervals_min[station])
+            + union_seconds(intervals_max[station])
+        ) / 7200
+        # A bracket straddling midnight can overlap this day only at its upper
+        # bound. It still contributes possible outage time and its midpoint;
+        # the geometrical midpoint interval must not erase that station.
+        for station in intervals_min.keys() | intervals_max.keys()
     }
     total_seconds = sum(hours_by_station.values()) * 3600
     total_seconds_min = sum(
@@ -203,7 +216,6 @@ def build_window_summary(
         union_seconds(v) for v in intervals_max.values()
     )
 
-    dependencies = frozenset(depends_on if depends_on is not None else coverages)
     publishable = _publishable(coverages, dependencies, tuning)
 
     def _value(value):

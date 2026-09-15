@@ -20,7 +20,7 @@ Companion documents: [docs/data-architecture.md](docs/data-architecture.md),
 | raw | `.raw/` | as fetched + JSONL staging | **7 days** | **no** — gitignored | no (and that is fine) |
 | events | `data/events/` | Parquet, append-only | **forever** | yes | no — this is the source of truth |
 | aggregates | `data/aggregates/` | Parquet, derived | **forever** | yes | yes, from events alone |
-| site data | `site/data/` | JSON projection | current only | yes | yes, from aggregates |
+| site data | `site/data/` | JSON projection / reviewed source statement | current only | yes | aggregates, or a reviewed capture and fingerprint |
 | reference | `data/reference/` | Parquet, immutable per version | **forever** | yes | only while the source archive is obtainable |
 | manifests | `data/_manifests/` | JSON | **forever** | yes | no — they are the integrity chain |
 
@@ -124,10 +124,27 @@ remain in git history.
 
 ## site data — current only
 
-`site/data/*.json` is a projection of the current aggregates for the dashboard.
+`site/data/accessibility-daily.json` is a projection of current aggregates for the dashboard.
 It is regenerated, never hand-edited, and carries no history of its own — the
 history is in `data/aggregates/`. It is committed so that GitHub Pages has
 something to serve, not because it is a record.
+
+`site/data/accessibility-snapshot.json` is a second, narrowly scoped projection:
+explicit broken-asset identities and source links from one reviewed complete
+source capture. It carries source/capture/review timestamps, parser version,
+payload SHA-256 and a review note. It contains no raw HTML, inferred duration,
+denominator or route. It is current-only and regenerated with
+`scripts/build_accessibility_snapshot.py`; a dated review under `docs/` explains
+what was checked. After the raw capture expires, the fingerprint identifies it
+but cannot reproduce the original markup; the published rows, parser version,
+review note and minimal structural fixtures remain inspectable.
+
+Captures used for this review live under `.shadow/raw/captures/` for at most
+seven days and are never committed. A historical reviewed source statement may
+stay on the site, clearly dated and marked old after one hour. Replacing it needs
+a new review. It is not a collector state checkpoint or a longitudinal ledger.
+No workflow refreshes it automatically. The fictional route model is authored
+application code, not an observed data partition.
 
 ---
 

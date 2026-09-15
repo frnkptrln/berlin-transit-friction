@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -35,7 +36,7 @@ DAYS = 4
 
 def _run(script: str, *args: str) -> dict:
     result = subprocess.run(
-        ["python", f"scripts/{script}", *args],
+        [sys.executable, f"scripts/{script}", *args],
         cwd=REPO_ROOT,
         check=True,
         capture_output=True,
@@ -147,7 +148,7 @@ def test_the_chain_runs_end_to_end(collected):
 
     checked = subprocess.run(
         [
-            "python", "scripts/check_retention.py",
+            sys.executable, "scripts/check_retention.py",
             "--events-root", str(collected / "events"),
             "--manifest-root", str(collected / "_manifests"),
             "--raw-root", str(collected / "raw"),
@@ -204,7 +205,7 @@ def test_a_tampered_partition_stops_the_chain(collected):
 
     result = subprocess.run(
         [
-            "python", "scripts/seal_events.py",
+            sys.executable, "scripts/seal_events.py",
             "--events-root", str(collected / "events"),
             "--manifest-root", str(collected / "_manifests"),
             "--raw-root", str(collected / "raw"),
@@ -229,3 +230,25 @@ def test_the_chain_writes_nothing_into_the_repository(collected):
         cwd=REPO_ROOT, capture_output=True, text=True, check=True,
     ).stdout
     assert before == after
+
+
+def test_no_observations_replaces_stale_output_with_withheld_days(tmp_path):
+    site = tmp_path / "site"
+    site.mkdir()
+    output = site / "accessibility-daily.json"
+    output.write_text('{"days_published": 99}', encoding="utf-8")
+
+    result = _aggregate(tmp_path)
+
+    assert result["days_published"] == 0
+    assert result["days_withheld"] == 3
+    assert result["sources_without_observations"] == ["brokenlifts"]
+    projection = json.loads(output.read_text(encoding="utf-8"))
+    assert all(day["total_outage_hours"] is None for day in projection["days"])
+    assert all(day["coverage"]["brokenlifts"] == 0 for day in projection["days"])
+
+
+def test_source_dependencies_are_trimmed(collected):
+    result = _aggregate(collected, "--depends-on", " brokenlifts,brokenlifts ")
+    assert result["depends_on"] == ["brokenlifts"]
+    assert result["days_published"] == 2

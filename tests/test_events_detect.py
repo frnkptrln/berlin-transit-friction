@@ -354,6 +354,19 @@ def test_incomplete_snapshot_is_never_trusted(harness: Harness):
     assert observation.trusted_for_resolution is False
 
 
+def test_failed_fetch_breaks_consecutive_close_confirmations(harness: Harness):
+    harness.poll(0, [L1])
+    harness.poll(5, [])
+    harness.poll(10, [], outcome="http_error")
+    assert harness.pending == {}
+
+    harness.poll(15, [])
+    assert harness.types == ["opened"]
+    harness.poll(25, [])
+    assert harness.types == ["opened", "closed"]
+    assert harness.transitions[-1].t_latest == at(15)
+
+
 def test_identical_payload_is_noted(harness: Harness):
     harness.poll(0, [], payload_sha256="abc")
     result = harness.poll(5, [], payload_sha256="abc")

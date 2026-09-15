@@ -14,15 +14,16 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
+from time import monotonic
 from typing import Callable
 
 import requests
 
 from ..events.config import DEFAULT_TUNING, TuningParameters
 from ..events.detect import DetectionResult, detect
-from ..events.schema import OUTCOME_HTTP_ERROR
+from ..events.schema import OUTCOME_HTTP_ERROR, OUTCOME_PARSE_ERROR, OUTCOME_TIMEOUT
 from ..events.state import fold_cursors, fold_transitions
 from ..events.store import (
     TABLE_OBSERVATIONS,
@@ -37,11 +38,6 @@ from ..events.store import (
 from .adapter import SOURCE_ID, payload_digest, to_source_snapshot
 from .models import OutageSnapshot
 from .parser import DEFAULT_SOURCE_URL, parse_brokenlifts_snapshot
-
-#: How far back state is rebuilt. Long enough to carry an open episode across a
-#: monthly rollup boundary, short enough to stay a cheap read.
-STATE_WINDOW_DAYS = 30
-
 
 @dataclass(frozen=True, slots=True)
 class ShadowPaths:
@@ -69,6 +65,7 @@ class FetchResult:
     payload_sha256: str | None = None
     http_status: int | None = None
     latency_ms: int | None = None
+    attempted_at: datetime | None = None
 
 
 def fetch_snapshot(
@@ -79,8 +76,8 @@ def fetch_snapshot(
     get: Callable = requests.get,
 ) -> FetchResult:
     """Fetch and parse once. A failure is a result, not an exception."""
-    observed_at = observed_at or datetime.now(timezone.utc)
-    started = observed_at
+    attempted_at = observed_at or datetime.now(timezone.utc)
+    started = monotonic()
     try:
         response = get(
             url,
@@ -92,23 +89,35 @@ def fetch_snapshot(
         return FetchResult(
             snapshot=OutageSnapshot.failed(
                 source_url=url,
-                observed_at=observed_at,
+                observed_at=attempted_at,
                 warning=f"source fetch failed: {exc}",
             ),
-            outcome=OUTCOME_HTTP_ERROR,
+            outcome=OUTCOME_TIMEOUT if isinstance(exc, requests.Timeout) else OUTCOME_HTTP_ERROR,
             http_status=getattr(getattr(exc, "response", None), "status_code", None),
+            latency_ms=max(0, int((monotonic() - started) * 1000)),
+            attempted_at=attempted_at,
         )
 
     finished = datetime.now(timezone.utc)
-    return FetchResult(
-        snapshot=parse_brokenlifts_snapshot(
-            response.text,
-            observed_at=observed_at,
+    outcome = None
+    try:
+        snapshot = parse_brokenlifts_snapshot(
+            response.text, observed_at=finished, source_url=url
+        )
+    except Exception as exc:  # noqa: BLE001 - parser failures are observations too
+        snapshot = OutageSnapshot.failed(
             source_url=url,
-        ),
+            observed_at=finished,
+            warning=f"source parse failed: {exc}",
+        )
+        outcome = OUTCOME_PARSE_ERROR
+    return FetchResult(
+        snapshot=snapshot,
+        outcome=outcome,
         payload_sha256=payload_digest(response.text),
         http_status=getattr(response, "status_code", None),
-        latency_ms=max(0, int((finished - started).total_seconds() * 1000)),
+        latency_ms=max(0, int((monotonic() - started) * 1000)),
+        attempted_at=attempted_at,
     )
 
 
@@ -132,6 +141,7 @@ def _summary(result: DetectionResult, *, dry_run: bool) -> dict:
         ),
         "outcome": observation.outcome,
         "complete": observation.complete,
+        "source_current": observation.source_current,
         "trusted_for_resolution": observation.trusted_for_resolution,
         "gap_before_s": observation.gap_before_s,
         "observed_entities": observation.entity_count,
@@ -170,17 +180,19 @@ def apply_snapshot(
         fetched.snapshot,
         run_id=run_id,
         outcome=fetched.outcome,
+        attempted_at=fetched.attempted_at,
         payload_sha256=fetched.payload_sha256,
         http_status=fetched.http_status,
         latency_ms=fetched.latency_ms,
     )
 
-    window_start = observed_at - timedelta(days=STATE_WINDOW_DAYS)
+    # Transitions are sparse: an outage may stay unchanged for months. A
+    # rolling time filter would forget its opening and manufacture a new one.
     transitions = load_recent_transitions(
-        paths.events_root, paths.raw_root, start=window_start
+        paths.events_root, paths.raw_root
     )
     observations = load_recent_observations(
-        paths.events_root, paths.raw_root, start=window_start
+        paths.events_root, paths.raw_root
     )
 
     if pending is None:
@@ -199,10 +211,8 @@ def apply_snapshot(
         return summary
 
     day = snapshot.attempted_at.astimezone(timezone.utc).date()
-    append_rows(
-        staging_path(paths.raw_root, TABLE_OBSERVATIONS, day),
-        [result.observation.to_dict()],
-    )
+    # Advance the source cursor only after its transitions are durable. If a
+    # write fails, replay still sees the old cursor and can finish the change.
     for row in result.transitions:
         append_rows(
             staging_path(
@@ -212,6 +222,10 @@ def apply_snapshot(
             ),
             [row.to_dict()],
         )
+    append_rows(
+        staging_path(paths.raw_root, TABLE_OBSERVATIONS, day),
+        [result.observation.to_dict()],
+    )
 
     save_pending(paths.raw_root, SOURCE_ID, result.pending)
 

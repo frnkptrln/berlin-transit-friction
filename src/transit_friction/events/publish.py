@@ -250,6 +250,11 @@ def site_projection(summaries: list[tuple[str, dict]]) -> dict:
                 "quarantined_flapping_episodes": summary["data_quality"][
                     "quarantined_flapping_episodes"
                 ],
+                "depends_on": summary.get("data_quality", {}).get("sources_used", []),
+                "coverage_publishable": {
+                    source: item["publishable"]
+                    for source, item in summary["coverage"].items()
+                },
                 "coverage": {
                     source: round(item["coverage_ratio"], 4)
                     for source, item in summary["coverage"].items()
@@ -284,6 +289,8 @@ def site_projection(summaries: list[tuple[str, dict]]) -> dict:
     )
 
     return {
+        "schema_version": 1,
+        "aggregation": "union_per_station",
         "unit": UNIT,
         "generated_from": "data/events",
         "note": (
