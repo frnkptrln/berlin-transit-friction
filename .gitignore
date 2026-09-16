@@ -5,6 +5,15 @@ __pycache__/
 .shadow/
 .raw/
 
+# Pre-pause polling output is preserved on legacy-v0, not on active branches.
+/data/bronze/
+/data/silver/
+/data/gold/
+/data/manifests/
+/data/normalized/
+/data/raw/
+/data/summaries/
+
 # Local secrets and credentials
 .env
 .env.*
