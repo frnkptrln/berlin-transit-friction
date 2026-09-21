@@ -192,8 +192,10 @@ this policy. They were produced by a pipeline whose output
 describe as methodologically invalid.
 
 Decision: the exact pre-pause state stays preserved on the `legacy-v0` branch.
-On the active branch those directories are removed when the new layout lands, in
-a single clearly-labelled commit. Removal does not shrink the repository —
+On the active branch those directories are removed in a single clearly-labelled
+commit; their paths are ignored to prevent accidental reintroduction. The
+[cleanup record](docs/legacy-data-cleanup.md) identifies the preserved commit and
+the matching directory hashes. Removal does not shrink the repository —
 history keeps the objects, and rewriting history to reclaim the ~44 MB of packed
 git data is not worth breaking every existing clone and reference. The point of
 removal is that nobody mistakes invalid legacy output for current data, not disk

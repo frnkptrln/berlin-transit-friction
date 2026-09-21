@@ -117,6 +117,11 @@ repeated polls as new events, mixed source failures with transport conditions an
 lacked a valid denominator. Its counters, rankings and trends are not transit
 quality evidence. The exact historical state is preserved in
 [`legacy-v0`](https://github.com/frnkptrln/berlin-transit-friction/tree/legacy-v0).
+The pre-pause data directories have been removed from the active tree after all
+31,283 file blobs were verified against that historical state. The
+[cleanup record](docs/legacy-data-cleanup.md) records the commit, directory hashes
+and retrieval path. Git history remains intact; this makes the working tree
+smaller without reducing the historical repository's download size.
 Unused legacy scripts and misleading JSON are removed from the served `site/`
 surface; legacy collectors remain disabled.
 

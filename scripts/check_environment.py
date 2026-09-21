@@ -12,7 +12,7 @@ for dep in ['google.transit.gtfs_realtime_pb2']:
         ok = False
     print('optional', dep, 'OK' if ok else 'MISSING')
 print('network check', 'enabled' if a.network else 'skipped')
-for p in ['data/bronze','data/silver','data/gold','data/manifests','site/data']:
+for p in ['.raw','data/events','data/aggregates','data/_manifests','data/reference','site/data']:
     Path(p).mkdir(parents=True,exist_ok=True)
     print('writable', p, 'OK')
 print('no secrets required: true')
