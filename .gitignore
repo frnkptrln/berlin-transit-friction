@@ -29,3 +29,7 @@ id_rsa*
 id_ed25519*
 .netrc
 .pypirc
+
+# Local browser verification
+node_modules/
+build/

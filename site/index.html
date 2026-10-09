@@ -7,7 +7,9 @@
   <meta name="description" content="Berliner Nahverkehr aus der Perspektive zugänglicher Wege: Aufzugsausfälle verstehen, Folgen ausprobieren und Verbesserungen sichtbar machen.">
   <meta name="theme-color" content="#142c3a">
   <link rel="stylesheet" href="experience.css">
+  <link rel="stylesheet" href="scenario.css">
   <script src="journey-model.js" defer></script>
+  <script src="scenario-model.js" defer></script>
   <script src="data-contract.js" defer></script>
   <script src="experience.js" defer></script>
 </head>
@@ -56,10 +58,20 @@
       <label class="select-label" for="lift-state">Aufzug am Ziel</label>
       <select id="lift-state"><option value="failed">Ausgefallen</option><option value="ok">In Betrieb</option><option value="unknown">Status unbekannt</option></select>
       <fieldset class="improvement-controls"><legend>Verändere das Modell</legend><label class="check-option"><input id="alternative" type="checkbox"><span>Stufenlosen Umweg ergänzen<small>Über die Nachbarstation und einen Außenweg.</small></span></label><label class="check-option"><input id="backup" type="checkbox"><span>Zweiten Aufzug ergänzen<small>Unabhängiger Zugang an der Zielstation.</small></span></label></fieldset>
-      <button id="reset" class="text-button" type="button">Ausgangslage wiederherstellen ↺</button>
+      <button id="reset" class="text-button" type="button">Modell und Vergleich zurücksetzen ↺</button>
     </div>
     <div id="result" class="result" role="status" aria-live="polite" aria-atomic="true"><span class="result-symbol" aria-hidden="true">×</span><div><p class="eyebrow">DEIN ERGEBNIS</p><h3 id="result-title">Kein stufenloser Weg zum Ziel</h3><p id="result-copy">Im Modell endet dein Weg am Zielbahnsteig. Der fahrende Zug allein reicht nicht.</p></div><div class="result-number"><strong id="section-count">—</strong><span id="section-label">Ziel nicht erreichbar</span></div></div>
     <div class="route-detail"><h3>Deine Wegkette</h3><ol id="route-list"><li>Aufzug zum Startbahnsteig</li><li>Fahrt zur Zielstation</li><li>Der Aufzug zur Straße fehlt.</li></ol><p id="route-insight">Ergänze einen Umweg oder einen zweiten Aufzug, um den Unterschied zu sehen.</p></div>
+    <section class="scenario-comparison" aria-labelledby="comparison-title">
+      <div class="comparison-heading"><div><p class="eyebrow">ZWEI VARIANTEN IM ERKLÄRMODELL</p><h3 id="comparison-title">Was ändert sich gegenüber vorher?</h3></div><button id="remember-scenario" class="outline-link" type="button">Aktuelle Variante als Vergleich merken</button></div>
+      <p class="comparison-intro">Merke dir eine Ausgangslage und verändere oben die Einstellungen. Beide Varianten bleiben im Link erhalten.</p>
+      <div class="comparison-cards"><article><h4>Gemerkter Vergleichspunkt</h4><p id="before-settings"></p><strong id="before-outcome"></strong><p id="before-sections"></p></article><article><h4>Aktuelle Variante</h4><p id="after-settings"></p><strong id="after-outcome"></strong><p id="after-sections"></p></article></div>
+      <p id="comparison-insight"></p><p id="mobility-change" class="model-caution" hidden>Auch die Voraussetzung hat sich geändert: Treppen möglich und stufenlos durchgehend sind unterschiedliche Anforderungen. Der Unterschied zeigt dann nicht allein die Wirkung einer baulichen Maßnahme.</p>
+      <ul id="scenario-changes" aria-label="Geänderte Einstellungen"></ul>
+      <div class="scenario-actions"><button id="share-scenario" class="text-button" type="button">Vergleichslink kopieren ↗</button><button id="download-scenario" class="text-button" type="button">Vergleich als JSON herunterladen ↓</button><p id="scenario-notice" role="status" aria-live="polite"></p></div>
+      <label id="scenario-link-label" hidden>Vergleichslink zum Kopieren<input id="scenario-link" type="text" readonly></label>
+      <p class="comparison-boundary">Wegabschnitte zählen Verbindungen im erfundenen Netz. Fehlende oder unbestätigte Wege erhalten keine Zahl; die reale Aufzugsliste darunter bleibt davon getrennt.</p>
+    </section>
   </section>
   <noscript><p class="notice">Für das interaktive Modell wird JavaScript benötigt. Ein defekter Aufzug unterbricht hier den einzigen stufenlosen Zugang. Ein zweiter unabhängiger Aufzug stellt ihn wieder her; ein zugänglicher Nachbarbahnhof schafft einen längeren Weg.</p></noscript>
 

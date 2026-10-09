@@ -11,6 +11,8 @@ The German static site now combines:
 - an interactive, explicitly fictional journey network: stairs possible vs a
   continuous step-free route; failed, working or unknown lift; an accessible
   detour; and an independent second lift;
+- a remembered comparison point, side-by-side outcomes, versioned shareable
+  scenario links and JSON export with model assumptions and uncertainty;
 - a **dated, reviewed BrokenLifts source snapshot**, with station search, a
   Berlin-only filter and individual source links; it is never labelled live;
 - an outage-duration view that retains missing data and uncertainty instead of
@@ -46,10 +48,26 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 python -m pytest -q
-node --test tests/test_journey_model.cjs
+node --test tests/test_journey_model.cjs tests/test_scenario_model.cjs
 python scripts/check_site.py
 python scripts/check_retention.py
 ```
+
+Browser verification is optional for serving the static site, and runs in CI:
+
+```bash
+npm ci
+npx playwright install chromium
+npm run test:browser
+```
+
+The scenario comparison stores only its four fictional settings and a comparison
+point in the URL, with no local-storage dependency. Copy a link to reproduce both
+variants under a repository subpath; when clipboard access is denied, a selectable
+text field remains available. JSON exports identify the fictional model, record
+its assumptions, and use `null` for a missing confirmed path or an unavailable
+numerical difference. A change in whether stairs are usable is shown explicitly.
+Neither the link nor export incorporates real stations or the source snapshot.
 
 CI runs the Python suite, all route/data-contract tests, static page/asset/anchor
 checks and the retention contract. Pages validates the static surface before

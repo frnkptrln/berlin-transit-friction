@@ -44,6 +44,39 @@ The alternative assumes the next station, its lift and the outdoor connection
 are all usable. The second lift is parallel and independent, not another lift in
 a serial access chain. The page explains these assumptions beside the result.
 
+## Remembered comparisons and links
+
+`scenario-model.js` compares two validated copies of the four model settings.
+The comparison point starts at the default failed-lift scenario and changes only
+when the visitor explicitly remembers the current variant or resets the model.
+Both cards display their full settings and outcome. A section difference is
+reported only when **both** variants have a confirmed complete path; blocked and
+unknown access remain `null`, never zero. Changes to the mobility requirement
+are called out so they cannot be mistaken for a construction-only intervention.
+
+The URL parameters `tf` (current) and `tfb` (comparison point) encode version 1
+as `1.<sf|stairs>.<failed|ok|unknown>.<alternative 0|1>.<backup 0|1>`.
+A current-only link uses the default comparison point. Unknown versions,
+malformed values, duplicate parameters and a baseline without a current scenario
+restore the default with a visible notice. Unrelated query parameters and the
+current page anchor survive model updates; copied links target `#experiment`.
+Links work under GitHub Pages repository subpaths. Back/forward navigation
+restores the settings, and disabled History/Clipboard APIs leave the model usable.
+
+The download schema `transit-fictional-comparison/1` records model
+`fictional-six-nodes-v1`, unit `path-sections`, both scenarios, confirmed and
+possible paths, changed settings and three assumptions. It contains no real
+station ID, source observation or invented timestamp. Revisit the model/schema
+version if topology or comparison semantics change. Export is deterministic and
+does not constitute evidence about a real journey.
+
+Tests cover all 24 link configurations, malformed links, known/unknown path
+boundaries, positive/negative section differences, changed mobility requirements
+and immutable input. Browser checks cover reload, subpaths/anchors, exports,
+clipboard denial, unavailable snapshot/history APIs and mobile layout. Desktop
+and mobile-emulation screenshots have been inspected; physical-phone and
+assistive-technology validation remain open.
+
 ## Interaction and accessibility
 
 Native labelled radios, select and checkboxes support keyboard operation.

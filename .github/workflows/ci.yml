@@ -24,7 +24,7 @@ jobs:
           node-version: "22"
       - run: python -m pytest -q
       - name: Journey model and data contracts
-        run: node --test tests/test_journey_model.cjs
+        run: node --test tests/test_journey_model.cjs tests/test_scenario_model.cjs
       - name: Static site integrity
         run: python scripts/check_site.py
 
@@ -32,3 +32,15 @@ jobs:
       # down is the policy the legacy pipeline had.
       - name: Retention contract
         run: python scripts/check_retention.py
+
+  scenario-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
