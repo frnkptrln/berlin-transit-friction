@@ -1,0 +1,81 @@
+const assert = require('node:assert/strict');
+const http = require('node:http');
+const fs = require('node:fs/promises');
+const path = require('node:path');
+const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const root = path.resolve(__dirname,'..'), site = path.join(root,'site');
+const output = path.join(root,'build/browser-tests');
+const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json'};
+(async()=>{
+  const server=http.createServer(async(req,res)=>{
+    try {
+      let name=decodeURIComponent(new URL(req.url,'http://localhost').pathname);
+      if(!name.startsWith('/preview/'))throw new Error('prefix');
+      name=name.slice('/preview/'.length);if(!name||name.endsWith('/'))name+='index.html';
+      const filename=path.resolve(site,name);if(!filename.startsWith(site+path.sep))throw new Error('path');
+      res.setHeader('Content-Type',mime[path.extname(filename)]||'application/octet-stream');res.end(await fs.readFile(filename));
+    }catch{res.statusCode=404;res.end('not found');}
+  });
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+  const url=`http://127.0.0.1:${server.address().port}/preview/`;
+  let browser;
+  try {
+    await fs.mkdir(output,{recursive:true});
+    browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--disable-gpu'],
+      ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE?{executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE}:{})});
+    const page=await browser.newPage({viewport:{width:1360,height:1000}}), errors=[], requests=[];
+    page.on('pageerror',error=>errors.push(String(error)));
+    page.on('request',request=>requests.push(request.url()));
+    await page.goto(url+'#beobachtungen');
+    await page.waitForFunction(()=>!document.getElementById('snapshot-controls').hidden);
+    assert.equal(new URL(page.url()).hash,'#beobachtungen');
+    const snapshot=await page.locator('#snapshot-box').textContent();
+    await page.locator('#alternative').check();
+    assert.match(await page.locator('#after-sections').textContent(),/^5 /);
+    assert.match(await page.locator('#before-sections').textContent(),/Keine bestätigte/);
+    await page.locator('#remember-scenario').click();
+    await page.locator('#alternative').uncheck();
+    await page.locator('#backup').check();
+    assert.match(await page.locator('#comparison-insight').textContent(),/2 weniger/);
+    const marked=page.url();await page.reload();await page.waitForSelector('#before-sections');
+    assert.equal(page.url(),marked);
+    assert.match(await page.locator('#before-sections').textContent(),/^5 /);
+    assert.match(await page.locator('#after-sections').textContent(),/^3 /);
+    assert.equal(await page.locator('#backup').isChecked(),true);
+    const downloadEvent=page.waitForEvent('download');await page.locator('#download-scenario').click();
+    const downloaded=await downloadEvent;const stream=await downloaded.createReadStream();let content='';
+    for await(const chunk of stream)content+=chunk;
+    const exported=JSON.parse(content);assert.equal(exported.sectionDelta,-2);assert.equal(exported.unit,'path-sections');
+    assert.match(exported.boundary,/Keine Reiseauskunft/);assert.equal(exported.before.options.alternative,true);
+    await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw Error('denied');}}}));
+    await page.locator('#share-scenario').click();assert.equal(await page.locator('#scenario-link').isVisible(),true);
+    const copied=await page.locator('#scenario-link').inputValue();assert.equal(new URL(copied).pathname,'/preview/');
+    assert.equal(new URL(copied).hash,'#experiment');
+    await page.locator('[name=mobility][value=stairs]').check();
+    assert.equal(await page.locator('#mobility-change').isVisible(),true);
+    await page.waitForFunction(()=>!document.getElementById('snapshot-controls').hidden);
+    assert.equal(await page.locator('#snapshot-box').textContent(),snapshot);
+    assert.ok(requests.every(request=>request.startsWith(url)));
+    await page.locator('[name=mobility][value=step-free]').check();
+    await page.locator('.scenario-comparison').screenshot({path:path.join(output,'comparison-desktop.png')});
+    await page.locator('#reset').click();assert.equal(await page.locator('#backup').isChecked(),false);
+    assert.match(await page.locator('#before-outcome').textContent(),/Kein stufenloser/);
+    assert.equal(new URL(page.url()).search,'');
+    await page.goto(url+'?tf=unknown');await page.waitForSelector('#scenario-notice');
+    assert.match(await page.locator('#scenario-notice').textContent(),/ungültig/);
+    const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true,reducedMotion:'reduce'});
+    mobile.on('pageerror',error=>errors.push(String(error)));
+    await mobile.goto(url+'?tf=1.sf.unknown.0.0&tfb=1.sf.failed.1.0');
+    await mobile.waitForFunction(()=>document.getElementById('after-outcome').textContent.includes('nicht gesichert'));
+    assert.match(await mobile.locator('#after-sections').textContent(),/Keine bestätigte/);
+    assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+    await mobile.locator('.scenario-comparison').screenshot({path:path.join(output,'comparison-mobile.png')});
+    const unavailable=await browser.newPage();unavailable.on('pageerror',error=>errors.push(String(error)));
+    await unavailable.route('**/data/accessibility-snapshot.json',route=>route.fulfill({status:503,body:'unavailable'}));
+    await unavailable.addInitScript(()=>{history.replaceState=()=>{throw new Error('history disabled');};});
+    await unavailable.goto(url);await unavailable.locator('#backup').check();
+    assert.match(await unavailable.locator('#after-sections').textContent(),/^3 /);
+    assert.deepEqual(errors,[]);
+    console.log('Scenario browser checks passed: remembered baseline, URL reload/subpath/anchor, negative deltas, explicit unknowns, JSON download, clipboard fallback, mobility warning, unchanged snapshot, mobile and unavailable-source/history behavior.');
+  } finally {if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}
+})().catch(error=>{console.error(error);process.exitCode=1;});

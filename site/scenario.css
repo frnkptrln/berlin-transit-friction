@@ -1,0 +1,23 @@
+.scenario-comparison { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 28px; }
+.comparison-heading { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.comparison-heading h3 { margin-top: 8px; font-size: 1.4rem; }
+.comparison-heading button { background: white; flex-shrink: 0; font-size: .8rem; }
+.comparison-intro { color: var(--muted); font-size: .875rem; margin-top: 14px; }
+.comparison-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 22px 0; }
+.comparison-cards article { border: 1px solid var(--line); border-top: 3px solid var(--ink); background: var(--paper); padding: 20px; }
+.comparison-cards article:last-child { border-top-color: var(--blue); }
+.comparison-cards h4 { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 12px; }
+.comparison-cards p { font-size: .8rem; color: var(--muted); line-height: 1.65; }
+.comparison-cards strong { display: block; font-size: 1.15rem; line-height: 1.4; margin: 15px 0 6px; }
+#comparison-insight { font-weight: 600; font-size: .9rem; }
+.model-caution { border-left: 3px solid #a97124; padding-left: 14px; color: #745020; font-size: .8rem; margin: 16px 0; }
+#scenario-changes { padding-left: 22px; font-size: .8rem; color: var(--muted); line-height: 1.8; }
+.scenario-actions { display: flex; gap: 12px 25px; flex-wrap: wrap; align-items: center; margin-top: 20px; }
+.scenario-actions .text-button { font-size: .8rem; }
+#scenario-notice { flex-basis: 100%; font-size: .8rem; color: var(--blue); }
+#scenario-link-label { display: block; font-size: .8rem; margin: 16px 0; }
+#scenario-link { display: block; width: 100%; border: 1px solid var(--line); background: white; padding: 9px; font-size: .8rem; }
+.comparison-boundary { color: var(--muted); font-size: .75rem; margin-top: 18px; max-width: 95ch; }
+@media (max-width: 800px) { .comparison-heading { flex-direction: column; align-items: start; gap: 18px; } }
+@media (max-width: 600px) { .scenario-comparison { padding: 22px 20px; } .comparison-cards { grid-template-columns: 1fr; gap: 12px; } }
+@media print { .scenario-actions, #remember-scenario, #scenario-link-label { display: none; } .scenario-comparison { break-inside: avoid; } }

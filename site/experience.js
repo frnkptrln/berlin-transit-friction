@@ -5,6 +5,14 @@
     stepFree: document.querySelector('[name="mobility"]:checked').value === 'step-free',
     lift: $('lift-state').value, alternative: $('alternative').checked, backup: $('backup').checked,
   });
+  const initial = TransitScenario.readLink(location.search);
+  let baseline = initial.baseline;
+  function setControls(options) {
+    document.querySelector('[name="mobility"][value="' + (options.stepFree ? 'step-free' : 'stairs') + '"]').checked = true;
+    $('lift-state').value = options.lift; $('alternative').checked = options.alternative; $('backup').checked = options.backup;
+  }
+  setControls(initial.current);
+  if (initial.invalid) $('scenario-notice').textContent = 'Der Szenario-Link ist ungültig oder hat eine unbekannte Version. Gezeigt wird die Startlage.';
   const copy = {
     blocked: ['Kein stufenloser Weg zum Ziel', 'Im Modell endet dein Weg am Zielbahnsteig. Der fahrende Zug allein reicht nicht.', '×'],
     unknown: ['Der Zugang ist nicht gesichert', 'Der Aufzugsstatus fehlt. Ein möglicher Weg ist noch kein bestätigter Weg.', '?'],
@@ -38,14 +46,63 @@
       : options.lift === 'unknown' ? 'Eine fehlende Meldung wird hier nicht als funktionierender Aufzug behandelt.'
       : options.lift === 'ok' ? 'Die Reparatur stellt den direkten Zugang wieder her. Im Modell sind keine Ausfalldauer und keine Reparaturkosten hinterlegt.'
       : 'Ergänze einen Umweg oder einen zweiten Aufzug, um den Unterschied zu sehen.';
+    updateComparison(options);
+  }
+  function updateComparison(options) {
+    const comparison = TransitScenario.compare(baseline, options);
+    for (const [name, value] of [['before', comparison.before], ['after', comparison.after]]) {
+      const titles = {stepFree:'Weg',lift:'Zielaufzug',alternative:'Umweg',backup:'Zweiter Aufzug'};
+      $(name + '-settings').textContent = Object.keys(titles).map(key => titles[key] + ': ' + TransitScenario.describe(key,value.options[key])).join(' · ');
+      $(name + '-outcome').textContent = copy[value.outcome][0];
+      $(name + '-sections').textContent = value.sections === null ? 'Keine bestätigte vollständige Wegkette' : value.sections + ' Wegabschnitte im Modell';
+    }
+    const delta = comparison.sectionDelta;
+    $('comparison-insight').textContent = !comparison.changes.length ? 'Die Einstellungen entsprechen dem gemerkten Vergleichspunkt.'
+      : delta !== null ? (delta === 0 ? 'Beide Varianten haben gleich viele Wegabschnitte. Der verfügbare Zugang kann sich trotzdem unterscheiden.'
+        : 'Die aktuelle Variante hat ' + Math.abs(delta) + (delta > 0 ? ' zusätzliche' : ' weniger') + ' Wegabschnitte als der Vergleichspunkt.')
+      : comparison.after.path ? 'Die aktuelle Variante hat eine bestätigte Wegkette, die im Vergleichspunkt fehlt.'
+      : comparison.before.path ? 'Die aktuelle Variante hat keine bestätigte Wegkette mehr.'
+      : 'Keine Variante hat eine bestätigte Wegkette. Unbekannte Zugänge bleiben ungeklärt.';
+    $('mobility-change').hidden = !comparison.mobilityChanged;
+    $('scenario-changes').replaceChildren(...comparison.changes.map(change => {
+      const item = document.createElement('li'); item.textContent = change.label + ': ' + change.before + ' → ' + change.after; return item;
+    }));
+    const href = TransitScenario.link(location.href, options, baseline);
+    $('scenario-link').value = href;
+    // A blocked History API must not disable the model or the explicit copy link.
+    const pageURL = new URL(href); pageURL.hash = location.hash;
+    try { if (pageURL.href !== location.href) history.replaceState(null,'',pageURL.href); } catch (_) {}
   }
   function reset() {
-    document.querySelector('[name="mobility"][value="step-free"]').checked = true;
-    $('lift-state').value = 'failed'; $('alternative').checked = false; $('backup').checked = false;
+    baseline = {...TransitScenario.defaults}; setControls(TransitScenario.defaults);
+    $('scenario-notice').textContent = ''; $('scenario-link-label').hidden = true;
     update();
   }
   document.querySelectorAll('.control-panel input,.control-panel select').forEach(el => el.addEventListener('change', update));
   $('reset').addEventListener('click', reset);
+  $('remember-scenario').addEventListener('click', () => {
+    baseline = {...state()}; update(); $('scenario-notice').textContent = 'Vergleichspunkt gemerkt. Verändere jetzt die Einstellungen oben.';
+  });
+  $('share-scenario').addEventListener('click', async () => {
+    const href = TransitScenario.link(location.href,state(),baseline);
+    try { await navigator.clipboard.writeText(href); $('scenario-notice').textContent = 'Vergleichslink kopiert.'; }
+    catch (_) {
+      $('scenario-link-label').hidden = false; $('scenario-link').value = href;
+      $('scenario-link').focus(); $('scenario-link').select();
+      $('scenario-notice').textContent = 'Automatisches Kopieren ist nicht verfügbar. Den markierten Link kannst du selbst kopieren.';
+    }
+  });
+  $('download-scenario').addEventListener('click', () => {
+    const comparison = TransitScenario.compare(baseline,state());
+    const url = URL.createObjectURL(new Blob([JSON.stringify(comparison,null,2) + '\n'],{type:'application/json'}));
+    const link = document.createElement('a'); link.href=url; link.download='wege-modell-vergleich.json'; document.body.append(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url),1000);
+    $('scenario-notice').textContent = 'Vergleich des fiktiven Modells heruntergeladen.';
+  });
+  addEventListener('popstate', () => {
+    const restored = TransitScenario.readLink(location.search); baseline = restored.baseline; setControls(restored.current); update();
+    $('scenario-notice').textContent = restored.invalid ? 'Ungültiger Szenario-Link; Startlage wiederhergestellt.' : '';
+  });
   document.querySelectorAll('[data-experiment]').forEach(button => button.addEventListener('click', () => {
     reset();
     if (button.dataset.experiment === 'backup') $('backup').checked = true;

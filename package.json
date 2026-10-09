@@ -1,0 +1,6 @@
+{
+  "name": "berlin-transit-friction-browser-checks",
+  "private": true,
+  "scripts": {"test": "node --test tests/test_journey_model.cjs tests/test_scenario_model.cjs", "test:browser": "node tests/scenario-browser.cjs"},
+  "devDependencies": {"playwright": "1.62.1"}
+}
