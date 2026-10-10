@@ -1,24 +1,29 @@
 name: accessibility shadow observation
 
-# Manual only, on purpose. README.md keeps scheduled collection disabled until
-# every publication gate is met, and gate 6 needs a reviewed shadow period
-# first. This workflow is the rehearsal for that period: it runs the same code
-# the published pipeline will run, and publishes nothing.
+# The rehearsal period (docs/decisions/0002-shadow-period.md). Every quarter
+# hour the runner observes the source once into its shadow tree and publishes
+# nothing. README.md keeps scheduled publication disabled until every gate is
+# met; gate 5 needs exactly this reviewed period first. The shadow tree lives
+# in an evictable Actions cache; its sealed days are copied to the
+# shadow-ledger branch once a day by the seal workflow, and a cold runner
+# restores its state from that branch.
 
 on:
+  schedule:
+    - cron: "7,22,37,52 * * * *"
   workflow_dispatch:
     inputs:
       seal:
         description: "also seal closed days and rebuild aggregates"
         type: boolean
-        default: true
+        default: false
 
 permissions:
   contents: read
 
 concurrency:
   # Sealing must never overlap a collection run that could still be appending
-  # to the day being sealed.
+  # to the day being sealed; the seal workflow shares this group.
   group: accessibility-shadow
   cancel-in-progress: false
 
@@ -36,9 +41,6 @@ jobs:
 
       - run: python -m pip install -r requirements.txt
 
-      # The shadow tree is the ephemeral layer: evictable by design, and never
-      # committed. Losing it costs the run history of the rehearsal, not any
-      # published record — there is none yet.
       - name: Restore shadow tree
         uses: actions/cache/restore@v4
         with:
@@ -46,8 +48,31 @@ jobs:
           key: shadow-tree-${{ github.run_id }}
           restore-keys: shadow-tree-
 
+      # A cold runner (first run, evicted cache) folds the ledger's sealed
+      # days instead of starting from nothing. The unsealed day and pending
+      # flaps are lost with the cache; the run records the gap.
+      - name: Restore state from the ledger if the cache was cold
+        run: |
+          if [ ! -d .shadow/events ]; then
+            if git fetch --depth 1 origin shadow-ledger 2>/dev/null; then
+              git worktree add --detach .ledger FETCH_HEAD
+              python scripts/shadow_ledger.py restore --ledger .ledger --shadow .shadow
+              git worktree remove --force .ledger
+            else
+              echo "no ledger branch yet; starting from an empty shadow tree"
+            fi
+          fi
+
+      # Exit code 2 means the source was reachable but not current (a stale
+      # clock, an identical payload). That is an observation, not a failure of
+      # the pipeline; anything else is.
       - name: Observe once
-        run: python scripts/accessibility_shadow.py --root .shadow
+        run: |
+          set +e
+          python scripts/accessibility_shadow.py --root .shadow
+          code=$?
+          set -e
+          if [ "$code" -ne 0 ] && [ "$code" -ne 2 ]; then exit "$code"; fi
 
       - name: Seal closed days
         if: ${{ inputs.seal }}
@@ -81,15 +106,15 @@ jobs:
           path: .shadow
           key: shadow-tree-${{ github.run_id }}
 
-      - name: Upload the run for review
-        uses: actions/upload-artifact@v4
+      - name: Note the outcome
         if: always()
-        with:
-          name: shadow-${{ github.run_id }}
-          path: |
-            .shadow/runs.jsonl
-            .shadow/events
-            .shadow/aggregates
-            .shadow/site
-          retention-days: 7
-          if-no-files-found: warn
+        run: |
+          tail -n 1 .shadow/runs.jsonl 2>/dev/null | python -c '
+          import json, sys
+          line = sys.stdin.read().strip()
+          if line:
+              row = json.loads(line)
+              print(f"{row.get(\"attempted_at\")}: {row.get(\"outcome\")}, complete={row.get(\"complete\")}, "
+                    f"entities={row.get(\"observed_entities\")}, transitions={row.get(\"transitions\")}, "
+                    f"warnings={row.get(\"warnings\")}")
+          ' >> "$GITHUB_STEP_SUMMARY" || true

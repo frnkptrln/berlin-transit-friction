@@ -1,0 +1,116 @@
+name: shadow seal
+
+# Once a day: seal the closed days of the rehearsal, rebuild the private
+# aggregates, verify the retention contract, and copy the durable layers to
+# the shadow-ledger branch (docs/decisions/0002-shadow-period.md). Shares the
+# observation workflow's concurrency group so it never overlaps a run that is
+# still appending to the day being sealed. Publishes nothing to the site.
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: accessibility-shadow
+  cancel-in-progress: false
+
+jobs:
+  seal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: python -m pip install -r requirements.txt
+
+      - name: Restore shadow tree
+        uses: actions/cache/restore@v4
+        with:
+          path: .shadow
+          key: shadow-tree-${{ github.run_id }}
+          restore-keys: shadow-tree-
+
+      - name: Stop if there is nothing to seal
+        id: check
+        run: |
+          if [ -f .shadow/runs.jsonl ]; then echo "present=true" >> "$GITHUB_OUTPUT"; else echo "present=false" >> "$GITHUB_OUTPUT"; echo "no shadow tree in the cache; nothing to seal"; fi
+
+      - name: Seal closed days
+        if: steps.check.outputs.present == 'true'
+        run: |
+          python scripts/seal_events.py \
+            --events-root .shadow/events \
+            --manifest-root .shadow/_manifests \
+            --raw-root .shadow/raw
+
+      - name: Rebuild aggregates
+        if: steps.check.outputs.present == 'true'
+        run: |
+          python scripts/build_aggregates.py \
+            --events-root .shadow/events \
+            --raw-root .shadow/raw \
+            --aggregates-root .shadow/aggregates \
+            --site-root .shadow/site
+
+      - name: Verify the retention contract
+        if: steps.check.outputs.present == 'true'
+        run: |
+          python scripts/check_retention.py \
+            --events-root .shadow/events \
+            --manifest-root .shadow/_manifests \
+            --raw-root .shadow/raw \
+            --aggregates-root .shadow/aggregates
+
+      - name: Save shadow tree
+        uses: actions/cache/save@v4
+        if: always() && steps.check.outputs.present == 'true'
+        with:
+          path: .shadow
+          key: shadow-tree-${{ github.run_id }}
+
+      - name: Publish the durable layers to the ledger branch
+        if: steps.check.outputs.present == 'true'
+        run: |
+          git config user.name "shadow seal"
+          git config user.email "shadow-seal@users.noreply.github.com"
+          if git fetch --depth 1 origin shadow-ledger 2>/dev/null; then
+            git worktree add .ledger FETCH_HEAD
+            git -C .ledger checkout -B shadow-ledger
+          else
+            git worktree add --detach .ledger
+            git -C .ledger checkout --orphan shadow-ledger
+            git -C .ledger rm -rfq . 2>/dev/null || true
+          fi
+          python scripts/shadow_ledger.py publish --shadow .shadow --ledger .ledger | tee ledger.json
+          cd .ledger
+          git add -A
+          if git diff --cached --quiet; then
+            echo "ledger unchanged" >> "$GITHUB_STEP_SUMMARY"
+          else
+            days=$(python -c 'import json; d=json.load(open("../ledger.json")); print(len(d["sealed_days"]))')
+            git commit -q -m "Seal $(date -u +%Y-%m-%d): $days sealed days in the ledger"
+            git push origin shadow-ledger
+            echo "ledger updated: $days sealed days" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload the day for review
+        if: always() && steps.check.outputs.present == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: shadow-seal-${{ github.run_id }}
+          path: |
+            .shadow/runs.jsonl
+            .shadow/events
+            .shadow/aggregates
+            .shadow/site
+          retention-days: 14
+          if-no-files-found: warn

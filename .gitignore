@@ -33,3 +33,7 @@ id_ed25519*
 # Local browser verification
 node_modules/
 build/
+
+# Shadow period working tree and ledger worktree (never committed on main)
+.ledger/
+ledger.json

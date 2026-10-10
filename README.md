@@ -123,10 +123,14 @@ ledger, so outages older than 30 days retain their identity. Missing observation
 produce withheld null values, including on a rebuild with no data. Historical
 station-hours are interval unions per station; lift-hours are a separate quantity.
 
-Manual workflow `accessibility shadow observation` restores an **evictable** cache,
-observes once, seals closed days, builds private aggregates and uploads a review
-artifact. Cache retention is sufficient for a rehearsal, **not durable historical
-collection**. Before scheduling, choose durable state storage and exercise recovery.
+Since 10 October 2026 the rehearsal runs on a schedule
+([ADR 0002](docs/decisions/0002-shadow-period.md)): `accessibility shadow
+observation` observes every quarter hour into an evictable cache, and the daily
+`shadow seal` workflow seals closed days, rebuilds the private aggregates,
+verifies the retention contract and copies the durable layers to the
+`shadow-ledger` branch — the state a cold runner restores from. Nothing reaches
+the served site or the main branch's data layers; the period is reviewed
+against the gates below before any publication decision.
 
 ## Legacy and publication boundaries
 
@@ -168,6 +172,6 @@ Scheduled collection and public time series still require:
 - [Data architecture](docs/data-architecture.md) · [Event schema](docs/event-schema.md)
 - [Partitioning](docs/partitioning.md) · [Denominator](docs/denominator.md)
 - [Legacy assessment](docs/legacy-assessment.md)
-- [Storage decision](docs/decisions/0001-timeseries-hosting.md)
+- [Storage decision](docs/decisions/0001-timeseries-hosting.md) · [Shadow period](docs/decisions/0002-shadow-period.md)
 
 Public data only. No passenger tracking, fabricated geolocation or unsupported precision.
