@@ -1,0 +1,29 @@
+name: source access probe (temporary)
+on:
+  push:
+    branches: [claude/source-access-probe]
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Probe the source with several identities
+        run: |
+          probe() {
+            label="$1"; url="$2"; ua="$3"
+            out=$(curl -sS -o /tmp/body -D /tmp/headers -A "$ua" --max-time 25 -w '%{http_code} %{redirect_url} %{size_download}' "$url" 2>&1 || true)
+            server=$(grep -i '^server:' /tmp/headers | tr -d '\r' | head -1)
+            cf=$(grep -i -E '^(cf-ray|cf-mitigated|x-sucuri|x-cache|via|x-powered-by|cache-control):' /tmp/headers | tr -d '\r' | tr '\n' ' ' | head -c 200)
+            title=$(grep -o -i '<title>[^<]*' /tmp/body | head -1 | head -c 60)
+            echo "::notice title=$label::$url | $out | $server | $cf | $title"
+          }
+          probe shadow-ua-www   https://www.brokenlifts.org/ "transit-friction-accessibility-shadow/0.1"
+          probe shadow-ua-apex  https://brokenlifts.org/     "transit-friction-accessibility-shadow/0.1"
+          probe requests-ua-www https://www.brokenlifts.org/ "python-requests/2.32.3"
+          probe requests-ua-apex https://brokenlifts.org/    "python-requests/2.32.3"
+          probe bot-ua-www      https://www.brokenlifts.org/ "berlin-transit-friction/0.2 (+https://github.com/frnkptrln/berlin-transit-friction)"
+          probe bot-ua-apex     https://brokenlifts.org/     "berlin-transit-friction/0.2 (+https://github.com/frnkptrln/berlin-transit-friction)"
+          probe curl-ua-apex    https://brokenlifts.org/     "curl/8.5.0"
+          probe browser-ua-apex https://brokenlifts.org/     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
+          probe rss-apex        https://brokenlifts.org/rss  "berlin-transit-friction/0.2 (+https://github.com/frnkptrln/berlin-transit-friction)"
+          probe stations-apex   https://brokenlifts.org/stations "berlin-transit-friction/0.2 (+https://github.com/frnkptrln/berlin-transit-friction)"
+          echo "::notice title=runner-ip::$(curl -sS --max-time 10 https://api.ipify.org || echo unknown)"
