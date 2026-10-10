@@ -54,3 +54,35 @@ check creates only current-layout directories. Source code, source fixtures,
 event-model contracts, the reviewed site snapshot and the served site remain.
 Legacy collection workflows stay disabled; this change does not resume
 collection or validate any network-level metric.
+
+## Legacy code
+
+Removed on 2026-10-10 from base commit
+[`b124cb279890`](https://github.com/frnkptrln/berlin-transit-friction/commit/b124cb2798906fd2d1576db804e28001ebd02143):
+the prototype's collectors (`scripts/collect_snapshot.py`,
+`src/transit_friction/sources/`), normalisation (`normalize/`), summaries and
+site generators (`build_daily_summary.py`, `build_site_data.py`,
+`build_source_health.py`, `analysis/`, `output/`, `health.py`, `storage.py`),
+their six tests and six fixtures — 37 files. The `legacy-v0` branch,
+missing from the remote at the time of this cleanup, was recreated at the
+preserved commit `fce147726a8e`; all seven data directory tree SHAs listed above
+match it.
+
+28 of the removed files are byte-identical on `legacy-v0`. These
+9 were edited after the pause (output-root override for tests, the
+transport.rest fallback); their last state is the base commit above:
+
+- `scripts/build_daily_summary.py` (blob `1a7ed2bb871c`)
+- `scripts/build_site_data.py` (blob `3ddd0dbba770`)
+- `scripts/build_source_health.py` (blob `9528b4fae65e`)
+- `scripts/collect_snapshot.py` (blob `de86bd60d899`)
+- `src/transit_friction/sources/bvg_traffic_news.py` (blob `2bbbc72575b7`)
+- `src/transit_friction/sources/vbb_departures.py` (blob `0d227c9f44d0`)
+- `src/transit_friction/sources/vbb_journeys.py` (blob `327dcb12ec9d`)
+- `tests/test_collect_snapshot_transport_rest.py` (blob `81f9213483f9`)
+- `tests/test_pipeline_smoke.py` (blob `bf001c4310c1`)
+
+The replacement event model, population frame, accessibility adapter, shadow
+observation and the served site do not import any of the removed modules.
+`requirements.txt` loses the GTFS-RT and pydantic entries that only the
+prototype needed. No data directory changes; collection stays paused.

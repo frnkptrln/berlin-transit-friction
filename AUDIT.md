@@ -1,5 +1,7 @@
 # Transit Friction Audit
 
+> Historical document. It audits the v0.2 prototype of May 2026, whose code was removed from the active tree on 2026-10-10 and is preserved on the `legacy-v0` branch; see [docs/legacy-data-cleanup.md](docs/legacy-data-cleanup.md#legacy-code).
+
 ## Executive summary
 **Status: partially implemented (between scaffolded and functional MVP).**
 
