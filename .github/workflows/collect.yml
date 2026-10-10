@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   paused:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # the image these checks were verified on; ubuntu-latest becomes 26.04 from 19 Oct 2026
     steps:
       - name: Explain pause
         run: |
