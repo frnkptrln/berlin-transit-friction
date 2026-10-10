@@ -1,0 +1,643 @@
+{
+  "schema_version": 1,
+  "aggregation": "union_per_station",
+  "unit": "outage-hours",
+  "generated_from": "data/events",
+  "note": "null means the window was not watched well enough to support a number; it does not mean zero",
+  "days": [
+    {
+      "date": "2026-09-10",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-11",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-12",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-14",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-15",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-16",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-17",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-18",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-21",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-22",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-23",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-24",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-25",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-26",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-27",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-28",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-29",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-09-30",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-10-01",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-10-02",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-10-03",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-10-04",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-10-05",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-10-06",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-10-07",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-10-08",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    },
+    {
+      "date": "2026-10-09",
+      "window_hours": 24.0,
+      "publishable": false,
+      "total_outage_hours": null,
+      "total_outage_hours_min": null,
+      "total_outage_hours_max": null,
+      "episode_count": null,
+      "episodes_with_unobserved_time": null,
+      "unobserved_outage_hours": null,
+      "quarantined_flapping_episodes": 0,
+      "depends_on": [
+        "brokenlifts"
+      ],
+      "coverage_publishable": {
+        "brokenlifts": false
+      },
+      "coverage": {
+        "brokenlifts": 0.0
+      }
+    }
+  ],
+  "days_published": 0,
+  "days_withheld": 30,
+  "stations": [],
+  "stations_note": "totals cover the published days only; days below the coverage threshold are excluded rather than counted as zero"
+}
