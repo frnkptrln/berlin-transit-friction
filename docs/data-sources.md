@@ -52,6 +52,28 @@ acceptable, and whether the RSS feed is the preferred interface. The
 attribution on the served pages names the operator and the three data
 providers; keep it when the station-level pages come.
 
+## Access from hosted runners (10 October 2026)
+
+Probed from a GitHub-hosted runner (`ubuntu-24.04`), see ADR 0002, section 5:
+
+| URL | Answer |
+|---|---|
+| `https://brokenlifts.org/`, `https://www.brokenlifts.org/` | 403, Cloudflare managed challenge, for every User-Agent tried (the shadow runner's own, `python-requests`, `curl`, a browser string) |
+| `https://brokenlifts.org/stations`, `/robots.txt` | 403, the same challenge |
+| `https://brokenlifts.org/rss` | **200**, `text/html; charset=UTF-8` despite being RSS 2.0, 9,445 bytes, no `Last-Modified`/`ETag`, `cf-cache-status: DYNAMIC` |
+| `https://www.brokenlifts.org/rss` | 301 to the apex |
+
+The feed (`<description>brokenlifts.org Rss-feed for HaCon</description>`,
+`language de-DE`) carries one `<item>` per lift that is out of service, with
+`<hafas-nr>` (VBB stop number), `<vbb-name>`, `<title>` (the lift's location
+text), `<description>` ("Außer Betrieb") and `<aufzugs-id>`. It carries no
+timestamps, no "since", no channel build date and no total count; the state is
+whatever the feed says at the moment of the request. A feed-based source would
+take its event identity from `aufzugs-id` and its station identity from
+`hafas-nr`, and would have to carry the observation time itself. Reading the
+feed is what the VBB advertises it for; archiving and publishing a time series
+derived from it is the question to put to Sozialhelden e.V. first.
+
 ## Practical primary sources
 
 - [VBB-BAV](https://www.vbb.de/barrierefrei-unterwegs/bav/): support for accessible

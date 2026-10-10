@@ -1,8 +1,8 @@
 # Working in this repository
 
 An observatory for lift outages in Berlin public transport: an explanatory
-static site, a reviewed source statement, and an observation pipeline in a
-scheduled rehearsal (ADR 0002).
+static site, a reviewed source statement, and an observation pipeline whose
+scheduled rehearsal is suspended (ADR 0002, section 5).
 
 ## Checks
 
@@ -19,8 +19,9 @@ node tests/scenario-browser.cjs       # with Playwright Chromium
 
 - `RETENTION.md` decides what may be written where. `site/data/` holds only
   reviewed projections; raw captures are never committed.
-- `data/` on `main` is empty until the shadow period has been reviewed. The
-  `shadow-ledger` branch is written only by the `shadow seal` workflow.
+- `data/` on `main` is empty until a shadow period has been reviewed. The
+  `shadow-ledger` branch is written only by the `shadow seal` workflow, which
+  is disabled; do not re-enable the schedules without the operator's decision.
 - `legacy-v0` is the preserved pre-pause state; it is read, never changed.
   The paused collector workflows stay as disabled stubs.
 - The six-node network of the experience is fictional and says so; nothing on

@@ -123,14 +123,14 @@ ledger, so outages older than 30 days retain their identity. Missing observation
 produce withheld null values, including on a rebuild with no data. Historical
 station-hours are interval unions per station; lift-hours are a separate quantity.
 
-Since 10 October 2026 the rehearsal runs on a schedule
-([ADR 0002](docs/decisions/0002-shadow-period.md)): `accessibility shadow
-observation` observes every quarter hour into an evictable cache, and the daily
-`shadow seal` workflow seals closed days, rebuilds the private aggregates,
-verifies the retention contract and copies the durable layers to the
-`shadow-ledger` branch — the state a cold runner restores from. Nothing reaches
-the served site or the main branch's data layers; the period is reviewed
-against the gates below before any publication decision.
+On 10 October 2026 the rehearsal was put on a schedule and suspended the same
+day ([ADR 0002](docs/decisions/0002-shadow-period.md), section 5): the source's
+pages answer GitHub-hosted runners with a Cloudflare challenge, and only the
+timestamp-less RSS feed is open. The two workflows (`accessibility shadow
+observation`, `shadow seal`) stay in the tree, disabled; the `shadow-ledger`
+branch records the single attempt. BrokenLifts itself publishes the live state;
+what this repository could add is the time axis, and that is not being
+collected. The pipeline remains usable by hand as above.
 
 ## Legacy and publication boundaries
 

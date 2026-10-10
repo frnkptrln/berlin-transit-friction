@@ -1,6 +1,6 @@
 # ADR 0002 — The shadow period: scheduled observation without publication
 
-- **Status:** accepted
+- **Status:** accepted 2026-10-10; schedules suspended the same day (section 5)
 - **Date:** 2026-10-10
 - **Question:** how does the observation period that README gate 5 requires
   come about, if scheduled collection is what the gates keep disabled?
@@ -87,3 +87,40 @@ for any network-level claim, and the provenance question in
 - If the period shows the pipeline is not fit, the ledger branch is deleted
   and nothing public has to be retracted.
 - The legacy collector stubs stay disabled; this does not revive them.
+
+## 5. Addendum, 10 October 2026: the first run and the suspension
+
+The schedules went live at 10:39 UTC. A dispatched observation at 10:42 UTC
+recorded a single outcome, `http_error`: `https://www.brokenlifts.org/`
+answered **403**. A probe from the same runner image ten minutes later showed
+why. The HTML pages (`/`, `/stations`, `/robots.txt`) sit behind a Cloudflare
+managed challenge (`cf-mitigated: challenge`, "Just a moment…") for requests
+from GitHub-hosted runners, whatever the identity: the shadow runner's own
+User-Agent, `python-requests`, `curl`, a browser string, the `www` host and
+the apex all received 403. The paused prototype still read the same page with
+status 200 from GitHub Actions on 10 July 2026; the challenge is newer than
+that. Only the RSS feed answered: `https://brokenlifts.org/rss`, 200, 9,445
+bytes, 37 items, each with `hafas-nr`, `vbb-name`, `title`, `description`
+("Außer Betrieb") and `aufzugs-id` — and no timestamp of any kind. That is
+the feed the VBB lists as an open-data service ([data-sources.md](../data-sources.md)).
+
+Two conclusions, and a decision by the operator:
+
+- The rehearsal as designed cannot observe from a hosted runner. Resuming it
+  means a feed-based source (new parser, fixture, event identity from
+  `aufzugs-id` instead of the page's link IDs) and the written clearance from
+  Sozialhelden e.V. that the provenance section already asks for. The gates in
+  README are unchanged.
+- BrokenLifts publishes the live state and nothing else. The only thing this
+  repository could add is the time axis — durations and recurrence — and that
+  is exactly the part that needs a run of thirty days and a second party's
+  permission. The operator's reading: the live state exists, it does not have
+  to be rebuilt here.
+
+Both scheduled workflows were therefore **disabled** in the repository's
+Actions settings at 10:50 UTC; the files stay for the record and for a manual
+run. The `shadow-ledger` branch holds the one seal of that morning (zero sealed
+days, one logged run) and is kept as the record of the attempt. The dispatched
+seal did prove the publishing path: cache restore, retention check, orphan
+branch, commit — recovery as designed, with nothing to recover. The site and
+the September source statement are unaffected.
