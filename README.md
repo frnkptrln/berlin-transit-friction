@@ -140,8 +140,11 @@ The pre-pause data directories have been removed from the active tree after all
 [cleanup record](docs/legacy-data-cleanup.md) records the commit, directory hashes
 and retrieval path. Git history remains intact; this makes the working tree
 smaller without reducing the historical repository's download size.
-Unused legacy scripts and misleading JSON are removed from the served `site/`
-surface; legacy collectors remain disabled.
+The prototype's collectors, normalisation, summaries and site generators were
+removed from the active tree on 2026-10-10; the
+[cleanup record](docs/legacy-data-cleanup.md#legacy-code) lists the files and
+where their last state is kept. The paused collector workflows stay in place as
+disabled stubs.
 
 The **static explanatory experience and reviewed dated source statement** can be
 published now. They neither resume collection nor imply an outage-duration study.
