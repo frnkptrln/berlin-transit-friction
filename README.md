@@ -2,6 +2,12 @@
 
 **Ein Aufzug fehlt. Ein Weg verschwindet.**
 
+> **Paused and archived on 20 October 2026.** [BrokenLifts](https://brokenlifts.org/)
+> already publishes the live state of Berlin's lifts, so this repository does not
+> need to collect it too; the time axis it could have added is not being collected
+> (see *Observation pipeline*). The explanatory site and the dated source snapshot
+> stay as they are. The repository is kept read-only as a record.
+
 Transit Friction makes barriers in public transport understandable and explorable,
 so their consequences can inform improvements. The first usable experience focuses
 on one bounded question: **what changes when a step-free journey loses a lift?**
